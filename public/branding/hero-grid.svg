@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" fill="none">
+  <defs>
+    <pattern id="p" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <path d="M0 0H64V64" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="r" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 220) rotate(90) scale(520)">
+      <stop stop-color="rgba(90,228,255,0.35)"/>
+      <stop offset="1" stop-color="rgba(90,228,255,0)"/>
+    </radialGradient>
+    <radialGradient id="r2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1100 160) rotate(90) scale(520)">
+      <stop stop-color="rgba(255,79,216,0.30)"/>
+      <stop offset="1" stop-color="rgba(255,79,216,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="900" fill="black"/>
+  <rect width="1440" height="900" fill="url(#p)"/>
+  <rect width="1440" height="900" fill="url(#r)"/>
+  <rect width="1440" height="900" fill="url(#r2)"/>
+</svg>
+
