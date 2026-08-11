@@ -18,6 +18,7 @@ import {
   X,
   ChevronLeft,
   KeyRound,
+  HelpCircle,
 } from "lucide-react";
 
 interface Admin {
@@ -33,6 +34,7 @@ const NAV = [
   { href: "/admin/admins", label: "Admins", icon: UserCog },
   { href: "/admin/users", label: "Users", icon: Users },
   { href: "/admin/content", label: "Content", icon: FileText },
+  { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { href: "/admin/messages", label: "Messages", icon: MessageSquare },
   { href: "/admin/notifications", label: "Notifications", icon: Bell },
   { href: "/admin/audit", label: "Audit Logs", icon: ScrollText },

@@ -17,14 +17,18 @@ export type AuditAction =
   | "message.update"
   | "message.delete"
   | "notification.create"
-  | "notification.send";
+  | "notification.send"
+  | "faq.create"
+  | "faq.update"
+  | "faq.delete";
 
 export type EntityType =
   | "admin"
   | "user"
   | "content"
   | "message"
-  | "notification";
+  | "notification"
+  | "faq";
 
 export async function writeAuditLog(args: {
   session: AdminSession | null;

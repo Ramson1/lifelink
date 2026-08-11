@@ -4,8 +4,10 @@ import * as lucideIcons from "lucide-react";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 
 import { Container } from "@/components/Container";
+import { FaqAccordion } from "@/components/FaqAccordion";
 import { brand, services } from "@/lib/brand";
 import { getManyContent } from "@/lib/content";
+import { createServiceClient } from "@/lib/admin/supabase";
 
 function getIcon(name: string) {
   const Icon = (lucideIcons as any)[name];
@@ -27,6 +29,20 @@ export default async function Home() {
     { key: "hero.subtagline", fallback: brand.intro },
     { key: "hero.badge", fallback: `Registration Open for ${new Date().getFullYear()}` },
   ]);
+
+  // Fetch published FAQs
+  let faqs: { id: string; question: string; answer: string; category: string }[] = [];
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("lifelink_faqs")
+      .select("id, question, answer, category")
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true });
+    faqs = data ?? [];
+  } catch {
+    // FAQs are non-critical
+  }
 
   return (
     <div className="relative flex flex-col min-h-screen overflow-hidden selection:bg-cyan-500/20">
@@ -203,6 +219,23 @@ export default async function Home() {
           </div>
         </Container>
       </section>
+
+      {/* FAQ Section */}
+      {faqs.length > 0 && (
+        <section className="relative py-24 sm:py-32">
+          <Container>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
+                Frequently Asked <span className="text-gradient">Questions</span>
+              </h2>
+              <p className="text-lg text-slate-600">
+                Find answers to common questions about LifeLink Group, registration, and our services.
+              </p>
+            </div>
+            <FaqAccordion items={faqs} />
+          </Container>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="relative isolate px-6 py-24 sm:py-32 lg:px-8 overflow-hidden">
