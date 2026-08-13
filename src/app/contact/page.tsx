@@ -53,7 +53,7 @@ export default async function ContactPage() {
 
             <div className="rounded-3xl border border-black/10 bg-white/70 p-6">
               <div className="text-sm font-semibold text-black">Phone lines</div>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-2">
                 {phones.map((phone) => (
                   <a
                     key={phone}
