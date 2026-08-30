@@ -88,7 +88,7 @@ export default function TeamPage() {
           <Container>
             <ScrollReveal>
               <div className="mx-auto max-w-2xl text-center mb-12">
-                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Chief Executive</div>
+                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">A Message from the CEO</div>
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900">Leadership Vision</h2>
               </div>
             </ScrollReveal>
@@ -97,40 +97,96 @@ export default function TeamPage() {
               <ScrollReveal key={ceo.image} delay={100}>
                 <div className="mx-auto max-w-4xl">
                   <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-                    <div className="grid md:grid-cols-2 items-stretch">
-                      <div className="relative aspect-[3/4] md:aspect-auto md:min-h-full overflow-hidden bg-slate-100">
-                        <Image
-                          src={ceo.image}
-                          alt={ceo.name}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="object-cover"
-                        />
+                    {/* Photo + Name Header */}
+                    <div className="bg-gradient-to-br from-indigo-600 to-cyan-600 p-8 sm:p-10 text-white">
+                      <div className="flex flex-col sm:flex-row items-center gap-6">
+                        <div className="relative h-28 w-28 flex-none overflow-hidden rounded-full border-4 border-white/30 bg-white/10">
+                          <Image
+                            src={ceo.image}
+                            alt={ceo.name}
+                            fill
+                            sizes="112px"
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="text-center sm:text-left">
+                          <div className="text-2xl sm:text-3xl font-extrabold leading-tight">
+                            {ceo.name}
+                          </div>
+                          <div className="mt-1 text-base font-semibold text-white/80">
+                            {ceo.position}
+                          </div>
+                          <div className="mt-1 text-sm text-white/60">
+                            {brand.name}
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex flex-col justify-center p-8 sm:p-10">
-                        <div className="text-2xl sm:text-3xl font-extrabold leading-tight text-slate-900">
-                          {ceo.name}
+                    </div>
+
+                    {/* Full Message */}
+                    <div className="p-8 sm:p-10 space-y-6">
+                      <div className="text-lg font-bold text-slate-900">
+                        Welcome to LIFELINK GROUP INTERNATIONAL LIMITED
+                      </div>
+                      <div className="text-sm font-semibold text-indigo-600">Dear Friends, Partners, Members, and Visitors,</div>
+
+                      <p className="text-base leading-8 text-slate-700">
+                        It gives me great pleasure to welcome you to LIFELINK GROUP INTERNATIONAL LIMITED, a dynamic and community-driven organization committed to transforming ordinary people into extraordinary heroes.
+                      </p>
+                      <p className="text-base leading-8 text-slate-700">
+                        For over two decades, LIFELINK has remained steadfast in its mission of creating opportunities, promoting economic empowerment, advancing humanitarian services, and building sustainable structures that improve the quality of life for individuals, families, and communities.
+                      </p>
+                      <p className="text-base leading-8 text-slate-700">
+                        What began as a Cooperative Society has evolved into a diversified organization with interests in Humanitarian Services, Cooperative Development, Finance, Agriculture, Trade and Investments, Transportation, Land Banking, Information Technology, Digital Assets, Food Security, Affiliate Marketing, Production, and Community Development Projects.
+                      </p>
+                      <p className="text-base leading-8 text-slate-700">
+                        At LIFELINK, we believe that poverty can be reduced when people are given access to opportunities, knowledge, resources, and a supportive community. Our commitment is to build a platform where individuals can grow, earn, invest, learn, and contribute meaningfully to society.
+                      </p>
+
+                      <div>
+                        <p className="text-base leading-8 text-slate-700">Through our <strong>Project 2030 Vision</strong>, we are pursuing ambitious goals that include:</p>
+                        <ul className="mt-4 space-y-3">
+                          {[
+                            "Expanding our humanitarian and grassroots initiatives across Nigeria and beyond.",
+                            "Building a membership base of over 20,000 verified members.",
+                            "Advancing digital transformation through innovative technology solutions.",
+                            "Promoting food security and subsidization programs for millions of people.",
+                            "Supporting entrepreneurs through grants, loans, and business development initiatives.",
+                            "Providing training in skill acquisition, agriculture, digital assets, and emerging opportunities.",
+                            "Facilitating access to land ownership, transportation solutions, and community infrastructure projects.",
+                          ].map((goal) => (
+                            <li key={goal} className="flex items-start gap-3 text-base leading-8 text-slate-700">
+                              <span className="mt-3 h-2 w-2 flex-none rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500" />
+                              {goal}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <p className="text-base leading-8 text-slate-700">
+                        Our success over the years has been built on three fundamental principles: <strong>Honesty</strong>, <strong>Transparency</strong>, and <strong>Quality Service</strong>. These values continue to guide every decision we make and every relationship we build.
+                      </p>
+                      <p className="text-base leading-8 text-slate-700">
+                        As we look toward the future, we invite individuals, organizations, investors, development partners, and community leaders to join us in creating lasting impact. Together, we can build one of Africa&apos;s largest and most effective community-based organizations while improving lives and creating opportunities for generations to come.
+                      </p>
+                      <p className="text-base leading-8 text-slate-700">
+                        Thank you for visiting our website and for taking the time to learn more about our vision. We look forward to partnering with you on this remarkable journey.
+                      </p>
+
+                      {/* Signature */}
+                      <div className="mt-8 border-t border-slate-200 pt-6">
+                        <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Warm regards,</div>
+                        <div className="mt-2 text-lg font-bold text-slate-900">
+                          PASTOR OBI NWAGBO
                         </div>
-                        <div className="mt-2 text-base font-semibold text-indigo-600">
-                          {ceo.position}
+                        <div className="text-sm font-semibold text-indigo-600">
+                          {brand.founder.role}
                         </div>
-                        <div className="mt-6 relative pl-5 border-l-4 border-gradient-r from-amber-400 to-cyan-400" style={{ borderImage: 'linear-gradient(to bottom, #f59e0b, #06b6d4) 1' }}>
-                          <p className="text-base leading-8 text-slate-700">
-                            For over two decades, LifeLink has remained steadfast in its mission of
-                            creating opportunities, promoting economic empowerment, advancing
-                            humanitarian services, and building sustainable structures that improve
-                            the quality of life for individuals, families, and communities. We
-                            believe poverty can be reduced when people are given access to
-                            opportunities, knowledge, resources, and a supportive community.
-                          </p>
+                        <div className="text-sm text-slate-500">
+                          {brand.name}
                         </div>
-                        <div className="mt-6">
-                          <div className="text-sm font-semibold text-slate-900">
-                            {brand.founder.name}
-                          </div>
-                          <div className="mt-1 text-sm italic text-slate-500">
-                            &ldquo;{brand.tagline}.&rdquo; We are LifeLinkers.
-                          </div>
+                        <div className="mt-2 text-sm italic text-slate-500">
+                          &ldquo;{brand.tagline}.&rdquo; WE ARE LIFELINKERS.
                         </div>
                       </div>
                     </div>

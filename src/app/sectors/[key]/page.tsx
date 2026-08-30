@@ -40,7 +40,6 @@ export default async function SectorPage({
   if (!sector || !service) return notFound();
 
   const Icon = getIcon(service.icon);
-  const [colorFrom, colorTo] = service.color;
   const related = services.filter((s) => s.key !== key).slice(0, 3);
 
   return (
@@ -49,7 +48,7 @@ export default async function SectorPage({
       <section
         className="relative overflow-hidden text-white"
         style={{
-          background: `linear-gradient(135deg, ${colorFrom} 0%, ${colorTo} 100%)`,
+          background: "linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%)",
         }}
       >
         <div className="absolute inset-0 opacity-10">
@@ -136,7 +135,7 @@ export default async function SectorPage({
                   <div
                     className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
                     style={{
-                      background: `linear-gradient(135deg, ${colorFrom}, ${colorTo})`,
+                      background: "linear-gradient(135deg, #0f172a, #1d4ed8)",
                     }}
                   >
                     <CheckCircle2 className="h-6 w-6" strokeWidth={2} />
@@ -171,7 +170,7 @@ export default async function SectorPage({
                   <div
                     className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full text-white"
                     style={{
-                      background: `linear-gradient(135deg, ${colorFrom}, ${colorTo})`,
+                      background: "linear-gradient(135deg, #0f172a, #1d4ed8)",
                     }}
                   >
                     <CheckCircle2 className="h-4 w-4" strokeWidth={2.5} />
@@ -188,7 +187,7 @@ export default async function SectorPage({
       <section
         className="relative overflow-hidden py-16 sm:py-20 text-white"
         style={{
-          background: `linear-gradient(135deg, ${colorFrom} 0%, ${colorTo} 100%)`,
+          background: "linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%)",
         }}
       >
         <div className="absolute inset-0 opacity-10">
@@ -255,8 +254,8 @@ export default async function SectorPage({
                       {r.title}
                     </div>
                     <div className="mt-1 text-sm text-slate-600">{r.subtitle}</div>
-                    <div className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-slate-700 group-hover:gap-2 transition-all">
-                      Explore <ArrowRight className="h-4 w-4" />
+                    <div className="mt-6 inline-flex items-center gap-1 text-xs font-semibold text-slate-700 group-hover:gap-2 transition-all">
+                      Explore <ArrowRight className="h-3 w-3" />
                     </div>
                   </Link>
                 </ScrollReveal>

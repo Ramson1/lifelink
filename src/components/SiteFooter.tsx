@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/Container";
@@ -18,12 +17,10 @@ export function SiteFooter() {
           {/* Brand column */}
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-3">
-              <Image
+              <img
                 src="/branding/LOGO.png"
                 alt={`${brand.shortName} logo`}
-                width={36}
-                height={36}
-                className="h-9 w-9 object-contain brightness-0 invert"
+                className="h-9 w-9 object-contain"
               />
               <div className="text-sm font-semibold text-white">
                 {brand.shortName}

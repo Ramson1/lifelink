@@ -4,10 +4,11 @@ import * as lucideIcons from "lucide-react";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 
 import { Container } from "@/components/Container";
-import { FaqAccordion } from "@/components/FaqAccordion";
+import { FaqAccordion, type FaqAnswerBlock } from "@/components/FaqAccordion";
 import { GradientOrbs } from "@/components/GradientOrbs";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { brand, services } from "@/lib/brand";
+import { defaultFaqs } from "@/lib/default-faqs";
 import { getManyContent } from "@/lib/content";
 import { createServiceClient } from "@/lib/admin/supabase";
 
@@ -35,8 +36,8 @@ export default async function Home() {
     { key: "about.vision", fallback: brand.vision },
   ]);
 
-  // Fetch published FAQs
-  let faqs: { id: string; question: string; answer: string; category: string }[] = [];
+  // Fetch published FAQs from DB, fall back to defaults
+  let faqs: { id: string; question: string; answerBlocks: FaqAnswerBlock[] }[] = [];
   try {
     const supabase = createServiceClient();
     const { data } = await supabase
@@ -44,9 +45,19 @@ export default async function Home() {
       .select("id, question, answer, category")
       .eq("is_published", true)
       .order("sort_order", { ascending: true });
-    faqs = data ?? [];
+    if (data && data.length > 0) {
+      faqs = data.map((f) => ({
+        id: f.id,
+        question: f.question,
+        answerBlocks: [{ type: "text", content: f.answer }] as FaqAnswerBlock[],
+      }));
+    }
   } catch {
     // FAQs are non-critical
+  }
+  // Use default FAQs if no DB FAQs exist
+  if (faqs.length === 0) {
+    faqs = defaultFaqs;
   }
 
   return (
@@ -203,7 +214,7 @@ export default async function Home() {
           <ScrollReveal delay={100}>
             <div className="grid gap-6 md:grid-cols-2">
               <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden">
-                <div className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400" />
+                <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-blue-500/20 blur-2xl" />
                 <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-amber-400" />
                 <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
                   Mission
@@ -213,7 +224,7 @@ export default async function Home() {
                 </div>
               </div>
               <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden">
-                <div className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400" />
+                <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-indigo-500/20 blur-2xl" />
                 <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-amber-400" />
                 <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
                   Vision
@@ -343,8 +354,7 @@ export default async function Home() {
       </section>
 
       {/* FAQ Section */}
-      {faqs.length > 0 && (
-        <section className="relative py-24 sm:py-32">
+      <section className="relative py-24 sm:py-32">
           <Container>
             <ScrollReveal>
               <div className="text-center max-w-2xl mx-auto mb-16">
@@ -361,7 +371,6 @@ export default async function Home() {
             </ScrollReveal>
           </Container>
         </section>
-      )}
 
       {/* CTA Section */}
       <section className="relative isolate px-6 py-24 sm:py-32 lg:px-8 overflow-hidden">

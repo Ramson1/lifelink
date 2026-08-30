@@ -4,13 +4,13 @@ export const brand = {
   rcNumber: "CAC Registered, Nigeria",
   tagline: "Turning Ordinary People Into Extraordinary Heroes",
   intro:
-    "A partnership and community-based organization dedicated to empowering individuals, transforming communities, and creating sustainable economic opportunities.",
+    "LifeLink Group International Limited is a partnership and community-based organization dedicated to empowering individuals, transforming communities and creating sustainable economic opportunities.",
   about:
-    "Our apex organization, LifeLink Group International Limited, is fully registered with the Corporate Affairs Commission (CAC) of Nigeria and oversees six subsidiary organizations operating across diverse sectors. With over 21 years of excellence, we are dedicated to empowering individuals, reducing poverty, and creating sustainable opportunities for families, partners, businesses, and communities down to the rural localities. We remain committed to promoting integrity, transparency, and quality service — the core values that inspire us.",
+    "Our apex organization, LifeLink Group International Limited is fully registered with the Corporate Affairs Commission (CAC) of Nigeria and oversees six subsidiary organizations operating across diverse sectors. With over 21 years of excellence, we are dedicated to empowering individuals, reducing poverty and creating sustainable opportunities for families, partners, businesses and communities down to the rural localities. We have remained committed to promoting integrity, transparency and quality service which are the core values that inspire us.",
   mission:
-    "To alleviate poverty and build wealth through strategic partnership, cooperative development, accountable investment, and impactful humanitarian services.",
+    "To alleviate poverty and build wealth through strategic partnership, cooperative development, accountable investment and impactful humanitarian services.",
   vision:
-    "To be Africa's leading community-driven conglomerate, creating sustainable platforms for wealth and human development.",
+    "To be Africa's leading community-driven conglomerate and creating sustainable platforms for wealth and human development.",
   values: [
     "Honesty",
     "Transparency",
@@ -56,7 +56,7 @@ export const brand = {
     },
   ],
   founder: {
-    name: "Pst. Sylvester Obi Nwagbo",
+    name: "Pastor Obi Nwagbo",
     role: "DG/President & Chief Executive Officer",
     bio: "A humanitarian, entrepreneur, business consultant, community mobilizer, and empowerment advocate.",
   },

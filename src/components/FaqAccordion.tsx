@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
+export type FaqAnswerBlock =
+  | { type: "text"; content: string }
+  | { type: "list"; items: string[] };
+
 interface FaqItem {
   id: string;
   question: string;
-  answer: string;
-  category: string;
+  answerBlocks: FaqAnswerBlock[];
 }
 
 export function FaqAccordion({ items }: { items: FaqItem[] }) {
@@ -41,12 +44,30 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
             <div
               className={[
                 "overflow-hidden transition-all duration-200",
-                isOpen ? "max-h-96 pb-5" : "max-h-0",
+                isOpen ? "max-h-[2000px] pb-5" : "max-h-0",
               ].join(" ")}
             >
-              <p className="px-6 text-sm leading-relaxed text-slate-600">
-                {faq.answer}
-              </p>
+              <div className="space-y-3 px-6">
+                {faq.answerBlocks.map((block, i) => {
+                  if (block.type === "list") {
+                    return (
+                      <ul key={i} className="space-y-1.5 pt-1">
+                        {block.items.map((item, j) => (
+                          <li key={j} className="flex items-start gap-2 text-sm leading-relaxed text-slate-600">
+                            <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-indigo-500" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  }
+                  return (
+                    <p key={i} className="text-sm leading-relaxed text-slate-600">
+                      {block.content}
+                    </p>
+                  );
+                })}
+              </div>
             </div>
           </div>
         );
