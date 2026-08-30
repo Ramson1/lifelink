@@ -118,3 +118,22 @@ body {
   background-size: 200% auto;
   animation: shine 3s linear infinite;
 }
+
+/* ScrollReveal animation classes */
+.scroll-reveal {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.scroll-reveal-visible {
+  opacity: 1;
+  transform: none !important;
+}
+.scroll-reveal-up {
+  transform: translateY(30px);
+}
+.scroll-reveal-left {
+  transform: translateX(-30px);
+}
+.scroll-reveal-right {
+  transform: translateX(30px);
+}

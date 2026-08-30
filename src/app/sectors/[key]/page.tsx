@@ -4,7 +4,8 @@ import * as icons from "lucide-react";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 
 import { Container } from "@/components/Container";
-import { SectionHeading } from "@/components/SectionHeading";
+import { GradientOrbs } from "@/components/GradientOrbs";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { brand, services } from "@/lib/brand";
 import { getSector } from "@/data/sectors";
 
@@ -81,7 +82,7 @@ export default async function SectorPage({
               <div className="text-sm font-semibold uppercase tracking-wider text-white/70">
                 {service.subtitle}
               </div>
-              <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
+              <h1 className="text-5xl font-extrabold tracking-tight sm:text-7xl">
                 {service.title}
               </h1>
             </div>
@@ -94,82 +95,90 @@ export default async function SectorPage({
       </section>
 
       {/* Overview */}
-      <section className="py-16 sm:py-20">
-        <Container>
-          <SectionHeading
-            eyebrow="Overview"
-            title={`About the ${service.title} sector`}
-          />
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            {sector.overview.map((p, i) => (
-              <p
-                key={i}
-                className="text-base leading-8 text-slate-700"
-              >
-                {p}
-              </p>
-            ))}
-          </div>
+      <section className="relative py-20 sm:py-28">
+        <GradientOrbs variant="warm" className="opacity-40" />
+        <Container className="relative">
+          <ScrollReveal>
+            <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Overview</div>
+            <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-8">
+              About the {service.title} sector
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <div className="max-w-3xl space-y-6">
+              {sector.overview.map((p, i) => (
+                <p
+                  key={i}
+                  className="text-base leading-8 text-slate-700"
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+          </ScrollReveal>
         </Container>
       </section>
 
       {/* Features */}
-      <section className="py-16 sm:py-20 bg-slate-50/60">
+      <section className="py-20 sm:py-28 bg-slate-50/60">
         <Container>
-          <SectionHeading
-            eyebrow="What we offer"
-            title="Key features"
-            description={`Core capabilities of the ${service.title} sector.`}
-          />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {sector.features.map((f) => (
-              <div
-                key={f.title}
-                className="rounded-3xl border border-black/10 bg-white p-7 transition hover:shadow-lg hover:-translate-y-1"
-              >
+          <ScrollReveal>
+            <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">What we offer</div>
+            <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-4">Key features</h2>
+            <p className="text-lg text-slate-600 mb-12 max-w-2xl">Core capabilities of the {service.title} sector.</p>
+          </ScrollReveal>
+          <div className="grid gap-6 md:grid-cols-3">
+            {sector.features.map((f, i) => (
+              <ScrollReveal key={f.title} delay={i * 100}>
                 <div
-                  className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
-                  style={{
-                    background: `linear-gradient(135deg, ${colorFrom}, ${colorTo})`,
-                  }}
+                  className="h-full rounded-3xl border border-black/10 bg-white p-7 transition hover:shadow-lg hover:-translate-y-1"
                 >
-                  <CheckCircle2 className="h-6 w-6" strokeWidth={2} />
+                  <div
+                    className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
+                    style={{
+                      background: `linear-gradient(135deg, ${colorFrom}, ${colorTo})`,
+                    }}
+                  >
+                    <CheckCircle2 className="h-6 w-6" strokeWidth={2} />
+                  </div>
+                  <div className="text-lg font-semibold text-slate-900">
+                    {f.title}
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    {f.description}
+                  </p>
                 </div>
-                <div className="text-lg font-semibold text-slate-900">
-                  {f.title}
-                </div>
-                <p className="mt-3 text-sm leading-7 text-slate-600">
-                  {f.description}
-                </p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </Container>
       </section>
 
       {/* Benefits */}
-      <section className="py-16 sm:py-20">
-        <Container>
-          <SectionHeading
-            eyebrow="Member benefits"
-            title="Why join this sector"
-          />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {sector.benefits.map((b) => (
-              <div
-                key={b}
-                className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white/70 p-5"
-              >
+      <section className="relative py-20 sm:py-28">
+        <GradientOrbs variant="cool" className="opacity-30" />
+        <Container className="relative">
+          <ScrollReveal>
+            <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Member benefits</div>
+            <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-12">Why join this sector</h2>
+          </ScrollReveal>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {sector.benefits.map((b, i) => (
+              <ScrollReveal key={b} delay={i * 80}>
                 <div
-                  className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full text-white"
-                  style={{
-                    background: `linear-gradient(135deg, ${colorFrom}, ${colorTo})`,
-                  }}
+                  className="flex h-full items-start gap-3 rounded-2xl border border-black/10 bg-white/70 p-5 backdrop-blur-sm"
                 >
-                  <CheckCircle2 className="h-4 w-4" strokeWidth={2.5} />
+                  <div
+                    className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full text-white"
+                    style={{
+                      background: `linear-gradient(135deg, ${colorFrom}, ${colorTo})`,
+                    }}
+                  >
+                    <CheckCircle2 className="h-4 w-4" strokeWidth={2.5} />
+                  </div>
+                  <div className="text-sm font-semibold text-slate-800">{b}</div>
                 </div>
-                <div className="text-sm font-semibold text-slate-800">{b}</div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </Container>
@@ -216,40 +225,41 @@ export default async function SectorPage({
       </section>
 
       {/* Related sectors */}
-      <section className="py-16 sm:py-20">
+      <section className="py-20 sm:py-28">
         <Container>
-          <SectionHeading
-            eyebrow="Explore more"
-            title="Related sectors"
-            description="Discover other sectors within LifeLink Group."
-          />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {related.map((r) => {
+          <ScrollReveal>
+            <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Explore more</div>
+            <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-4">Related sectors</h2>
+            <p className="text-lg text-slate-600 mb-12 max-w-2xl">Discover other sectors within LifeLink Group.</p>
+          </ScrollReveal>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((r, i) => {
               const RelIcon = getIcon(r.icon);
               return (
-                <Link
-                  key={r.key}
-                  href={`/sectors/${r.key}`}
-                  className="group rounded-3xl border border-black/10 bg-white/70 p-6 transition hover:bg-white hover:shadow-lg"
-                >
-                  {RelIcon && (
-                    <div
-                      className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
-                      style={{
-                        background: `linear-gradient(135deg, ${r.color[0]}, ${r.color[1]})`,
-                      }}
-                    >
-                      <RelIcon className="h-6 w-6" strokeWidth={1.8} />
+                <ScrollReveal key={r.key} delay={i * 100}>
+                  <Link
+                    href={`/sectors/${r.key}`}
+                    className="group rounded-3xl border border-black/10 bg-white/70 p-6 transition hover:bg-white hover:shadow-lg"
+                  >
+                    {RelIcon && (
+                      <div
+                        className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
+                        style={{
+                          background: `linear-gradient(135deg, ${r.color[0]}, ${r.color[1]})`,
+                        }}
+                      >
+                        <RelIcon className="h-6 w-6" strokeWidth={1.8} />
+                      </div>
+                    )}
+                    <div className="text-lg font-semibold text-slate-900 group-hover:text-slate-700">
+                      {r.title}
                     </div>
-                  )}
-                  <div className="text-lg font-semibold text-slate-900 group-hover:text-slate-700">
-                    {r.title}
-                  </div>
-                  <div className="mt-1 text-sm text-slate-600">{r.subtitle}</div>
-                  <div className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-slate-700 group-hover:gap-2 transition-all">
-                    Explore <ArrowRight className="h-4 w-4" />
-                  </div>
-                </Link>
+                    <div className="mt-1 text-sm text-slate-600">{r.subtitle}</div>
+                    <div className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-slate-700 group-hover:gap-2 transition-all">
+                      Explore <ArrowRight className="h-4 w-4" />
+                    </div>
+                  </Link>
+                </ScrollReveal>
               );
             })}
           </div>

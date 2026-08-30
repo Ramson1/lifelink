@@ -6,76 +6,105 @@ import { brand } from "@/lib/brand";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-black/10 bg-white/60">
-      <Container className="py-12">
-        <div className="grid gap-10 md:grid-cols-3">
-          <div className="space-y-3">
+    <footer className="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-black">
+      {/* Decorative gradient orbs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <div className="absolute -top-32 left-1/4 h-64 w-64 rounded-full bg-indigo-600/10 blur-3xl" />
+        <div className="absolute -bottom-32 right-1/4 h-64 w-64 rounded-full bg-blue-600/10 blur-3xl" />
+      </div>
+
+      <Container className="relative py-14">
+        <div className="grid gap-10 md:grid-cols-4">
+          {/* Brand column */}
+          <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-3">
               <Image
                 src="/branding/LOGO.png"
                 alt={`${brand.shortName} logo`}
                 width={36}
                 height={36}
-                className="h-9 w-9 object-contain"
+                className="h-9 w-9 object-contain brightness-0 invert"
               />
-              <div className="text-sm font-semibold text-black">
+              <div className="text-sm font-semibold text-white">
                 {brand.shortName}
               </div>
             </div>
-            <div className="text-sm text-black/70">{brand.tagline}</div>
-            <div className="text-sm text-black/60">
+            <p className="text-sm leading-6 text-white/60">{brand.tagline}</p>
+            <p className="text-sm text-white/50">
               {brand.office.city}, {brand.office.state}, {brand.office.country}
-            </div>
+            </p>
           </div>
 
+          {/* Company links */}
           <div className="grid gap-2 text-sm">
-            <div className="text-sm font-semibold text-black">Company</div>
-            <Link className="text-black/70 hover:text-black" href="/about">
-              About
-            </Link>
-            <Link className="text-black/70 hover:text-black" href="/services">
+            <div className="text-sm font-semibold text-white">Company</div>
+            <Link className="text-white/60 transition hover:text-white" href="/services">
               Services
             </Link>
-            <Link className="text-black/70 hover:text-black" href="/register">
+            <Link className="text-white/60 transition hover:text-white" href="/register">
               E-Registration
             </Link>
-            <Link className="text-black/70 hover:text-black" href="/contact">
+            <Link className="text-white/60 transition hover:text-white" href="/contact">
               Contact
+            </Link>
+            <Link className="text-white/60 transition hover:text-white" href="/about/team">
+              Team
             </Link>
           </div>
 
+          {/* Explore links */}
+          <div className="grid gap-2 text-sm">
+            <div className="text-sm font-semibold text-white">Explore</div>
+            <Link className="text-white/60 transition hover:text-white" href="/partners">
+              Partners
+            </Link>
+            <Link className="text-white/60 transition hover:text-white" href="/events">
+              Events
+            </Link>
+            <a
+              className="text-white/60 transition hover:text-white"
+              href={`mailto:${brand.contact.email}`}
+            >
+              {brand.contact.email}
+            </a>
+          </div>
+
+          {/* Compliance */}
           <div className="space-y-3">
-            <div className="text-sm font-semibold text-black">Compliance</div>
-            <div className="text-sm text-black/70">
+            <div className="text-sm font-semibold text-white">Compliance</div>
+            <div className="text-sm text-white/60">
               {brand.rcNumber}
             </div>
-            <div className="text-sm text-black/60">
-              © {new Date().getFullYear()} {brand.shortName}. All rights reserved.
+            <div className="text-sm text-white/50">
+              {brand.contact.address}
             </div>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-black/10 pt-6 text-center text-xs text-black/50">
+        {/* Bottom bar */}
+        <div className="mt-12 border-t border-white/10 pt-6 text-center text-xs text-white/40">
+          &copy; {new Date().getFullYear()} {brand.shortName}. All rights reserved.
+          <span className="mx-2">|</span>
           Designed and developed by{" "}
           <a
             href="https://blackboxtech.online"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-black/70 underline underline-offset-4 hover:text-black"
+            className="font-semibold text-white/60 underline underline-offset-4 transition hover:text-white"
           >
             Black-Box Tech
           </a>
-          {" | "}
+          <span className="mx-1">|</span>
           <a
             href="tel:+2348050205349"
-            className="font-semibold text-black/70 underline underline-offset-4 hover:text-black"
+            className="font-semibold text-white/60 underline underline-offset-4 transition hover:text-white"
           >
             +234 805 020 5349
           </a>
-          {" / "}
+          <span className="mx-1">/</span>
           <a
             href="tel:+2349024787192"
-            className="font-semibold text-black/70 underline underline-offset-4 hover:text-black"
+            className="font-semibold text-white/60 underline underline-offset-4 transition hover:text-white"
           >
             +234 902 478 7192
           </a>

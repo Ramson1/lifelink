@@ -2,10 +2,21 @@ import "server-only";
 import fs from "node:fs";
 import path from "node:path";
 
+export type TeamLevel = "ceo" | "director" | "manager" | "other";
+
 export interface TeamMember {
   name: string;
   position: string;
   image: string; // public URL path, e.g. /team/foo.png
+  level: TeamLevel;
+}
+
+/** Classify a team member's hierarchy level from their position string. */
+export function classifyLevel(position: string): TeamLevel {
+  if (/chairman|director general|ceo|president/i.test(position)) return "ceo";
+  if (/director/i.test(position)) return "director";
+  if (/manager|head of/i.test(position)) return "manager";
+  return "other";
 }
 
 /**
@@ -53,14 +64,15 @@ export function listTeamMembers(): TeamMember[] {
         name: parsed.name,
         position: parsed.position,
         image: `/team/${encodeURIComponent(file)}`,
+        level: classifyLevel(parsed.position),
       });
     }
 
-    // Stable order: chairman first, then alphabetical by name
+    // Stable order: CEO first, then directors, then managers, then others
+    const levelOrder: Record<TeamLevel, number> = { ceo: 0, director: 1, manager: 2, other: 3 };
     members.sort((a, b) => {
-      const aChair = /chairman|director general/i.test(a.position) ? 0 : 1;
-      const bChair = /chairman|director general/i.test(b.position) ? 0 : 1;
-      if (aChair !== bChair) return aChair - bChair;
+      const diff = levelOrder[a.level] - levelOrder[b.level];
+      if (diff !== 0) return diff;
       return a.name.localeCompare(b.name);
     });
 

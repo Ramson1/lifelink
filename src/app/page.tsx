@@ -5,6 +5,8 @@ import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { GradientOrbs } from "@/components/GradientOrbs";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { brand, services } from "@/lib/brand";
 import { getManyContent } from "@/lib/content";
 import { createServiceClient } from "@/lib/admin/supabase";
@@ -28,6 +30,9 @@ export default async function Home() {
     { key: "hero.tagline", fallback: "Build Your Future With" },
     { key: "hero.subtagline", fallback: brand.intro },
     { key: "hero.badge", fallback: `Registration Open for ${new Date().getFullYear()}` },
+    { key: "about.intro", fallback: brand.intro },
+    { key: "about.mission", fallback: brand.mission },
+    { key: "about.vision", fallback: brand.vision },
   ]);
 
   // Fetch published FAQs
@@ -139,24 +144,140 @@ export default async function Home() {
         */}
       </section>
 
-      {/* Services Section */}
+      {/* About Intro Section */}
+      <section className="relative py-24 sm:py-32 overflow-hidden">
+        <GradientOrbs variant="warm" />
+        <Container>
+          <ScrollReveal>
+            <div className="grid gap-10 md:grid-cols-2 md:items-start">
+              <div>
+                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">About</div>
+                <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
+                  {brand.name}
+                </h2>
+                <p className="text-lg leading-8 text-slate-600">
+                  {c["about.intro"]}
+                </p>
+              </div>
+
+              <div className="rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-4">
+                  <Image
+                    src="/branding/LOGO.png"
+                    alt="LifeLink logo"
+                    width={56}
+                    height={56}
+                  />
+                  <div>
+                    <div className="text-sm font-semibold text-black">
+                      {brand.shortName}
+                    </div>
+                    <div className="text-sm text-black/70">{brand.tagline}</div>
+                  </div>
+                </div>
+                <div className="mt-6 text-sm leading-7 text-black/70">
+                  {brand.about}
+                </div>
+                <div className="mt-6 grid gap-2">
+                  <div className="text-sm font-semibold text-black">Core values</div>
+                  <div className="flex flex-wrap gap-2">
+                    {brand.values.map((v) => (
+                      <div
+                        key={v}
+                        className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-black/70"
+                      >
+                        {v}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Mission & Vision Section */}
+      <section className="relative py-12 sm:py-16">
+        <Container>
+          <ScrollReveal delay={100}>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden">
+                <div className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400" />
+                <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-amber-400" />
+                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
+                  Mission
+                </div>
+                <div className="mt-3 text-base leading-7 text-black/80">
+                  {c["about.mission"]}
+                </div>
+              </div>
+              <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden">
+                <div className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400" />
+                <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-amber-400" />
+                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
+                  Vision
+                </div>
+                <div className="mt-3 text-base leading-7 text-black/80">
+                  {c["about.vision"]}
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Why Choose LifeLink */}
+      <section className="relative py-24 sm:py-32">
+        <Container>
+          <ScrollReveal>
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Why choose LifeLink</div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
+                Built on trust, structure, and impact
+              </h2>
+              <p className="text-lg text-slate-600">
+                Over two decades of measurable results across communities, families, and businesses.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {brand.whyChoose.map((item, i) => (
+              <ScrollReveal key={item.title} delay={i * 80}>
+                <div className="h-full rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur-sm transition hover:bg-white hover:shadow-lg">
+                  <div className="text-sm font-semibold text-black">{item.title}</div>
+                  <div className="mt-2 text-sm leading-6 text-black/70">
+                    {item.description}
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Services / Sectors Section */}
       <section className="relative py-24 sm:py-32">
         <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/50 to-white/0 backdrop-blur-sm -z-10"></div>
         <Container>
-          <div className="text-center max-w-2xl mx-auto mb-20 animate-fade-in-up">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
-              <span className="text-gradient">Our Sectors</span>
-            </h2>
-            <p className="text-lg text-slate-600">
-              One platform, diverse opportunities — from humanitarian services and finance to agriculture, energy, and digital assets.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center max-w-2xl mx-auto mb-20">
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
+                <span className="text-gradient">Our Sectors</span>
+              </h2>
+              <p className="text-lg text-slate-600">
+                One platform, diverse opportunities — from humanitarian services and finance to agriculture, energy, and digital assets.
+              </p>
+            </div>
+          </ScrollReveal>
           
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => {
               const Icon = getIcon(service.icon);
               const [from, to] = service.color;
               return (
+                <ScrollReveal key={service.key} delay={index * 80}>
                 <Link
                   key={service.key}
                   href={`/sectors/${service.key}`}
@@ -205,6 +326,7 @@ export default async function Home() {
                     Explore sector <ArrowRight className="h-4 w-4" />
                   </div>
                 </Link>
+                </ScrollReveal>
               );
             })}
           </div>
@@ -224,15 +346,19 @@ export default async function Home() {
       {faqs.length > 0 && (
         <section className="relative py-24 sm:py-32">
           <Container>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
-                Frequently Asked <span className="text-gradient">Questions</span>
-              </h2>
-              <p className="text-lg text-slate-600">
-                Find answers to common questions about LifeLink Group, registration, and our services.
-              </p>
-            </div>
-            <FaqAccordion items={faqs} />
+            <ScrollReveal>
+              <div className="text-center max-w-2xl mx-auto mb-16">
+                <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
+                  Frequently Asked <span className="text-gradient">Questions</span>
+                </h2>
+                <p className="text-lg text-slate-600">
+                  Find answers to common questions about LifeLink Group, registration, and our services.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={150}>
+              <FaqAccordion items={faqs} />
+            </ScrollReveal>
           </Container>
         </section>
       )}

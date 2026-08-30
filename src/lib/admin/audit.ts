@@ -20,7 +20,10 @@ export type AuditAction =
   | "notification.send"
   | "faq.create"
   | "faq.update"
-  | "faq.delete";
+  | "faq.delete"
+  | "sector.create"
+  | "sector.update"
+  | "sector.delete";
 
 export type EntityType =
   | "admin"
@@ -28,7 +31,8 @@ export type EntityType =
   | "content"
   | "message"
   | "notification"
-  | "faq";
+  | "faq"
+  | "sector";
 
 export async function writeAuditLog(args: {
   session: AdminSession | null;

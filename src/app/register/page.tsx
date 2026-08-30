@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { Container } from "@/components/Container";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { RegistrationWizard } from "@/components/registration/RegistrationWizard";
 import { getManyContent } from "@/lib/content";
@@ -16,11 +17,15 @@ export default async function RegisterPage() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-[1fr_520px] lg:items-start">
           <div className="space-y-6">
-            <SectionHeading
-              eyebrow="E-Registration"
-              title={c["registration.title"]}
-              description={c["registration.subtitle"]}
-            />
+            <ScrollReveal>
+              <SectionHeading
+                eyebrow="E-Registration"
+                title={c["registration.title"]}
+                description={c["registration.subtitle"]}
+              />
+            </ScrollReveal>
+
+            <ScrollReveal delay={100}>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-3xl border border-black/10 bg-white/70 p-6">
@@ -47,14 +52,17 @@ export default async function RegisterPage() {
                 </a>
               </div>
             </div>
+            </ScrollReveal>
 
-            <div className="rounded-3xl border border-black/10 bg-white/70 p-6">
-              <div className="text-sm font-semibold text-black">Privacy</div>
-              <div className="mt-2 text-sm leading-7 text-black/70">
-                Your details are used only for registration and membership
-                onboarding.
+            <ScrollReveal delay={200}>
+              <div className="rounded-3xl border border-black/10 bg-white/70 p-6">
+                <div className="text-sm font-semibold text-black">Privacy</div>
+                <div className="mt-2 text-sm leading-7 text-black/70">
+                  Your details are used only for registration and membership
+                  onboarding.
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
 
           <Suspense

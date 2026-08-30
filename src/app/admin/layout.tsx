@@ -19,6 +19,8 @@ import {
   ChevronLeft,
   KeyRound,
   HelpCircle,
+  ArrowLeft,
+  Layers,
 } from "lucide-react";
 
 interface Admin {
@@ -38,6 +40,7 @@ const NAV = [
   { href: "/admin/messages", label: "Messages", icon: MessageSquare },
   { href: "/admin/notifications", label: "Notifications", icon: Bell },
   { href: "/admin/audit", label: "Audit Logs", icon: ScrollText },
+  { href: "/admin/sectors", label: "Sectors", icon: Layers },
 ];
 
 export default function AdminLayout({
@@ -262,6 +265,14 @@ export default function AdminLayout({
         )}
 
         <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+          {pathname !== "/admin" && (
+            <button
+              onClick={() => router.back()}
+              className="mb-4 inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-100"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Go Back
+            </button>
+          )}
           {children}
         </main>
       </div>

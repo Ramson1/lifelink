@@ -11,6 +11,7 @@ import {
   Send,
   Paperclip,
   X,
+  RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
 import { useAdminAlerts } from "@/lib/admin/use-admin-alerts";
@@ -84,6 +85,8 @@ export default function MessagesPage() {
 
   useEffect(() => {
     load();
+    const interval = setInterval(load, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   const onSend = async (values: Form) => {
@@ -173,20 +176,30 @@ export default function MessagesPage() {
           </p>
         </div>
         {canCrud && (
-          <button
-            onClick={() => setShowCompose((v) => !v)}
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:opacity-95"
-          >
-            {showCompose ? (
-              <>
-                <X className="h-4 w-4" /> Close
-              </>
-            ) : (
-              <>
-                <Plus className="h-4 w-4" /> New message
-              </>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={load}
+              disabled={loading}
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 disabled:opacity-60"
+              title="Refresh messages"
+            >
+              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+            </button>
+            <button
+              onClick={() => setShowCompose((v) => !v)}
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:opacity-95"
+            >
+              {showCompose ? (
+                <>
+                  <X className="h-4 w-4" /> Close
+                </>
+              ) : (
+                <>
+                  <Plus className="h-4 w-4" /> New message
+                </>
+              )}
+            </button>
+          </div>
         )}
       </header>
 
