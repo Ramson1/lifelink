@@ -100,12 +100,12 @@ export default function TeamPage() {
                     {/* Photo + Name Header */}
                     <div className="bg-gradient-to-br from-indigo-600 to-cyan-600 p-8 sm:p-10 text-white">
                       <div className="flex flex-col sm:flex-row items-center gap-6">
-                        <div className="relative h-28 w-28 flex-none overflow-hidden rounded-full border-4 border-white/30 bg-white/10">
+                        <div className="relative h-40 w-40 flex-none overflow-hidden rounded-full border-4 border-white/30 bg-white/10">
                           <Image
                             src={ceo.image}
                             alt={ceo.name}
                             fill
-                            sizes="112px"
+                            sizes="160px"
                             className="object-cover"
                           />
                         </div>

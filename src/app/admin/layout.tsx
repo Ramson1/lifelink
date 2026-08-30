@@ -21,6 +21,10 @@ import {
   HelpCircle,
   ArrowLeft,
   Layers,
+  Handshake,
+  CalendarDays,
+  Award,
+  ImageIcon,
 } from "lucide-react";
 
 interface Admin {
@@ -41,6 +45,10 @@ const NAV = [
   { href: "/admin/notifications", label: "Notifications", icon: Bell },
   { href: "/admin/audit", label: "Audit Logs", icon: ScrollText },
   { href: "/admin/sectors", label: "Sectors", icon: Layers },
+  { href: "/admin/partners", label: "Partners", icon: Handshake },
+  { href: "/admin/events", label: "Events", icon: CalendarDays },
+  { href: "/admin/certificates", label: "Certificates", icon: Award },
+  { href: "/admin/gallery", label: "Gallery", icon: ImageIcon },
 ];
 
 export default function AdminLayout({

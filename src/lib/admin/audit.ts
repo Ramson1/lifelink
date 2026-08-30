@@ -23,7 +23,19 @@ export type AuditAction =
   | "faq.delete"
   | "sector.create"
   | "sector.update"
-  | "sector.delete";
+  | "sector.delete"
+  | "partner.create"
+  | "partner.update"
+  | "partner.delete"
+  | "event.create"
+  | "event.update"
+  | "event.delete"
+  | "certificate.create"
+  | "certificate.update"
+  | "certificate.delete"
+  | "gallery.create"
+  | "gallery.update"
+  | "gallery.delete";
 
 export type EntityType =
   | "admin"
@@ -32,7 +44,11 @@ export type EntityType =
   | "message"
   | "notification"
   | "faq"
-  | "sector";
+  | "sector"
+  | "partner"
+  | "event"
+  | "certificate"
+  | "gallery";
 
 export async function writeAuditLog(args: {
   session: AdminSession | null;
