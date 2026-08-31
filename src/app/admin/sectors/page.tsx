@@ -53,7 +53,7 @@ export default function SectorsPage() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/admin/sectors");
+      const res = await fetch("/api/admin/sectors?admin=true");
       const json = await res.json();
       if (!res.ok) throw new Error(json.error);
       setSectors(json.items ?? []);
