@@ -16,6 +16,7 @@ import {
   X,
 } from "lucide-react";
 
+import FileUpload from "@/components/admin/FileUpload";
 import { useAdminAlerts } from "@/lib/admin/use-admin-alerts";
 import { useAdminPermissions } from "@/lib/admin/use-admin-permissions";
 
@@ -57,13 +58,15 @@ export default function PartnersAdminPage() {
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const { showToast, Alerts } = useAdminAlerts();
+  const { showToast, confirm, Alerts } = useAdminAlerts();
   const { canCrud } = useAdminPermissions();
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<Form>({
     resolver: zodResolver(schema),
@@ -157,23 +160,28 @@ export default function PartnersAdminPage() {
     }
   };
 
-  const onDelete = async (id: string) => {
-    if (!confirm("Delete this partner?")) return;
-    setDeletingId(id);
-    try {
-      const res = await fetch(`/api/admin/partners?id=${id}`, { method: "DELETE" });
-      if (!res.ok) {
-        const json = await res.json().catch(() => ({}));
-        showToast("error", json.error ?? "Failed to delete");
-        return;
+  const onDelete = (id: string) => {
+    confirm(
+      "Delete partner",
+      "Are you sure you want to delete this partner? This action cannot be undone.",
+      async () => {
+        setDeletingId(id);
+        try {
+          const res = await fetch(`/api/admin/partners?id=${id}`, { method: "DELETE" });
+          if (!res.ok) {
+            const json = await res.json().catch(() => ({}));
+            showToast("error", json.error ?? "Failed to delete");
+            return;
+          }
+          showToast("success", "Partner deleted");
+          await load();
+        } catch {
+          showToast("error", "Network error");
+        } finally {
+          setDeletingId(null);
+        }
       }
-      showToast("success", "Partner deleted");
-      await load();
-    } catch {
-      showToast("error", "Network error");
-    } finally {
-      setDeletingId(null);
-    }
+    );
   };
 
   const toggleActive = async (partner: Partner) => {
@@ -279,13 +287,10 @@ export default function PartnersAdminPage() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
-                Logo URL
-              </label>
-              <input
-                {...register("logo_url")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                placeholder="/trust/beautcia.png"
+              <FileUpload
+                label="Logo"
+                value={watch("logo_url")}
+                onChange={(url) => setValue("logo_url", url, { shouldValidate: true })}
               />
               {errors.logo_url && (
                 <p className="mt-1 text-xs font-semibold text-red-600">

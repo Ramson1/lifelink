@@ -58,7 +58,7 @@ export default function FaqsPage() {
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const { showToast, Alerts } = useAdminAlerts();
+  const { showToast, confirm, Alerts } = useAdminAlerts();
   const { canCrud } = useAdminPermissions();
 
   const {
@@ -155,23 +155,28 @@ export default function FaqsPage() {
     }
   };
 
-  const onDelete = async (id: string) => {
-    if (!confirm("Delete this FAQ?")) return;
-    setDeletingId(id);
-    try {
-      const res = await fetch(`/api/admin/faqs?id=${id}`, { method: "DELETE" });
-      if (!res.ok) {
-        const json = await res.json().catch(() => ({}));
-        showToast("error", json.error ?? "Failed to delete");
-        return;
+  const onDelete = (id: string) => {
+    confirm(
+      "Delete FAQ",
+      "Are you sure you want to delete this FAQ? This action cannot be undone.",
+      async () => {
+        setDeletingId(id);
+        try {
+          const res = await fetch(`/api/admin/faqs?id=${id}`, { method: "DELETE" });
+          if (!res.ok) {
+            const json = await res.json().catch(() => ({}));
+            showToast("error", json.error ?? "Failed to delete");
+            return;
+          }
+          showToast("success", "FAQ deleted");
+          await load();
+        } catch {
+          showToast("error", "Network error");
+        } finally {
+          setDeletingId(null);
+        }
       }
-      showToast("success", "FAQ deleted");
-      await load();
-    } catch {
-      showToast("error", "Network error");
-    } finally {
-      setDeletingId(null);
-    }
+    );
   };
 
   const togglePublished = async (faq: Faq) => {

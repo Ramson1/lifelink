@@ -11,4 +11,4 @@ create table if not exists lifelink_partners (
   updated_at  timestamptz not null default now()
 );
 
-alter table lifelink_partners enable RLS;
+alter table lifelink_partners enable row level security;

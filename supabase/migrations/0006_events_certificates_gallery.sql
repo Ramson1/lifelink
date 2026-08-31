@@ -38,6 +38,6 @@ create table if not exists lifelink_gallery (
   updated_at  timestamptz not null default now()
 );
 
-alter table lifelink_events enable RLS;
-alter table lifelink_certificates enable RLS;
-alter table lifelink_gallery enable RLS;
+alter table lifelink_events enable row level security;
+alter table lifelink_certificates enable row level security;
+alter table lifelink_gallery enable row level security;

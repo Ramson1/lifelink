@@ -47,7 +47,7 @@ export default function SectorsPage() {
   const [editing, setEditing] = useState<Sector | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptySector);
-  const { showToast, Alerts } = useAdminAlerts();
+  const { showToast, confirm, Alerts } = useAdminAlerts();
   const { canCrud } = useAdminPermissions();
 
   const load = useCallback(async () => {
@@ -118,16 +118,21 @@ export default function SectorsPage() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Delete this sector?")) return;
-    try {
-      const res = await fetch(`/api/admin/sectors?id=${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Failed");
-      showToast("success", "Sector deleted");
-      await load();
-    } catch {
-      showToast("error", "Failed to delete");
-    }
+  const handleDelete = (id: string) => {
+    confirm(
+      "Delete sector",
+      "Are you sure you want to delete this sector? This action cannot be undone.",
+      async () => {
+        try {
+          const res = await fetch(`/api/admin/sectors?id=${id}`, { method: "DELETE" });
+          if (!res.ok) throw new Error("Failed");
+          showToast("success", "Sector deleted");
+          await load();
+        } catch {
+          showToast("error", "Failed to delete");
+        }
+      }
+    );
   };
 
   // Dynamic list helpers

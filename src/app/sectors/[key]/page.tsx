@@ -301,11 +301,11 @@ export default async function SectorPage({
                   <ScrollReveal key={r.key} delay={i * 100}>
                     <Link
                       href={`/sectors/${r.key}`}
-                      className="group rounded-3xl border border-black/10 bg-white/70 p-6 transition hover:bg-white hover:shadow-lg"
+                      className="group flex flex-col rounded-3xl border border-black/10 bg-white/70 p-6 transition hover:bg-white hover:shadow-lg"
                     >
                       {RelIcon && (
                         <div
-                          className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
+                          className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl text-white"
                           style={{ background: "linear-gradient(135deg, #0f172a, #1d4ed8)" }}
                         >
                           <RelIcon className="h-6 w-6" strokeWidth={1.8} />
@@ -313,7 +313,7 @@ export default async function SectorPage({
                       )}
                       <div className="text-lg font-semibold text-slate-900 group-hover:text-slate-700">{r.title}</div>
                       <div className="mt-1 text-sm text-slate-600">{r.subtitle}</div>
-                      <div className="mt-6 inline-flex items-center gap-1 text-xs font-semibold text-slate-700 group-hover:gap-2 transition-all">
+                      <div className="mt-auto pt-4 inline-flex items-center gap-1 text-xs font-semibold text-slate-700 group-hover:gap-2 transition-all">
                         Explore <ArrowRight className="h-3 w-3" />
                       </div>
                     </Link>
