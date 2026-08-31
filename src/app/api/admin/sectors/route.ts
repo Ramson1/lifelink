@@ -31,15 +31,32 @@ const sectorSchema = z.object({
   accepting_registrations: z.boolean().default(false),
 });
 
-/* ── List all sectors (admin) ── */
-export async function GET() {
-  const auth = await requireAdmin();
-  if ("response" in auth) return auth.response;
-
+/* ── List sectors ── */
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const isAdmin = searchParams.get("admin") === "true";
   const supabase = createServiceClient();
+
+  if (isAdmin) {
+    const auth = await requireAdmin();
+    if ("response" in auth) return auth.response;
+
+    const { data, error } = await supabase
+      .from("lifelink_sectors")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ items: data ?? [] });
+  }
+
+  // Public endpoint: only active sectors
   const { data, error } = await supabase
     .from("lifelink_sectors")
     .select("*")
+    .eq("is_active", true)
     .order("created_at", { ascending: false });
 
   if (error) {

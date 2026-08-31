@@ -5,14 +5,84 @@ import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import { Container } from "@/components/Container";
 import { GradientOrbs } from "@/components/GradientOrbs";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { services } from "@/lib/brand";
+import { services as hardcodedServices } from "@/lib/brand";
+
+export const dynamic = "force-dynamic";
+
+interface DbSector {
+  id: string;
+  key: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: string;
+  color_from: string;
+  color_to: string;
+  tagline: string;
+  overview: string[];
+  features: { title: string; description: string }[];
+  benefits: string[];
+  is_active: boolean;
+  accepting_registrations: boolean;
+}
+
+interface MergedService {
+  key: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  highlights: string[];
+  icon: string;
+  color: [string, string];
+}
 
 function getIcon(name: string) {
   const Icon = (lucideIcons as any)[name];
   return Icon ?? null;
 }
 
-export default function ServicesPage() {
+async function getDbSectors(): Promise<DbSector[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+    const res = await fetch(`${baseUrl}/api/admin/sectors`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json.items ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export default async function ServicesPage() {
+  const dbSectors = await getDbSectors();
+
+  // Merge: DB sectors override hardcoded ones with same key, new DB sectors are appended
+  const dbKeys = new Set(dbSectors.map((s) => s.key));
+  const merged: MergedService[] = [
+    // Hardcoded services that are NOT overridden by DB
+    ...hardcodedServices
+      .filter((s) => !dbKeys.has(s.key))
+      .map((s) => ({
+        key: s.key,
+        title: s.title,
+        subtitle: s.subtitle,
+        description: s.description,
+        highlights: s.highlights,
+        icon: s.icon,
+        color: s.color as [string, string],
+      })),
+    // All DB sectors
+    ...dbSectors.map((s) => ({
+      key: s.key,
+      title: s.title,
+      subtitle: s.subtitle,
+      description: s.description,
+      highlights: (s.benefits ?? []).slice(0, 3),
+      icon: s.icon,
+      color: [s.color_from, s.color_to] as [string, string],
+    })),
+  ];
+
   return (
     <div className="relative overflow-hidden">
       {/* Hero Section */}
@@ -38,7 +108,7 @@ export default function ServicesPage() {
         <GradientOrbs className="opacity-50" />
         <Container>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s, index) => {
+            {merged.map((s, index) => {
               const Icon = getIcon(s.icon);
               const [from, to] = s.color;
               const isFeatured = index === 0;
@@ -77,14 +147,16 @@ export default function ServicesPage() {
                       {s.description}
                     </p>
 
-                    <ul role="list" className="mt-6 space-y-2 border-t border-slate-100 pt-5">
-                      {s.highlights.slice(0, 3).map((feature) => (
-                        <li key={feature} className="flex items-center gap-2 text-sm text-slate-600">
-                          <CheckCircle2 className="h-4 w-4 flex-none text-cyan-500" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                    {s.highlights.length > 0 && (
+                      <ul role="list" className="mt-6 space-y-2 border-t border-slate-100 pt-5">
+                        {s.highlights.slice(0, 3).map((feature) => (
+                          <li key={feature} className="flex items-center gap-2 text-sm text-slate-600">
+                            <CheckCircle2 className="h-4 w-4 flex-none text-cyan-500" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
                     <div className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 group-hover:gap-2 transition-all">
                       Explore sector <ArrowRight className="h-4 w-4" />
