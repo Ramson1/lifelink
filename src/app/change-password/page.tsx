@@ -73,7 +73,7 @@ export default function ChangePasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950">
       {/* Top bar */}
       {/* <div className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-4">
@@ -102,10 +102,10 @@ export default function ChangePasswordPage() {
               height={48}
               className="mx-auto h-12 w-12 rounded-2xl object-contain"
             />
-            <h1 className="mt-4 text-2xl font-bold tracking-tight text-slate-900">
+            <h1 className="mt-4 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
               Change Password
             </h1>
-            <p className="mt-1 text-sm text-slate-600">
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
               Update the password for your LifeLink account.
             </p>
           </div>
@@ -127,18 +127,18 @@ export default function ChangePasswordPage() {
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+            className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900"
           >
             <div className="space-y-4">
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Email address
                 </label>
                 <input
                   type="email"
                   {...register("email")}
                   placeholder="you@example.com"
-                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-white/20 dark:bg-slate-950 dark:text-white"
                 />
                 {errors.email && (
                   <p className="mt-1 text-xs font-semibold text-red-600">
@@ -148,7 +148,7 @@ export default function ChangePasswordPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Current password{" "}
                   <span className="font-normal text-slate-400">
                     (leave blank if setting for the first time)
@@ -159,7 +159,7 @@ export default function ChangePasswordPage() {
                     type={showCurrent ? "text" : "password"}
                     {...register("current_password")}
                     placeholder="Enter current password"
-                    className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 pr-10 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 pr-10 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-white/20 dark:bg-slate-950 dark:text-white"
                   />
                   <button
                     type="button"
@@ -172,7 +172,7 @@ export default function ChangePasswordPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   New password
                 </label>
                 <div className="relative">
@@ -180,7 +180,7 @@ export default function ChangePasswordPage() {
                     type={showNew ? "text" : "password"}
                     {...register("new_password")}
                     placeholder="At least 6 characters"
-                    className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 pr-10 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 pr-10 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-white/20 dark:bg-slate-950 dark:text-white"
                   />
                   <button
                     type="button"
@@ -198,7 +198,7 @@ export default function ChangePasswordPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Confirm new password
                 </label>
                 <div className="relative">
@@ -206,7 +206,7 @@ export default function ChangePasswordPage() {
                     type={showConfirm ? "text" : "password"}
                     {...register("confirm_password")}
                     placeholder="Re-enter new password"
-                    className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 pr-10 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 pr-10 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-white/20 dark:bg-slate-950 dark:text-white"
                   />
                   <button
                     type="button"
@@ -241,7 +241,7 @@ export default function ChangePasswordPage() {
           <div className="mt-4 text-center">
             <Link
               href="/"
-              className="text-sm font-semibold text-slate-600 hover:text-slate-900"
+              className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             >
               Back to home
             </Link>

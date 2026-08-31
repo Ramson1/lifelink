@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Megaphone, Monitor, Newspaper, Radio, Star, Users } from "lucide-react";
 
 import { Container } from "@/components/Container";
-import { GradientOrbs } from "@/components/GradientOrbs";
+import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { brand } from "@/lib/brand";
 
@@ -64,18 +64,17 @@ export default function AdvertisingPage() {
   return (
     <div className="relative overflow-hidden">
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-20 sm:py-28">
-        <GradientOrbs variant="warm" />
+      <section className="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-20 sm:py-28 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <Container className="relative">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl text-center">
               <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-4 py-1.5 text-sm font-semibold text-amber-700 mb-6">
                 <Megaphone className="h-4 w-4" /> Advertise With Us
               </div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
+              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl">
                 Reach thousands across Nigeria
               </h1>
-              <p className="mt-6 text-lg leading-8 text-slate-600">
+              <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
                 LifeLink Group offers unique advertising opportunities across our platform, events, and community networks. Connect with engaged audiences in humanitarian services, finance, agriculture, and more.
               </p>
             </div>
@@ -84,13 +83,14 @@ export default function AdvertisingPage() {
       </section>
 
       {/* Ad Formats */}
-      <section className="py-20 sm:py-28">
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        <MeshGradient variant="aurora" />
         <Container>
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center mb-14">
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Ad Formats</div>
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">How you can advertise</h2>
-              <p className="mt-4 text-lg text-slate-600">Choose from multiple advertising formats tailored to your campaign goals.</p>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">How you can advertise</h2>
+              <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">Choose from multiple advertising formats tailored to your campaign goals.</p>
             </div>
           </ScrollReveal>
 
@@ -99,12 +99,12 @@ export default function AdvertisingPage() {
               const Icon = format.icon;
               return (
                 <ScrollReveal key={format.title} delay={i * 100}>
-                  <div className="group h-full rounded-3xl border border-slate-200 bg-white p-8 transition hover:shadow-lg">
+                  <div className="group h-full rounded-3xl border border-slate-200 bg-white p-8 transition hover:shadow-lg dark:border-slate-700 dark:bg-slate-900">
                     <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white">
                       <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900">{format.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-slate-600">{format.description}</p>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">{format.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{format.description}</p>
                   </div>
                 </ScrollReveal>
               );
@@ -114,20 +114,20 @@ export default function AdvertisingPage() {
       </section>
 
       {/* Pricing Tiers */}
-      <section className="py-20 sm:py-28 bg-slate-50/60">
+      <section className="py-20 sm:py-28">
         <Container>
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center mb-14">
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Pricing</div>
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">Advertising tiers</h2>
-              <p className="mt-4 text-lg text-slate-600">Flexible packages designed for businesses of all sizes. Contact us for custom pricing.</p>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">Advertising tiers</h2>
+              <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">Flexible packages designed for businesses of all sizes. Contact us for custom pricing.</p>
             </div>
           </ScrollReveal>
 
           <div className="grid gap-8 lg:grid-cols-3">
             {tiers.map((tier, i) => (
               <ScrollReveal key={tier.name} delay={i * 120}>
-                <div className={`relative h-full rounded-3xl border p-8 transition hover:shadow-lg ${tier.highlight ? "border-indigo-300 bg-white ring-2 ring-indigo-400/30" : "border-slate-200 bg-white"}`}>
+                <div className={`relative h-full rounded-3xl border p-8 transition hover:shadow-lg ${tier.highlight ? "border-indigo-300 bg-white ring-2 ring-indigo-400/30 dark:border-indigo-700 dark:bg-slate-900" : "border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900"}`}>
                   {tier.highlight && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                       <span className="inline-flex items-center gap-1 rounded-full bg-indigo-600 px-3 py-1 text-xs font-bold text-white">
@@ -135,11 +135,11 @@ export default function AdvertisingPage() {
                       </span>
                     </div>
                   )}
-                  <div className="text-lg font-bold text-slate-900">{tier.name}</div>
-                  <div className="mt-2 text-2xl font-extrabold text-slate-900">{tier.price}</div>
+                  <div className="text-lg font-bold text-slate-900 dark:text-white">{tier.name}</div>
+                  <div className="mt-2 text-2xl font-extrabold text-slate-900 dark:text-white">{tier.price}</div>
                   <ul className="mt-6 space-y-3">
                     {tier.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
+                      <li key={f} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
                         <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-indigo-500" />
                         {f}
                       </li>
@@ -147,7 +147,7 @@ export default function AdvertisingPage() {
                   </ul>
                   <Link
                     href="/contact"
-                    className={`mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition ${tier.highlight ? "bg-indigo-600 text-white hover:bg-indigo-700" : "border border-slate-200 text-slate-700 hover:bg-slate-50"}`}
+                    className={`mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition ${tier.highlight ? "bg-indigo-600 text-white hover:bg-indigo-700" : "border border-slate-200 text-slate-700 hover:bg-slate-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10"}`}
                   >
                     Contact us
                   </Link>

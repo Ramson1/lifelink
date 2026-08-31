@@ -58,10 +58,10 @@ export function ContactForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <label className="text-sm font-semibold text-black/80">Full name</label>
+          <label className="text-sm font-semibold text-black/80 dark:text-white/80">Full name</label>
           <input
             {...form.register("fullName")}
-            className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+            className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
             placeholder="Your name"
             autoComplete="name"
           />
@@ -73,10 +73,10 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-sm font-semibold text-black/80">Phone</label>
+          <label className="text-sm font-semibold text-black/80 dark:text-white/80">Phone</label>
           <input
             {...form.register("phone")}
-            className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+            className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
             placeholder="+234..."
             autoComplete="tel"
           />
@@ -89,10 +89,10 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-1.5">
-        <label className="text-sm font-semibold text-black/80">Email</label>
+        <label className="text-sm font-semibold text-black/80 dark:text-white/80">Email</label>
         <input
           {...form.register("email")}
-          className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+          className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
           placeholder="you@example.com"
           autoComplete="email"
         />
@@ -104,10 +104,10 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-1.5">
-        <label className="text-sm font-semibold text-black/80">Message</label>
+        <label className="text-sm font-semibold text-black/80 dark:text-white/80">Message</label>
         <textarea
           {...form.register("message")}
-          className="min-h-32 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+          className="min-h-32 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
           placeholder="How can we help?"
         />
         {form.formState.errors.message?.message ? (

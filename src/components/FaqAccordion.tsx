@@ -21,7 +21,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
   };
 
   return (
-    <div className="mx-auto max-w-3xl divide-y divide-slate-200 rounded-3xl border border-slate-200 bg-white">
+    <div className="mx-auto max-w-3xl divide-y divide-slate-200 rounded-3xl border border-slate-200 bg-white dark:divide-slate-700 dark:border-slate-700 dark:bg-slate-900">
       {items.map((faq) => {
         const isOpen = openId === faq.id;
         return (
@@ -29,9 +29,9 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
             <button
               type="button"
               onClick={() => toggle(faq.id)}
-              className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-slate-50"
+              className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-slate-50 dark:hover:bg-slate-800"
             >
-              <span className="text-base font-semibold text-slate-900">
+              <span className="text-base font-semibold text-slate-900 dark:text-white">
                 {faq.question}
               </span>
               <ChevronDown
@@ -53,7 +53,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                     return (
                       <ul key={i} className="space-y-1.5 pt-1">
                         {block.items.map((item, j) => (
-                          <li key={j} className="flex items-start gap-2 text-sm leading-relaxed text-slate-600">
+                          <li key={j} className="flex items-start gap-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                             <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-indigo-500" />
                             {item}
                           </li>
@@ -62,7 +62,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                     );
                   }
                   return (
-                    <p key={i} className="text-sm leading-relaxed text-slate-600">
+                    <p key={i} className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                       {block.content}
                     </p>
                   );

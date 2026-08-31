@@ -83,11 +83,11 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
 
   if (status === "success") {
     return (
-      <div className="rounded-3xl border border-black/10 bg-white/70 p-8">
-        <div className="text-2xl font-semibold text-black">
+      <div className="rounded-3xl border border-black/10 bg-white/70 p-8 dark:border-white/20 dark:bg-slate-900/70">
+        <div className="text-2xl font-semibold text-black dark:text-white">
           Registration received
         </div>
-        <div className="mt-3 text-sm leading-7 text-black/70">
+        <div className="mt-3 text-sm leading-7 text-black/70 dark:text-white/70">
           Thank you. Your details have been submitted successfully. Our team will
           reach out with next steps for your selected sector.
         </div>
@@ -107,13 +107,13 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
   const selectedService = services.find((s) => s.key === values.service);
 
   return (
-    <div className="rounded-3xl border border-black/10 bg-white/70 p-6 sm:p-8">
+    <div className="rounded-3xl border border-black/10 bg-white/70 p-6 sm:p-8 dark:border-white/20 dark:bg-slate-900/70">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <div className="text-sm font-semibold text-black">E-Registration</div>
-          <div className="mt-1 text-sm text-black/70">{steps.join(" • ")}</div>
+          <div className="text-sm font-semibold text-black dark:text-white">E-Registration</div>
+          <div className="mt-1 text-sm text-black/70 dark:text-white/70">{steps.join(" • ")}</div>
         </div>
-        <div className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-black/70">
+        <div className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-black/70 dark:border-white/20 dark:bg-white/10 dark:text-white/70">
           Step {currentIndex + 1}/{steps.length}
         </div>
       </div>
@@ -132,7 +132,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
               "h-10 rounded-xl px-3 text-left text-xs font-semibold transition",
               s === step
                 ? "bg-[var(--accent)] text-white"
-                : "border border-black/10 bg-white text-black/70 hover:bg-black/5 hover:text-black",
+                : "border border-black/10 bg-white text-black/70 hover:bg-black/5 hover:text-black dark:border-white/20 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/20 dark:hover:text-white",
             ].join(" ")}
           >
             {s}
@@ -171,7 +171,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
 
         {step === "Program" ? (
           <div className="space-y-4">
-            <div className="text-lg font-semibold text-black">
+            <div className="text-lg font-semibold text-black dark:text-white">
               Choose your preferred sector
             </div>
             <div className="grid gap-3 md:grid-cols-2">
@@ -189,14 +189,14 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
                       "rounded-3xl border p-6 text-left transition",
                       active
                         ? "border-[var(--accent)] bg-[var(--accent)]/10"
-                        : "border-black/10 bg-white hover:bg-black/5",
+                        : "border-black/10 bg-white hover:bg-black/5 dark:border-white/20 dark:bg-white/10 dark:hover:bg-white/20",
                     ].join(" ")}
                   >
-                    <div className="text-sm font-semibold text-black">
+                    <div className="text-sm font-semibold text-black dark:text-white">
                       {s.title}
                     </div>
-                    <div className="mt-1 text-sm text-black/70">{s.subtitle}</div>
-                    <div className="mt-4 text-sm text-black/70">{s.description}</div>
+                    <div className="mt-1 text-sm text-black/70 dark:text-white/70">{s.subtitle}</div>
+                    <div className="mt-4 text-sm text-black/70 dark:text-white/70">{s.description}</div>
                   </button>
                 );
               })}
@@ -206,7 +206,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
 
         {step === "Personal" ? (
           <div className="space-y-5">
-            <div className="text-lg font-semibold text-black">
+            <div className="text-lg font-semibold text-black dark:text-white">
               Personal information
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -217,7 +217,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
               >
                 <input
                   {...form.register("fullName")}
-                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
                   autoComplete="name"
                 />
               </Field>
@@ -228,7 +228,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
               >
                 <input
                   {...form.register("phone")}
-                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
                   autoComplete="tel"
                 />
               </Field>
@@ -239,7 +239,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
               >
                 <input
                   {...form.register("email")}
-                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
                   autoComplete="email"
                 />
               </Field>
@@ -250,7 +250,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
               >
                 <input
                   {...form.register("occupation")}
-                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
                 />
               </Field>
             </div>
@@ -262,7 +262,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
             >
               <input
                 {...form.register("address")}
-                className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
                 autoComplete="street-address"
               />
             </Field>
@@ -271,7 +271,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
 
         {step === "Next of Kin" ? (
           <div className="space-y-5">
-            <div className="text-lg font-semibold text-black">Next of kin</div>
+            <div className="text-lg font-semibold text-black dark:text-white">Next of kin</div>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field
                 label="Next of kin name"
@@ -280,7 +280,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
               >
                 <input
                   {...form.register("nextOfKinName")}
-                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
                 />
               </Field>
               <Field
@@ -290,7 +290,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
               >
                 <input
                   {...form.register("nextOfKinPhone")}
-                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
                 />
               </Field>
             </div>
@@ -298,7 +298,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
             <Field label="Notes (optional)" error={form.formState.errors.notes?.message}>
               <textarea
                 {...form.register("notes")}
-                className="min-h-28 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                className="min-h-28 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none focus:ring-2 focus:ring-[var(--accent)] dark:border-white/20 dark:bg-slate-900 dark:text-white"
                 placeholder="Any extra information you'd like to share"
               />
             </Field>
@@ -307,13 +307,13 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
 
         {step === "Review" ? (
           <div className="space-y-5">
-            <div className="text-lg font-semibold text-black">Review details</div>
-            <div className="rounded-3xl border border-black/10 bg-white p-6">
-              <div className="text-sm font-semibold text-black">Selected program</div>
-              <div className="mt-2 text-sm text-black/80">
+            <div className="text-lg font-semibold text-black dark:text-white">Review details</div>
+            <div className="rounded-3xl border border-black/10 bg-white p-6 dark:border-white/20 dark:bg-slate-900">
+              <div className="text-sm font-semibold text-black dark:text-white">Selected program</div>
+              <div className="mt-2 text-sm text-black/80 dark:text-white/80">
                 {selectedService?.title ?? "—"}
               </div>
-              <div className="mt-1 text-sm text-black/60">
+              <div className="mt-1 text-sm text-black/60 dark:text-white/60">
                 {selectedService?.subtitle ?? ""}
               </div>
 
@@ -329,8 +329,8 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
 
               {values.notes ? (
                 <div className="mt-6">
-                  <div className="text-sm font-semibold text-black">Notes</div>
-                  <div className="mt-2 text-sm leading-7 text-black/70">
+                  <div className="text-sm font-semibold text-black dark:text-white">Notes</div>
+                  <div className="mt-2 text-sm leading-7 text-black/70 dark:text-white/70">
                     {values.notes}
                   </div>
                 </div>
@@ -376,18 +376,18 @@ function Field({
 }) {
   return (
     <div className="space-y-1.5">
-      <div className="text-sm font-semibold text-black/80">{label}</div>
+      <div className="text-sm font-semibold text-black/80 dark:text-white/80">{label}</div>
       {children}
-      {error ? <div className="text-xs font-semibold text-red-800">{error}</div> : null}
+      {error ? <div className="text-xs font-semibold text-red-800 dark:text-red-400">{error}</div> : null}
     </div>
   );
 }
 
 function ReviewRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-black/10 bg-white/70 px-4 py-3">
-      <div className="text-xs font-semibold text-black/60">{label}</div>
-      <div className="mt-1 text-sm font-semibold text-black/85">
+    <div className="rounded-2xl border border-black/10 bg-white/70 px-4 py-3 dark:border-white/20 dark:bg-white/10">
+      <div className="text-xs font-semibold text-black/60 dark:text-white/60">{label}</div>
+      <div className="mt-1 text-sm font-semibold text-black/85 dark:text-white/85">
         {value || "—"}
       </div>
     </div>

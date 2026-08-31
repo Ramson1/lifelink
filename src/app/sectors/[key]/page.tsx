@@ -4,10 +4,11 @@ import * as icons from "lucide-react";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 
 import { Container } from "@/components/Container";
-import { GradientOrbs } from "@/components/GradientOrbs";
+import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { brand, services } from "@/lib/brand";
 import { getSector } from "@/data/sectors";
+import { createServiceClient } from "@/lib/admin/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -39,11 +40,14 @@ interface MergedService {
 
 async function getDbSectors(): Promise<DbSector[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/admin/sectors`, { cache: "no-store" });
-    if (!res.ok) return [];
-    const json = await res.json();
-    return json.items ?? [];
+    const supabase = createServiceClient();
+    const { data, error } = await supabase
+      .from("lifelink_sectors")
+      .select("*")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false });
+    if (error) return [];
+    return data ?? [];
   } catch {
     return [];
   }
@@ -175,12 +179,12 @@ export default async function SectorPage({
 
       {/* Overview */}
       {overview.length > 0 && (
-        <section className="relative py-20 sm:py-28">
-          <GradientOrbs variant="warm" className="opacity-40" />
+        <section className="relative py-20 sm:py-28 overflow-hidden">
+          <MeshGradient variant="sunset" />
           <Container className="relative">
             <ScrollReveal>
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Overview</div>
-              <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-8">
+              <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-8">
                 About the {title} sector
               </h2>
             </ScrollReveal>
@@ -190,7 +194,7 @@ export default async function SectorPage({
                   const text = typeof item === "string" ? item : item.description ?? item.title ?? "";
                   if (!text) return null;
                   return (
-                    <p key={i} className="text-base leading-8 text-slate-700">
+                    <p key={i} className="text-base leading-8 text-slate-700 dark:text-slate-300">
                       {text}
                     </p>
                   );
@@ -203,25 +207,25 @@ export default async function SectorPage({
 
       {/* Features */}
       {features.length > 0 && (
-        <section className="py-20 sm:py-28 bg-slate-50/60">
+        <section className="py-20 sm:py-28">
           <Container>
             <ScrollReveal>
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">What we offer</div>
-              <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-4">Key features</h2>
-              <p className="text-lg text-slate-600 mb-12 max-w-2xl">Core capabilities of the {title} sector.</p>
+              <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-4">Key features</h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-2xl">Core capabilities of the {title} sector.</p>
             </ScrollReveal>
             <div className="grid gap-6 md:grid-cols-3">
               {features.map((f, i) => (
                 <ScrollReveal key={f.title} delay={i * 100}>
-                  <div className="h-full rounded-3xl border border-black/10 bg-white p-7 transition hover:shadow-lg hover:-translate-y-1">
+                  <div className="h-full rounded-3xl border border-black/10 bg-white p-7 transition hover:shadow-lg hover:-translate-y-1 dark:border-white/20 dark:bg-slate-900">
                     <div
                       className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
                       style={{ background: "linear-gradient(135deg, #0f172a, #1d4ed8)" }}
                     >
                       <CheckCircle2 className="h-6 w-6" strokeWidth={2} />
                     </div>
-                    <div className="text-lg font-semibold text-slate-900">{f.title}</div>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{f.description}</p>
+                    <div className="text-lg font-semibold text-slate-900 dark:text-white">{f.title}</div>
+                    <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{f.description}</p>
                   </div>
                 </ScrollReveal>
               ))}
@@ -232,24 +236,24 @@ export default async function SectorPage({
 
       {/* Benefits */}
       {benefits.length > 0 && (
-        <section className="relative py-20 sm:py-28">
-          <GradientOrbs variant="cool" className="opacity-30" />
+        <section className="relative py-20 sm:py-28 overflow-hidden">
+          <MeshGradient variant="ocean" />
           <Container className="relative">
             <ScrollReveal>
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Member benefits</div>
-              <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-12">Why join this sector</h2>
+              <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-12">Why join this sector</h2>
             </ScrollReveal>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {benefits.map((b, i) => (
                 <ScrollReveal key={b} delay={i * 80}>
-                  <div className="flex h-full items-start gap-3 rounded-2xl border border-black/10 bg-white/70 p-5 backdrop-blur-sm">
+                  <div className="flex h-full items-start gap-3 rounded-2xl border border-black/10 bg-white/70 p-5 backdrop-blur-sm dark:border-white/20 dark:bg-slate-900/70">
                     <div
                       className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full text-white"
                       style={{ background: "linear-gradient(135deg, #0f172a, #1d4ed8)" }}
                     >
                       <CheckCircle2 className="h-4 w-4" strokeWidth={2.5} />
                     </div>
-                    <div className="text-sm font-semibold text-slate-800">{b}</div>
+                    <div className="text-sm font-semibold text-slate-800 dark:text-white/80">{b}</div>
                   </div>
                 </ScrollReveal>
               ))}
@@ -295,8 +299,8 @@ export default async function SectorPage({
           <Container>
             <ScrollReveal>
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Explore more</div>
-              <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-4">Related sectors</h2>
-              <p className="text-lg text-slate-600 mb-12 max-w-2xl">Discover other sectors within LifeLink Group.</p>
+              <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-4">Related sectors</h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-2xl">Discover other sectors within LifeLink Group.</p>
             </ScrollReveal>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((r, i) => {
@@ -305,7 +309,7 @@ export default async function SectorPage({
                   <ScrollReveal key={r.key} delay={i * 100}>
                     <Link
                       href={`/sectors/${r.key}`}
-                      className="group flex flex-col rounded-3xl border border-black/10 bg-white/70 p-6 transition hover:bg-white hover:shadow-lg"
+                      className="group flex flex-col rounded-3xl border border-black/10 bg-white/70 p-6 transition hover:bg-white hover:shadow-lg dark:border-white/20 dark:bg-slate-900/70 dark:hover:bg-slate-800"
                     >
                       {RelIcon && (
                         <div
@@ -315,9 +319,9 @@ export default async function SectorPage({
                           <RelIcon className="h-6 w-6" strokeWidth={1.8} />
                         </div>
                       )}
-                      <div className="text-lg font-semibold text-slate-900 group-hover:text-slate-700">{r.title}</div>
-                      <div className="mt-1 text-sm text-slate-600">{r.subtitle}</div>
-                      <div className="mt-auto pt-4 inline-flex items-center gap-1 text-xs font-semibold text-slate-700 group-hover:gap-2 transition-all">
+                      <div className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200">{r.title}</div>
+                      <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">{r.subtitle}</div>
+                      <div className="mt-auto pt-4 inline-flex items-center gap-1 text-xs font-semibold text-slate-700 dark:text-slate-200 group-hover:gap-2 transition-all">
                         Explore <ArrowRight className="h-3 w-3" />
                       </div>
                     </Link>

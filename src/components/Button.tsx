@@ -24,8 +24,8 @@ export function Button({
     variant === "primary"
       ? "bg-[var(--accent)] text-white hover:bg-[var(--accent)]/90"
       : variant === "secondary"
-        ? "border border-black/10 bg-white/70 text-black hover:bg-white"
-        : "text-black/70 hover:text-black hover:bg-black/5";
+        ? "border border-black/10 bg-white/70 text-black hover:bg-white dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+        : "text-black/70 hover:text-black hover:bg-black/5 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/10";
 
   const merged = `${base} ${styles} ${className}`;
 

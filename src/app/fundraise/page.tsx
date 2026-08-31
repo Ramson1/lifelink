@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Heart, HandHeart, TrendingUp } from "lucide-react";
 
 import { Container } from "@/components/Container";
-import { GradientOrbs } from "@/components/GradientOrbs";
+import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { brand } from "@/lib/brand";
 
@@ -51,18 +51,17 @@ export default function FundraisePage() {
   return (
     <div className="relative overflow-hidden">
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-rose-50 via-white to-amber-50 py-20 sm:py-28">
-        <GradientOrbs variant="warm" />
+      <section className="relative bg-gradient-to-br from-rose-50 via-white to-amber-50 py-20 sm:py-28 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <Container className="relative">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl text-center">
               <div className="inline-flex items-center gap-2 rounded-full bg-rose-100 px-4 py-1.5 text-sm font-semibold text-rose-700 mb-6">
                 <Heart className="h-4 w-4" /> Make a Difference
               </div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
+              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl">
                 Fundraise with LifeLink
               </h1>
-              <p className="mt-6 text-lg leading-8 text-slate-600">
+              <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
                 Support our campaigns to empower communities, transform lives, and create sustainable opportunities across Nigeria. Every contribution counts.
               </p>
             </div>
@@ -71,13 +70,14 @@ export default function FundraisePage() {
       </section>
 
       {/* Active Campaigns */}
-      <section className="py-20 sm:py-28">
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        <MeshGradient variant="sunset" />
         <Container>
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center mb-14">
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Active Campaigns</div>
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">Current fundraisers</h2>
-              <p className="mt-4 text-lg text-slate-600">Browse our active campaigns and contribute to the causes that matter to you.</p>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">Current fundraisers</h2>
+              <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">Browse our active campaigns and contribute to the causes that matter to you.</p>
             </div>
           </ScrollReveal>
 
@@ -87,7 +87,7 @@ export default function FundraisePage() {
               const progress = Math.min(100, Math.round((campaign.raised / campaign.target) * 100));
               return (
                 <ScrollReveal key={campaign.title} delay={i * 120}>
-                  <div className="group h-full rounded-3xl border border-slate-200 bg-white overflow-hidden transition hover:shadow-lg">
+                  <div className="group h-full rounded-3xl border border-slate-200 bg-white overflow-hidden transition hover:shadow-lg dark:border-slate-700 dark:bg-slate-900">
                     <div className="bg-gradient-to-br from-indigo-500 to-cyan-500 p-6 text-white">
                       <div className="flex items-center justify-between">
                         <Icon className="h-8 w-8 opacity-80" />
@@ -98,20 +98,20 @@ export default function FundraisePage() {
                       <h3 className="mt-4 text-lg font-bold">{campaign.title}</h3>
                     </div>
                     <div className="p-6">
-                      <p className="text-sm leading-7 text-slate-600">{campaign.description}</p>
+                      <p className="text-sm leading-7 text-slate-600 dark:text-slate-300">{campaign.description}</p>
 
                       <div className="mt-6">
                         <div className="flex items-center justify-between text-sm">
-                          <span className="font-semibold text-slate-900">{formatCurrency(campaign.raised)} raised</span>
-                          <span className="text-slate-500">{progress}%</span>
+                          <span className="font-semibold text-slate-900 dark:text-white">{formatCurrency(campaign.raised)} raised</span>
+                          <span className="text-slate-500 dark:text-slate-400">{progress}%</span>
                         </div>
-                        <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                        <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
                           <div
                             className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 transition-all"
                             style={{ width: `${progress}%` }}
                           />
                         </div>
-                        <div className="mt-2 text-xs text-slate-500">
+                        <div className="mt-2 text-xs text-slate-500 dark:text-slate-400">
                           Target: {formatCurrency(campaign.target)}
                         </div>
                       </div>
@@ -132,12 +132,12 @@ export default function FundraisePage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 sm:py-28 bg-slate-50/60">
+      <section className="py-20 sm:py-28">
         <Container>
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center mb-14">
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">How It Works</div>
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">Making an impact is simple</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">Making an impact is simple</h2>
             </div>
           </ScrollReveal>
 
@@ -152,8 +152,8 @@ export default function FundraisePage() {
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
                     {item.step}
                   </div>
-                  <h3 className="mt-4 text-lg font-bold text-slate-900">{item.title}</h3>
-                  <p className="mt-2 text-sm text-slate-600">{item.desc}</p>
+                  <h3 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.desc}</p>
                 </div>
               </ScrollReveal>
             ))}

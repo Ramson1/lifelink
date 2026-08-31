@@ -4,8 +4,10 @@ import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { GradientOrbs } from "@/components/GradientOrbs";
+import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { services as hardcodedServices } from "@/lib/brand";
+import { createServiceClient } from "@/lib/admin/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -43,11 +45,14 @@ function getIcon(name: string) {
 
 async function getDbSectors(): Promise<DbSector[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/admin/sectors`, { cache: "no-store" });
-    if (!res.ok) return [];
-    const json = await res.json();
-    return json.items ?? [];
+    const supabase = createServiceClient();
+    const { data, error } = await supabase
+      .from("lifelink_sectors")
+      .select("*")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false });
+    if (error) return [];
+    return data ?? [];
   } catch {
     return [];
   }
@@ -86,16 +91,16 @@ export default async function ServicesPage() {
   return (
     <div className="relative overflow-hidden">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-20 sm:py-28">
+      <section className="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-20 sm:py-28 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <GradientOrbs variant="cool" />
         <Container className="relative">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl text-center">
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Services</div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
+              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl">
                 Explore our sectors
               </h1>
-              <p className="mt-6 text-lg leading-8 text-slate-600">
+              <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
                 From humanitarian services to finance, agriculture, energy, and digital assets. Start with e-registration and select your preferred sector.
               </p>
             </div>
@@ -104,8 +109,8 @@ export default async function ServicesPage() {
       </section>
 
       {/* Sectors Grid */}
-      <section className="relative py-20 sm:py-28">
-        <GradientOrbs className="opacity-50" />
+      <section className="relative py-20 sm:py-28 overflow-hidden">
+        <MeshGradient variant="aurora" />
         <Container>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {merged.map((s, index) => {
@@ -116,7 +121,7 @@ export default async function ServicesPage() {
                 <ScrollReveal key={s.key} delay={index * 80}>
                   <Link
                     href={`/sectors/${s.key}`}
-                    className={`group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-transparent ${isFeatured ? "ring-2 ring-amber-400/50" : ""}`}
+                    className={`group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-transparent dark:border-slate-700 dark:bg-slate-900 ${isFeatured ? "ring-2 ring-amber-400/50" : ""}`}
                   >
                     {isFeatured && (
                       <div className="absolute top-4 right-4">
@@ -135,7 +140,7 @@ export default async function ServicesPage() {
                       {Icon && <Icon className="h-8 w-8" strokeWidth={1.8} />}
                     </div>
 
-                    <h3 className="text-xl font-bold leading-tight text-slate-900 group-hover:text-indigo-600 transition-colors">
+                    <h3 className="text-xl font-bold leading-tight text-slate-900 dark:text-white group-hover:text-indigo-600 transition-colors">
                       {s.title}
                     </h3>
 
@@ -143,14 +148,14 @@ export default async function ServicesPage() {
                       {s.subtitle}
                     </p>
 
-                    <p className="mt-4 flex-grow text-base leading-relaxed text-slate-600">
+                    <p className="mt-4 flex-grow text-base leading-relaxed text-slate-600 dark:text-slate-300">
                       {s.description}
                     </p>
 
                     {s.highlights.length > 0 && (
-                      <ul role="list" className="mt-6 space-y-2 border-t border-slate-100 pt-5">
+                      <ul role="list" className="mt-6 space-y-2 border-t border-slate-100 dark:border-white/20 pt-5">
                         {s.highlights.slice(0, 3).map((feature) => (
-                          <li key={feature} className="flex items-center gap-2 text-sm text-slate-600">
+                          <li key={feature} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                             <CheckCircle2 className="h-4 w-4 flex-none text-cyan-500" />
                             {feature}
                           </li>

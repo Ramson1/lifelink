@@ -39,7 +39,7 @@ export const defaultFaqs: DefaultFaq[] = [
     id: "faq-5",
     question: "Who is the founder/CEO of LifeLink Group?",
     answerBlocks: [
-      { type: "text", content: "LIFELINK Group was founded by Pst. Sylvester Obi Nwagbo, a humanitarian, entrepreneur, business consultant, community mobilizer, and empowerment advocate." },
+      { type: "text", content: "LIFELINK Group was founded by Pastor Obi Nwagbo, a humanitarian, entrepreneur, business consultant, community mobilizer, and empowerment advocate." }
     ],
   },
   {

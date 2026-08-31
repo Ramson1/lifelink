@@ -1,21 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import * as lucideIcons from "lucide-react";
-import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { FaqAccordion, type FaqAnswerBlock } from "@/components/FaqAccordion";
-import { GradientOrbs } from "@/components/GradientOrbs";
+import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { brand, services } from "@/lib/brand";
+import { brand } from "@/lib/brand";
 import { defaultFaqs } from "@/lib/default-faqs";
 import { getManyContent } from "@/lib/content";
 import { createServiceClient } from "@/lib/admin/supabase";
-
-function getIcon(name: string) {
-  const Icon = (lucideIcons as any)[name];
-  return Icon ?? null;
-}
 
 const partners = [
   { src: "/trust/beautcia.png", alt: "Beautcia" },
@@ -157,21 +151,21 @@ export default async function Home() {
 
       {/* About Intro Section */}
       <section className="relative py-24 sm:py-32 overflow-hidden">
-        <GradientOrbs variant="warm" />
+        <MeshGradient variant="sunset" />
         <Container>
           <ScrollReveal>
             <div className="grid gap-10 md:grid-cols-2 md:items-start">
               <div>
                 <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">About</div>
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
+                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-6">
                   {brand.name}
                 </h2>
-                <p className="text-lg leading-8 text-slate-600">
+                <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
                   {c["about.intro"]}
                 </p>
               </div>
 
-              <div className="rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur-sm">
+              <div className="rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur-sm dark:border-white/20 dark:bg-slate-900/70">
                 <div className="flex items-center gap-4">
                   <Image
                     src="/branding/LOGO.png"
@@ -180,22 +174,22 @@ export default async function Home() {
                     height={56}
                   />
                   <div>
-                    <div className="text-sm font-semibold text-black">
+                    <div className="text-sm font-semibold text-black dark:text-white">
                       {brand.shortName}
                     </div>
-                    <div className="text-sm text-black/70">{brand.tagline}</div>
+                    <div className="text-sm text-black/70 dark:text-white/70">{brand.tagline}</div>
                   </div>
                 </div>
-                <div className="mt-6 text-sm leading-7 text-black/70">
+                <div className="mt-6 text-sm leading-7 text-black/70 dark:text-white/70">
                   {brand.about}
                 </div>
                 <div className="mt-6 grid gap-2">
-                  <div className="text-sm font-semibold text-black">Core values</div>
+                  <div className="text-sm font-semibold text-black dark:text-white">Core values</div>
                   <div className="flex flex-wrap gap-2">
                     {brand.values.map((v) => (
                       <div
                         key={v}
-                        className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-black/70"
+                        className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-black/70 dark:border-white/20 dark:bg-white/10 dark:text-white/70"
                       >
                         {v}
                       </div>
@@ -213,23 +207,23 @@ export default async function Home() {
         <Container>
           <ScrollReveal delay={100}>
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden">
+              <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden dark:border-white/20 dark:bg-slate-900/70">
                 <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-blue-500/20 blur-2xl" />
                 <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-amber-400" />
                 <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
                   Mission
                 </div>
-                <div className="mt-3 text-base leading-7 text-black/80">
+                <div className="mt-3 text-base leading-7 text-black/80 dark:text-white/80">
                   {c["about.mission"]}
                 </div>
               </div>
-              <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden">
+              <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden dark:border-white/20 dark:bg-slate-900/70">
                 <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-indigo-500/20 blur-2xl" />
                 <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-amber-400" />
                 <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
                   Vision
                 </div>
-                <div className="mt-3 text-base leading-7 text-black/80">
+                <div className="mt-3 text-base leading-7 text-black/80 dark:text-white/80">
                   {c["about.vision"]}
                 </div>
               </div>
@@ -239,15 +233,16 @@ export default async function Home() {
       </section>
 
       {/* Why Choose LifeLink */}
-      <section className="relative py-24 sm:py-32">
+      <section className="relative py-24 sm:py-32 overflow-hidden">
+        <MeshGradient variant="aurora" />
         <Container>
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-12">
               <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Why choose LifeLink</div>
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-6">
                 Built on trust, structure, and impact
               </h2>
-              <p className="text-lg text-slate-600">
+              <p className="text-lg text-slate-600 dark:text-slate-300">
                 Over two decades of measurable results across communities, families, and businesses.
               </p>
             </div>
@@ -256,9 +251,9 @@ export default async function Home() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {brand.whyChoose.map((item, i) => (
               <ScrollReveal key={item.title} delay={i * 80}>
-                <div className="h-full rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur-sm transition hover:bg-white hover:shadow-lg">
-                  <div className="text-sm font-semibold text-black">{item.title}</div>
-                  <div className="mt-2 text-sm leading-6 text-black/70">
+                <div className="h-full rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur-sm transition hover:bg-white hover:shadow-lg dark:border-white/20 dark:bg-slate-900/70 dark:hover:bg-slate-800">
+                  <div className="text-sm font-semibold text-black dark:text-white">{item.title}</div>
+                  <div className="mt-2 text-sm leading-6 text-black/70 dark:text-white/70">
                     {item.description}
                   </div>
                 </div>
@@ -268,100 +263,15 @@ export default async function Home() {
         </Container>
       </section>
 
-      {/* Services / Sectors Section */}
-      <section className="relative py-24 sm:py-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/50 to-white/0 backdrop-blur-sm -z-10"></div>
-        <Container>
-          <ScrollReveal>
-            <div className="text-center max-w-2xl mx-auto mb-20">
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
-                <span className="text-gradient">Our Sectors</span>
-              </h2>
-              <p className="text-lg text-slate-600">
-                One platform, diverse opportunities — from humanitarian services and finance to agriculture, energy, and digital assets.
-              </p>
-            </div>
-          </ScrollReveal>
-          
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => {
-              const Icon = getIcon(service.icon);
-              const [from, to] = service.color;
-              return (
-                <ScrollReveal key={service.key} delay={index * 80}>
-                <Link
-                  key={service.key}
-                  href={`/sectors/${service.key}`}
-                  className="glass-card flex flex-col overflow-hidden rounded-[2rem] p-8 animate-fade-in-up group block"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="flex items-center justify-between gap-x-4 mb-6">
-                    <div
-                      className="h-14 w-14 rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300"
-                      style={{
-                        background: `linear-gradient(135deg, ${from}, ${to})`,
-                        boxShadow: `0 10px 25px -10px ${from}aa`,
-                      }}
-                    >
-                      {Icon && <Icon className="h-7 w-7" strokeWidth={1.8} />}
-                    </div>
-                    {index === 0 && (
-                       <span className="inline-flex items-center gap-1 rounded-full bg-amber-100/80 px-3 py-1 text-xs font-bold text-amber-700 border border-amber-200/50 backdrop-blur-sm">
-                         <Sparkles className="w-3 h-3" /> Featured
-                       </span>
-                    )}
-                  </div>
-                  
-                  <h3 className="text-xl font-bold leading-8 text-slate-900 group-hover:text-indigo-600 transition-colors">
-                    {service.title}
-                  </h3>
-                  
-                  <p className="mt-2 text-sm font-bold text-slate-400 uppercase tracking-wider">
-                    {service.subtitle}
-                  </p>
-                  
-                  <p className="mt-4 text-base leading-relaxed text-slate-600 flex-grow">
-                    {service.description}
-                  </p>
-                  
-                  <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-slate-600 border-t border-slate-200/60 pt-6">
-                    {service.highlights.slice(0, 3).map((feature) => (
-                      <li key={feature} className="flex gap-x-3 items-start">
-                        <CheckCircle2 className="h-5 w-5 flex-none text-cyan-500 mt-0.5" aria-hidden="true" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-slate-700 group-hover:gap-2 transition-all">
-                    Explore sector <ArrowRight className="h-4 w-4" />
-                  </div>
-                </Link>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-          
-          <div className="mt-20 text-center animate-fade-in-up">
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 text-base font-semibold text-indigo-600 hover:text-indigo-500 hover:underline underline-offset-4 transition-all"
-            >
-              View all service details <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </Container>
-      </section>
-
       {/* FAQ Section */}
       <section className="relative py-24 sm:py-32">
           <Container>
             <ScrollReveal>
               <div className="text-center max-w-2xl mx-auto mb-16">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl mb-6">
+                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-6">
                   Frequently Asked <span className="text-gradient">Questions</span>
                 </h2>
-                <p className="text-lg text-slate-600">
+                <p className="text-lg text-slate-600 dark:text-slate-300">
                   Find answers to common questions about LifeLink Group, registration, and our services.
                 </p>
               </div>
