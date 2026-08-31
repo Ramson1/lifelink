@@ -6,7 +6,6 @@ import { useMemo, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";
 
 import { Button } from "@/components/Button";
-import { services } from "@/lib/brand";
 import {
   RegistrationValues,
   registrationSchema,
@@ -14,14 +13,21 @@ import {
 
 const steps = ["Program", "Personal", "Next of Kin", "Review"] as const;
 
-export function RegistrationWizard() {
+interface ServiceOption {
+  key: string;
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+export function RegistrationWizard({ services }: { services: ServiceOption[] }) {
   const searchParams = useSearchParams();
   const fromQuery = searchParams.get("service") ?? "";
 
   const defaultService = useMemo(() => {
     const match = services.find((s) => s.key === fromQuery)?.key;
-    return (match ?? "humanitarian") as RegistrationValues["service"];
-  }, [fromQuery]);
+    return (match ?? services[0]?.key ?? "") as RegistrationValues["service"];
+  }, [fromQuery, services]);
 
   const [step, setStep] = useState<(typeof steps)[number]>("Program");
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");

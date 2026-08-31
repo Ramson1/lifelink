@@ -21,7 +21,7 @@ interface DbSector {
   color_from: string;
   color_to: string;
   tagline: string;
-  overview: string[];
+  overview: Array<{ title?: string; description?: string }>;
   features: { title: string; description: string }[];
   benefits: string[];
   is_active: boolean;
@@ -186,11 +186,15 @@ export default async function SectorPage({
             </ScrollReveal>
             <ScrollReveal delay={100}>
               <div className="max-w-3xl space-y-6">
-                {overview.map((p, i) => (
-                  <p key={i} className="text-base leading-8 text-slate-700">
-                    {p}
-                  </p>
-                ))}
+                {overview.map((item, i) => {
+                  const text = typeof item === "string" ? item : item.description ?? item.title ?? "";
+                  if (!text) return null;
+                  return (
+                    <p key={i} className="text-base leading-8 text-slate-700">
+                      {text}
+                    </p>
+                  );
+                })}
               </div>
             </ScrollReveal>
           </Container>

@@ -5,12 +5,48 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { RegistrationWizard } from "@/components/registration/RegistrationWizard";
 import { getManyContent } from "@/lib/content";
+import { services } from "@/lib/brand";
+
+export const dynamic = "force-dynamic";
+
+interface DbSector {
+  key: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: string;
+  is_active: boolean;
+}
+
+async function getDbSectors(): Promise<DbSector[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+    const res = await fetch(`${baseUrl}/api/admin/sectors`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return (json.items ?? []).filter((s: DbSector) => s.is_active);
+  } catch {
+    return [];
+  }
+}
 
 export default async function RegisterPage() {
-  const c = await getManyContent([
-    { key: "registration.title", fallback: "Become a LifeLinker in minutes" },
-    { key: "registration.subtitle", fallback: "Select your preferred sector, enter your details, and submit. Our team will review and contact you with next steps." },
+  const [c, dbSectors] = await Promise.all([
+    getManyContent([
+      { key: "registration.title", fallback: "Become a LifeLinker in minutes" },
+      { key: "registration.subtitle", fallback: "Select your preferred sector, enter your details, and submit. Our team will review and contact you with next steps." },
+    ]),
+    getDbSectors(),
   ]);
+
+  // Merge: hardcoded services NOT in DB + all DB sectors
+  const dbKeys = new Set(dbSectors.map((s) => s.key));
+  const allServices = [
+    ...services
+      .filter((s) => !dbKeys.has(s.key))
+      .map((s) => ({ key: s.key, title: s.title, subtitle: s.subtitle, description: s.description })),
+    ...dbSectors.map((s) => ({ key: s.key, title: s.title, subtitle: s.subtitle, description: s.description })),
+  ];
 
   return (
     <div className="pt-28 pb-14 sm:pt-32 sm:pb-18">
@@ -72,7 +108,7 @@ export default async function RegisterPage() {
               </div>
             }
           >
-            <RegistrationWizard />
+            <RegistrationWizard services={allServices} />
           </Suspense>
         </div>
       </Container>

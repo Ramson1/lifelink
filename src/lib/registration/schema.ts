@@ -1,24 +1,7 @@
 import { z } from "zod";
 
-import { ServiceKey } from "@/lib/brand";
-
-export const serviceKeySchema = z.custom<ServiceKey>((v) => typeof v === "string");
-
 export const registrationSchema = z.object({
-  service: z.enum([
-    "humanitarian",
-    "finance",
-    "trading",
-    "affiliate",
-    "mlm",
-    "production",
-    "investment",
-    "landbanking",
-    "transport",
-    "agriculture",
-    "oilgas",
-    "digital",
-  ]),
+  service: z.string().min(1, "Please select a sector"),
   fullName: z.string().min(3),
   email: z.string().email(),
   phone: z.string().min(7),
