@@ -4,12 +4,16 @@ import { useEffect, useRef } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 
 const LERP_FACTOR = 0.08;
+const DOT_SPACING = 22; // px between dots
+const DOT_RADIUS = 4; // px radius of each dot
+const BLOB_SIZE = 500; // px diameter of the circular area
 
-const LIGHT_GRADIENT =
-  "radial-gradient(circle, rgba(99,102,241,0.18) 0%, rgba(6,182,212,0.12) 35%, rgba(139,92,246,0.10) 55%, transparent 75%)";
+function dotPattern(color: string) {
+  return `radial-gradient(circle, ${color} ${DOT_RADIUS}px, transparent ${DOT_RADIUS}px)`;
+}
 
-const DARK_GRADIENT =
-  "radial-gradient(circle, rgba(129,140,248,0.22) 0%, rgba(34,211,238,0.16) 35%, rgba(167,139,250,0.14) 55%, transparent 75%)";
+const SOFT_MASK =
+  "radial-gradient(circle, black 40%, transparent 75%)";
 
 export function CursorGradient() {
   const { theme } = useTheme();
@@ -21,10 +25,11 @@ export function CursorGradient() {
   const rafId = useRef(0);
   const isVisible = useRef(false);
 
-  // Update gradient when theme changes
+  // Update dot color when theme changes
   useEffect(() => {
     if (blobRef.current) {
-      blobRef.current.style.background = theme === "dark" ? DARK_GRADIENT : LIGHT_GRADIENT;
+      const color = theme === "dark" ? "rgba(255,255,255,0.35)" : "rgba(0,0,0,0.25)";
+      blobRef.current.style.backgroundImage = dotPattern(color);
     }
   }, [theme]);
 
@@ -34,14 +39,14 @@ export function CursorGradient() {
     if (motionQuery.matches) return;
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const half = BLOB_SIZE / 2;
 
     const animate = () => {
       currentX.current = lerp(currentX.current, targetX.current, LERP_FACTOR);
       currentY.current = lerp(currentY.current, targetY.current, LERP_FACTOR);
 
       if (blobRef.current) {
-        // Center the 800×500 ellipse on the cursor position
-        blobRef.current.style.transform = `translate3d(${currentX.current - 400}px, ${currentY.current - 250}px, 0)`;
+        blobRef.current.style.transform = `translate3d(${currentX.current - half}px, ${currentY.current - half}px, 0)`;
       }
 
       rafId.current = requestAnimationFrame(animate);
@@ -114,10 +119,14 @@ export function CursorGradient() {
     <div
       ref={blobRef}
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-0 h-[500px] w-[800px] rounded-full opacity-0 transition-opacity duration-1000"
+      className="pointer-events-none fixed left-0 top-0 z-0 rounded-full opacity-0 transition-opacity duration-1000"
       style={{
-        background: LIGHT_GRADIENT,
-        filter: "blur(80px)",
+        width: BLOB_SIZE,
+        height: BLOB_SIZE,
+        backgroundImage: dotPattern("rgba(0,0,0,0.25)"),
+        backgroundSize: `${DOT_SPACING}px ${DOT_SPACING}px`,
+        maskImage: SOFT_MASK,
+        WebkitMaskImage: SOFT_MASK,
         willChange: "transform",
       }}
     />
