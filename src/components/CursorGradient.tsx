@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 
 const LERP_FACTOR = 0.08;
-const DOT_SPACING = 22; // px between dots
+const DOT_SPACING = 34; // px between dots
 const DOT_RADIUS = 4; // px radius of each dot
 const BLOB_SIZE = 500; // px diameter of the circular area
 
@@ -28,7 +28,7 @@ export function CursorGradient() {
   // Update dot color when theme changes
   useEffect(() => {
     if (blobRef.current) {
-      const color = theme === "dark" ? "rgba(255,255,255,0.35)" : "rgba(0,0,0,0.25)";
+      const color = theme === "dark" ? "rgba(255,255,255,0.18)" : "rgba(0,0,0,0.13)";
       blobRef.current.style.backgroundImage = dotPattern(color);
     }
   }, [theme]);
