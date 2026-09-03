@@ -11,6 +11,7 @@ create table if not exists public.registrations (
   next_of_kin_name text not null,
   next_of_kin_phone text not null,
   notes text not null default '',
+  passport_url text not null default '',
   status text not null default 'new',
   source text not null default 'website',
   created_at timestamptz not null default now()

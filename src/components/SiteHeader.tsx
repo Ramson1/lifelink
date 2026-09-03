@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 
 import { brand } from "@/lib/brand";
@@ -26,6 +26,19 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
 
   const activeHref = useMemo(() => {
     const allLinks = [...links, ...exploreLinks];
@@ -47,8 +60,8 @@ export function SiteHeader() {
   const navLinks = links.filter((l) => l.href !== "/register");
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 pt-4">
-      <div className="mx-auto w-[75%] rounded-full bg-white dark:bg-slate-900 shadow-lg dark:shadow-slate-950/50">
+    <header ref={headerRef} className="fixed left-0 right-0 top-0 z-50 pt-4">
+      <div className="mx-auto w-[90%] rounded-full bg-white dark:bg-slate-900 shadow-lg dark:shadow-slate-950/50 md:w-[75%]">
         <div className="flex items-center justify-between px-6 py-3">
           {/* Company logo = home button */}
           <Link href="/" className="flex items-center gap-3 transition opacity-90 hover:opacity-100">
@@ -63,7 +76,7 @@ export function SiteHeader() {
               <div className="text-sm font-semibold text-black dark:text-white">
                 {brand.shortName}
               </div>
-              <div className="text-xs text-black/60 dark:text-white/60">{brand.rcNumber}</div>
+              <div className="hidden text-xs text-black/60 dark:text-white/60 md:block">{brand.rcNumber}</div>
             </div>
           </Link>
 

@@ -27,11 +27,11 @@ export function SiteFooter() {
               </div>
             </div>
             <div>
-              <p className="text-sm leading-6 text-white/60">
+              <div className="text-sm leading-6 text-white/60">
                 CAC Registered, Nigeria<br />
               <div className="text-sm font-semibold text-white mb-1 mt-2">Address:</div>
                 2 Ordu Avenue, East-West Road, Rumudara,<br />Port Harcourt, Rivers State, Nigeria
-              </p>
+              </div>
             </div>
           </div>
 

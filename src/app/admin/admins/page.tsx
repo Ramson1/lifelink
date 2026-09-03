@@ -253,11 +253,11 @@ export default function AdminsPage() {
       )}
 
       {showBulk && (
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-sm font-semibold text-slate-900">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
             Bulk import admins
           </h2>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
             Download the template, fill in your data, then upload the CSV file. Required columns: full_name, email, password (min 6 chars), role ({allowedRoles.join(", ")}).
           </p>
           <button
@@ -291,9 +291,9 @@ export default function AdminsPage() {
       {showCreate && (
         <form
           onSubmit={handleSubmit(onCreate)}
-          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800"
         >
-          <h2 className="text-sm font-semibold text-slate-900">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
             Create a new admin
           </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">

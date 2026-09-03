@@ -10,6 +10,7 @@ export const registrationSchema = z.object({
   nextOfKinName: z.string().min(3),
   nextOfKinPhone: z.string().min(7),
   notes: z.string().max(1200).default(""),
+  passport: z.string().default(""),
 });
 
 export type RegistrationValues = z.infer<typeof registrationSchema>;

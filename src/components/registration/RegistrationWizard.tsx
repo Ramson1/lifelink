@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";
 
 import { Button } from "@/components/Button";
@@ -31,6 +31,10 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
 
   const [step, setStep] = useState<(typeof steps)[number]>("Program");
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [passportPreview, setPassportPreview] = useState<string | null>(null);
+  const [passportUploading, setPassportUploading] = useState(false);
+  const [passportError, setPassportError] = useState("");
+  const passportInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<RegistrationValues>({
     resolver: zodResolver(registrationSchema) as Resolver<RegistrationValues>,
@@ -44,6 +48,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
       nextOfKinName: "",
       nextOfKinPhone: "",
       notes: "",
+      passport: "",
     },
     mode: "onBlur",
   });
@@ -80,6 +85,47 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
     if (step === "Program") return;
     setStep(steps[Math.max(0, currentIndex - 1)]);
   };
+
+  const uploadPassport = useCallback(
+    async (file: File) => {
+      setPassportError("");
+      if (file.size > 2 * 1024 * 1024) {
+        setPassportError("File exceeds 2MB limit");
+        return;
+      }
+      if (!["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(file.type)) {
+        setPassportError("Invalid file type. Allowed: JPG, PNG, WebP");
+        return;
+      }
+      setPassportUploading(true);
+      try {
+        const fd = new FormData();
+        fd.append("file", file);
+        const res = await fetch("/api/registration/upload", { method: "POST", body: fd });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          setPassportError(json.error ?? "Upload failed");
+          return;
+        }
+        setPassportPreview(json.url);
+        form.setValue("passport", json.url);
+      } catch {
+        setPassportError("Network error during upload");
+      } finally {
+        setPassportUploading(false);
+      }
+    },
+    [form],
+  );
+
+  const handlePassportChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) uploadPassport(file);
+      e.target.value = "";
+    },
+    [uploadPassport],
+  );
 
   if (status === "success") {
     return (
@@ -171,6 +217,21 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
 
         {step === "Program" ? (
           <div className="space-y-4">
+            <div className="flex flex-col-reverse justify-between gap-3 sm:flex-row">
+              <Button variant="ghost" onClick={back} className="justify-center">
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  if (values.service) setStep("Personal");
+                }}
+                disabled={!values.service}
+                className="justify-center"
+              >
+                Continue
+              </Button>
+            </div>
             <div className="text-lg font-semibold text-black dark:text-white">
               Choose your preferred sector
             </div>
@@ -266,6 +327,47 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
                 autoComplete="street-address"
               />
             </Field>
+
+            {/* Passport photo upload */}
+            <div className="space-y-1.5">
+              <div className="text-sm font-semibold text-black/80 dark:text-white/80">
+                Passport photo <span className="font-normal text-black/50 dark:text-white/50">(optional)</span>
+              </div>
+              <div className="flex items-center gap-4">
+                {passportPreview ? (
+                  <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-black/10 dark:border-white/20">
+                    <img src={passportPreview} alt="Passport" className="h-full w-full object-cover" />
+                  </div>
+                ) : (
+                  <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-xl border border-dashed border-black/20 dark:border-white/20">
+                    <svg className="h-8 w-8 text-black/30 dark:text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
+                    </svg>
+                  </div>
+                )}
+                <div className="flex-1">
+                  <input
+                    ref={passportInputRef}
+                    type="file"
+                    accept="image/jpeg,image/jpg,image/png,image/webp"
+                    onChange={handlePassportChange}
+                    className="hidden"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => passportInputRef.current?.click()}
+                    disabled={passportUploading}
+                    className="rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-black/5 disabled:opacity-50 dark:border-white/20 dark:bg-slate-900 dark:text-white dark:hover:bg-white/10"
+                  >
+                    {passportUploading ? "Uploading..." : passportPreview ? "Change photo" : "Upload passport"}
+                  </button>
+                  <div className="mt-1 text-xs text-black/50 dark:text-white/50">JPG, PNG or WebP. Max 2MB.</div>
+                  {passportError ? (
+                    <div className="mt-1 text-xs font-semibold text-red-800 dark:text-red-400">{passportError}</div>
+                  ) : null}
+                </div>
+              </div>
+            </div>
           </div>
         ) : null}
 
@@ -326,6 +428,15 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
                 <ReviewRow label="Next of kin" value={values.nextOfKinName} />
                 <ReviewRow label="Next of kin phone" value={values.nextOfKinPhone} />
               </div>
+
+              {values.passport ? (
+                <div className="mt-6">
+                  <div className="text-sm font-semibold text-black dark:text-white">Passport photo</div>
+                  <div className="mt-2">
+                    <img src={values.passport} alt="Passport" className="h-24 w-24 rounded-xl border border-black/10 object-cover dark:border-white/20" />
+                  </div>
+                </div>
+              ) : null}
 
               {values.notes ? (
                 <div className="mt-6">

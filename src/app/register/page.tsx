@@ -35,9 +35,18 @@ async function getDbSectors(): Promise<DbSector[]> {
 export default async function RegisterPage() {
   const dbSectors = await getDbSectors();
 
-  // Merge: hardcoded services NOT in DB + all DB sectors
+  // "General" catch-all option for users without a specific sector
+  const generalOption = {
+    key: "all",
+    title: "General",
+    subtitle: "Not sure yet? Select this to register without a specific sector.",
+    description: "You can always change your sector later by contacting our team.",
+  };
+
+  // Merge: General option first + hardcoded services NOT in DB + all DB sectors
   const dbKeys = new Set(dbSectors.map((s) => s.key));
   const allServices = [
+    generalOption,
     ...services
       .filter((s) => !dbKeys.has(s.key))
       .map((s) => ({ key: s.key, title: s.title, subtitle: s.subtitle, description: s.description })),

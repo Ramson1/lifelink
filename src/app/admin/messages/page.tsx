@@ -212,9 +212,9 @@ export default function MessagesPage() {
       {showCompose && (
         <form
           onSubmit={form.handleSubmit(onSend)}
-          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800"
         >
-          <h2 className="text-sm font-semibold text-slate-900">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
             Compose message
           </h2>
 

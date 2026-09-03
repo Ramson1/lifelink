@@ -158,10 +158,10 @@ export default function GalleryAdminPage() {
       </header>
 
       {showForm && canCrud && (
-        <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-slate-900">{editingId ? "Edit Image" : "New Image"}</h2>
-            <button type="button" onClick={closeForm} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"><X className="h-4 w-4" /></button>
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-white">{editingId ? "Edit Image" : "New Image"}</h2>
+            <button type="button" onClick={closeForm} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-700 dark:hover:text-slate-300"><X className="h-4 w-4" /></button>
           </div>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">

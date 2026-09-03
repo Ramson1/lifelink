@@ -22,6 +22,7 @@ export async function POST(request: Request) {
     next_of_kin_name: parsed.data.nextOfKinName,
     next_of_kin_phone: parsed.data.nextOfKinPhone,
     notes: parsed.data.notes ?? "",
+    passport_url: parsed.data.passport ?? "",
     status: "new",
     source: "website",
   });
