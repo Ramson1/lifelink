@@ -17,47 +17,64 @@ export function generateMetadata() {
   };
 }
 
-function MemberCard({ member, index }: { member: TeamMember; index: number }) {
-  const rotations = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "rotate-0", "-rotate-1.5", "rotate-1.5"];
-  const rotation = rotations[index % rotations.length];
+function MemberCard({ member }: { member: TeamMember }) {
+  const safeId = member.name.replace(/[^a-zA-Z0-9]/g, "");
   return (
-    <article className={`group relative z-0 -ml-4 first:ml-0 cursor-pointer transition-all duration-300 hover:z-20 hover:-translate-y-3 hover:rotate-0`}>
-      <div className={`overflow-hidden rounded-t-2xl rounded-b-lg border border-slate-200 bg-white shadow-md transition-all duration-300 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900 ${rotation} hover:!rotate-0`}>
+    <article className="group relative cursor-pointer">
+      {/* Bookmark ribbon container */}
+      <div className="relative overflow-hidden rounded-t-2xl bg-white shadow-lg transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl dark:bg-slate-800">
         {/* Photo */}
-        <div className="relative w-full overflow-hidden bg-slate-100 aspect-[3/4]">
+        <div className="relative w-full overflow-hidden bg-slate-100 dark:bg-slate-700 aspect-[2/3]">
           <Image
             src={member.image}
             alt={member.name}
             fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 15vw"
-            className="object-cover transition duration-500 group-hover:scale-110"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          {/* Gradient overlay at bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-          {/* Name on the image */}
-          <div className="absolute inset-x-0 bottom-0 p-3 text-center">
-            <div className="text-sm font-bold text-white leading-tight drop-shadow-lg">
+          {/* Gradient overlay — strong at bottom to keep name white */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          {/* Name on image */}
+          <div className="absolute inset-x-0 bottom-0 px-3 pb-4 pt-8 text-center">
+            <h3 className="text-sm font-bold leading-tight text-white drop-shadow-lg">
               {member.name}
-            </div>
+            </h3>
           </div>
         </div>
-        {/* Position tab */}
-        <div className="bg-gradient-to-r from-indigo-600 to-cyan-600 px-3 py-2 text-center">
-          <div className="text-xs font-semibold text-white leading-tight truncate">
+
+        {/* Position strip */}
+        <div className="relative bg-gradient-to-r from-indigo-600 to-cyan-600 px-3 py-3 text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-wide leading-tight text-white/95">
             {member.position}
-          </div>
+          </p>
         </div>
-        {/* Bookmark notch */}
-        <div className="relative mx-auto h-3 w-6">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-cyan-600" style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)" }} />
-        </div>
+      </div>
+
+      {/* Bookmark V-notch tail */}
+      <div className="relative h-5" style={{ marginTop: "-1px" }}>
+        <svg
+          viewBox="0 0 100 20"
+          preserveAspectRatio="none"
+          className="h-full w-full drop-shadow-sm"
+        >
+          <defs>
+            <linearGradient id={`bm-${safeId}`} x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgb(79 70 229)" />
+              <stop offset="100%" stopColor="rgb(8 145 178)" />
+            </linearGradient>
+          </defs>
+          <polygon
+            points="0,0 100,0 50,20"
+            fill={`url(#bm-${safeId})`}
+          />
+        </svg>
       </div>
     </article>
   );
 }
 
 export default function TeamPage() {
-  const excludedNames = ["kingley iroka"];
+  const excludedNames = ["kingley iroka", "obi nwagbo"];
   const members = listTeamMembers().filter(
     (m) => m.level !== "ceo" && !excludedNames.some((n) => m.name.toLowerCase().includes(n)),
   );
@@ -223,12 +240,10 @@ export default function TeamPage() {
               </div>
             </ScrollReveal>
 
-            <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-4 px-4">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {members.map((m, i) => (
-                <ScrollReveal key={m.image} delay={i * 60}>
-                  <div className="w-28 sm:w-32 md:w-36 lg:w-40">
-                    <MemberCard member={m} index={i} />
-                  </div>
+                <ScrollReveal key={m.image} delay={i * 80}>
+                  <MemberCard member={m} />
                 </ScrollReveal>
               ))}
             </div>
