@@ -38,3 +38,21 @@ export const ROLE_LABELS: Record<AdminRole, string> = {
 export function isValidRole(role: string): role is AdminRole {
   return (ADMIN_ROLES as readonly string[]).includes(role);
 }
+
+/** Roles that have full CRUD / backup access in the admin dashboard. */
+export const CRUD_ROLES = new Set<string>([
+  "super_admin",
+  "chairman",
+  "director_it_digital_assets",
+]);
+
+/**
+ * Server-side counterpart to the client `useAdminPermissions` gate.
+ * Super admins always pass; otherwise the role must be in CRUD_ROLES.
+ */
+export function canCrudRole(session: {
+  role: string;
+  is_super_admin: boolean;
+}): boolean {
+  return session.is_super_admin || CRUD_ROLES.has(session.role);
+}

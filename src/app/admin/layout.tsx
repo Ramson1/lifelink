@@ -25,6 +25,7 @@ import {
   CalendarDays,
   Award,
   ImageIcon,
+  DatabaseBackup,
   Sun,
   Moon,
 } from "lucide-react";
@@ -52,6 +53,7 @@ const NAV = [
   { href: "/admin/events", label: "Events", icon: CalendarDays },
   { href: "/admin/certificates", label: "Certificates", icon: Award },
   { href: "/admin/gallery", label: "Gallery", icon: ImageIcon },
+  { href: "/admin/backup", label: "Backup & Restore", icon: DatabaseBackup },
 ];
 
 export default function AdminLayout({

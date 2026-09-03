@@ -35,7 +35,9 @@ export type AuditAction =
   | "certificate.delete"
   | "gallery.create"
   | "gallery.update"
-  | "gallery.delete";
+  | "gallery.delete"
+  | "backup.export"
+  | "backup.import";
 
 export type EntityType =
   | "admin"
@@ -48,7 +50,8 @@ export type EntityType =
   | "partner"
   | "event"
   | "certificate"
-  | "gallery";
+  | "gallery"
+  | "backup";
 
 export async function writeAuditLog(args: {
   session: AdminSession | null;
