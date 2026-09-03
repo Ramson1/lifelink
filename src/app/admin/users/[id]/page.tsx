@@ -136,7 +136,7 @@ export default function UserDetailPage() {
 
   if (!user) {
     return (
-      <div className="rounded-3xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500">
+      <div className="rounded-3xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
         User not found.
       </div>
     );
@@ -159,10 +159,10 @@ export default function UserDetailPage() {
           <div className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
             User
           </div>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
             {user.full_name}
           </h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
             {services.find((s) => s.key === user.service_key)?.title ??
               user.service_key}{" "}
             · {user.status} · Registered {new Date(user.created_at).toLocaleDateString()}
@@ -171,7 +171,7 @@ export default function UserDetailPage() {
         {canCrud && (
           <button
             onClick={onDelete}
-            className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+            className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/30"
           >
             <Trash2 className="h-4 w-4" /> Delete user
           </button>
@@ -187,53 +187,53 @@ export default function UserDetailPage() {
       {canCrud ? (
         <form
           onSubmit={form.handleSubmit(onSave)}
-          className="rounded-3xl border border-slate-200 bg-white p-6"
+          className="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
         >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Full name
               </label>
               <input
                 {...form.register("full_name")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Email
               </label>
               <input
                 type="email"
                 {...form.register("email")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Phone
               </label>
               <input
                 {...form.register("phone")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
             </div>
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Address
               </label>
               <input
                 {...form.register("address")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Sector
               </label>
               <select
                 {...form.register("service_key")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               >
                 {services.map((s) => (
                   <option key={s.key} value={s.key}>
@@ -243,21 +243,21 @@ export default function UserDetailPage() {
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Occupation
               </label>
               <input
                 {...form.register("occupation")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Status
               </label>
               <select
                 {...form.register("status")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               >
                 <option value="new">New</option>
                 <option value="contacted">Contacted</option>
@@ -266,31 +266,31 @@ export default function UserDetailPage() {
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Next of kin name
               </label>
               <input
                 {...form.register("next_of_kin_name")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Next of kin phone
               </label>
               <input
                 {...form.register("next_of_kin_phone")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
             </div>
             <div className="sm:col-span-2 lg:col-span-3">
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Notes
               </label>
               <textarea
                 rows={3}
                 {...form.register("notes")}
-                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
             </div>
           </div>
@@ -310,49 +310,49 @@ export default function UserDetailPage() {
           </div>
         </form>
       ) : (
-        <div className="rounded-3xl border border-slate-200 bg-white p-6">
-          <h2 className="text-sm font-semibold text-slate-900">User details</h2>
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">User details</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div>
-              <div className="text-xs font-semibold text-slate-500">Full name</div>
-              <div className="mt-1 text-sm text-slate-900">{user.full_name}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Full name</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{user.full_name}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-500">Email</div>
-              <div className="mt-1 text-sm text-slate-900">{user.email}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Email</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{user.email}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-500">Phone</div>
-              <div className="mt-1 text-sm text-slate-900">{user.phone}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Phone</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{user.phone}</div>
             </div>
             <div className="sm:col-span-2">
-              <div className="text-xs font-semibold text-slate-500">Address</div>
-              <div className="mt-1 text-sm text-slate-900">{user.address}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Address</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{user.address}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-500">Sector</div>
-              <div className="mt-1 text-sm text-slate-900">{services.find((s) => s.key === user.service_key)?.title ?? user.service_key}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Sector</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{services.find((s) => s.key === user.service_key)?.title ?? user.service_key}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-500">Occupation</div>
-              <div className="mt-1 text-sm text-slate-900">{user.occupation || "—"}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Occupation</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{user.occupation || "—"}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-500">Status</div>
-              <div className="mt-1 text-sm text-slate-900 capitalize">{user.status}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Status</div>
+              <div className="mt-1 text-sm text-slate-900 capitalize dark:text-white">{user.status}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-500">Next of kin name</div>
-              <div className="mt-1 text-sm text-slate-900">{user.next_of_kin_name || "—"}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Next of kin name</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{user.next_of_kin_name || "—"}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-500">Next of kin phone</div>
-              <div className="mt-1 text-sm text-slate-900">{user.next_of_kin_phone || "—"}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Next of kin phone</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{user.next_of_kin_phone || "—"}</div>
             </div>
             {user.notes && (
               <div className="sm:col-span-2 lg:col-span-3">
-                <div className="text-xs font-semibold text-slate-500">Notes</div>
-                <div className="mt-1 text-sm text-slate-900">{user.notes}</div>
+                <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Notes</div>
+                <div className="mt-1 text-sm text-slate-900 dark:text-white">{user.notes}</div>
               </div>
             )}
           </div>

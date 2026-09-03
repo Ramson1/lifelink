@@ -68,10 +68,10 @@ export default async function AdminOverviewPage() {
         <div className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
           Dashboard
         </div>
-        <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+        <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
           Overview
         </h1>
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
           Quick snapshot of activity across the LifeLink admin platform.
         </p>
       </header>
@@ -83,7 +83,7 @@ export default async function AdminOverviewPage() {
             <Link
               key={s.label}
               href={s.href}
-              className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 transition hover:shadow-lg"
+              className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 transition hover:shadow-lg dark:border-slate-700 dark:bg-slate-800"
             >
               <div
                 className={`absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br ${s.gradient} opacity-10 transition group-hover:opacity-20`}
@@ -93,13 +93,13 @@ export default async function AdminOverviewPage() {
               >
                 <Icon className="h-5 w-5" />
               </div>
-              <div className="mt-4 text-3xl font-bold text-slate-900">
+              <div className="mt-4 text-3xl font-bold text-slate-900 dark:text-white">
                 {s.value}
               </div>
-              <div className="text-sm font-semibold text-slate-500">
+              <div className="text-sm font-semibold text-slate-500 dark:text-slate-400">
                 {s.label}
               </div>
-              <div className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-slate-600 group-hover:gap-2">
+              <div className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-slate-600 group-hover:gap-2 dark:text-slate-400">
                 View <ArrowRight className="h-3.5 w-3.5" />
               </div>
             </Link>
@@ -107,11 +107,11 @@ export default async function AdminOverviewPage() {
         })}
       </div>
 
-      <section className="rounded-3xl border border-slate-200 bg-white">
-        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+      <section className="rounded-3xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-700">
           <div className="flex items-center gap-2">
             <ScrollText className="h-4 w-4 text-slate-500" />
-            <h2 className="text-sm font-semibold text-slate-900">
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
               Recent activity
             </h2>
           </div>
@@ -122,9 +122,9 @@ export default async function AdminOverviewPage() {
             View all
           </Link>
         </div>
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-slate-100 dark:divide-slate-700">
           {recentAudit.length === 0 && (
-            <div className="px-6 py-10 text-center text-sm text-slate-500">
+            <div className="px-6 py-10 text-center text-sm text-slate-500 dark:text-slate-400">
               No activity yet.
             </div>
           )}
@@ -134,15 +134,15 @@ export default async function AdminOverviewPage() {
               className="flex items-center justify-between gap-4 px-6 py-3 text-sm"
             >
               <div className="min-w-0">
-                <div className="truncate font-semibold text-slate-800">
+                <div className="truncate font-semibold text-slate-800 dark:text-slate-300">
                   {entry.action}
                 </div>
-                <div className="truncate text-xs text-slate-500">
+                <div className="truncate text-xs text-slate-500 dark:text-slate-400">
                   by {entry.admin_email}
                   {entry.entity_type ? ` · ${entry.entity_type}` : ""}
                 </div>
               </div>
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-slate-400 dark:text-slate-500">
                 {new Date(entry.created_at).toLocaleString()}
               </div>
             </div>

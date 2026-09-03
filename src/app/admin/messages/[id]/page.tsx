@@ -158,7 +158,7 @@ export default function MessageThreadPage() {
 
   if (!root) {
     return (
-      <div className="rounded-3xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500">
+      <div className="rounded-3xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
         Message not found.
       </div>
     );
@@ -182,10 +182,10 @@ export default function MessageThreadPage() {
         <div className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
           Thread
         </div>
-        <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+        <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
           Conversation
         </h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           Started by {root.sender?.full_name ?? "Unknown"} ·{" "}
           {new Date(root.created_at).toLocaleString()}
         </p>
@@ -205,16 +205,16 @@ export default function MessageThreadPage() {
             <div
               key={m.id}
               className={[
-                "rounded-3xl border border-slate-200 bg-white p-5",
+                "rounded-3xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800",
                 isMine ? "ml-0 sm:ml-10" : "mr-0 sm:mr-10",
               ].join(" ")}
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <div className="text-sm font-semibold text-slate-900">
+                  <div className="text-sm font-semibold text-slate-900 dark:text-white">
                     {m.sender?.full_name ?? "Unknown"}
                   </div>
-                  <div className="text-xs text-slate-500">
+                  <div className="text-xs text-slate-500 dark:text-slate-400">
                     {new Date(m.created_at).toLocaleString()}
                     {m.updated_at !== m.created_at && " · edited"}
                   </div>
@@ -228,7 +228,7 @@ export default function MessageThreadPage() {
                             setReplyTo(m.id);
                             replyForm.reset({ body: "" });
                           }}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-700 dark:hover:text-slate-300"
                           title="Reply"
                         >
                           <Reply className="h-4 w-4" />
@@ -238,14 +238,14 @@ export default function MessageThreadPage() {
                             setEditingId(m.id);
                             editForm.reset({ body: m.body });
                           }}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-700 dark:hover:text-slate-300"
                           title="Edit"
                         >
                           <Pencil className="h-4 w-4" />
                         </button>
                         <button
                           onClick={() => onDelete(m.id)}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-500 transition hover:bg-red-50 hover:text-red-700"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-500 transition hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-900/30"
                           title="Delete"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -264,7 +264,7 @@ export default function MessageThreadPage() {
                   <textarea
                     rows={3}
                     {...editForm.register("body")}
-                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
                   />
                   <div className="mt-2 flex items-center gap-2">
                     <button
@@ -276,14 +276,14 @@ export default function MessageThreadPage() {
                     <button
                       type="button"
                       onClick={() => setEditingId(null)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700"
+                      className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300"
                     >
                       <X className="h-3.5 w-3.5" /> Cancel
                     </button>
                   </div>
                 </form>
               ) : (
-                <div className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-slate-800">
+                <div className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-slate-800 dark:text-slate-300">
                   {m.body}
                 </div>
               )}
@@ -296,7 +296,7 @@ export default function MessageThreadPage() {
                       href={a.file_url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                      className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
                     >
                       {a.file_name}
                     </a>
@@ -311,16 +311,16 @@ export default function MessageThreadPage() {
       {canCrud && replyTo && (
         <form
           onSubmit={replyForm.handleSubmit(onReply)}
-          className="rounded-3xl border border-slate-200 bg-white p-5"
+          className="rounded-3xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
         >
           <div className="mb-2 flex items-center justify-between">
-            <div className="text-xs font-semibold text-slate-700">
+            <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">
               Replying to thread
             </div>
             <button
               type="button"
               onClick={() => setReplyTo(null)}
-              className="text-xs font-semibold text-slate-500 hover:text-slate-700"
+              className="text-xs font-semibold text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
             >
               Cancel
             </button>
@@ -328,7 +328,7 @@ export default function MessageThreadPage() {
           <textarea
             rows={3}
             {...replyForm.register("body")}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
           />
           <div className="mt-3">
             <button
@@ -347,7 +347,7 @@ export default function MessageThreadPage() {
             setReplyTo(id as string);
             replyForm.reset({ body: "" });
           }}
-          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
         >
           <Reply className="h-4 w-4" /> Reply to thread
         </button>

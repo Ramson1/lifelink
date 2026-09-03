@@ -141,7 +141,7 @@ export default function AdminDetailPage() {
 
   if (!admin) {
     return (
-      <div className="rounded-3xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500">
+      <div className="rounded-3xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
         Admin not found.
       </div>
     );
@@ -163,10 +163,10 @@ export default function AdminDetailPage() {
         <div className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
           Admin
         </div>
-        <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+        <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
           {admin.full_name}
         </h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           {ROLE_LABELS[admin.role as AdminRole] ?? admin.role}
         </p>
       </header>
@@ -180,17 +180,17 @@ export default function AdminDetailPage() {
       {canCrud ? (
         <form
           onSubmit={updateForm.handleSubmit(onUpdate)}
-          className="rounded-3xl border border-slate-200 bg-white p-6"
+          className="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
         >
-          <h2 className="text-sm font-semibold text-slate-900">Profile</h2>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Profile</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Full name
               </label>
               <input
                 {...updateForm.register("full_name")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
               {updateForm.formState.errors.full_name && (
                 <p className="mt-1 text-xs font-semibold text-red-600">
@@ -199,13 +199,13 @@ export default function AdminDetailPage() {
               )}
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Email
               </label>
               <input
                 type="email"
                 {...updateForm.register("email")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
               {updateForm.formState.errors.email && (
                 <p className="mt-1 text-xs font-semibold text-red-600">
@@ -214,12 +214,12 @@ export default function AdminDetailPage() {
               )}
             </div>
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Role
               </label>
               <select
                 {...updateForm.register("role")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               >
                 {ADMIN_ROLES.filter((r) => r !== "super_admin").map((r) => (
                   <option key={r} value={r}>
@@ -245,31 +245,31 @@ export default function AdminDetailPage() {
           </div>
         </form>
       ) : (
-        <div className="rounded-3xl border border-slate-200 bg-white p-6">
-          <h2 className="text-sm font-semibold text-slate-900">Profile</h2>
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Profile</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>
-              <div className="text-xs font-semibold text-slate-500">Full name</div>
-              <div className="mt-1 text-sm text-slate-900">{admin.full_name}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Full name</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{admin.full_name}</div>
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-500">Email</div>
-              <div className="mt-1 text-sm text-slate-900">{admin.email}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Email</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{admin.email}</div>
             </div>
             <div className="sm:col-span-2">
-              <div className="text-xs font-semibold text-slate-500">Role</div>
-              <div className="mt-1 text-sm text-slate-900">{ROLE_LABELS[admin.role as AdminRole] ?? admin.role}</div>
+              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">Role</div>
+              <div className="mt-1 text-sm text-slate-900 dark:text-white">{ROLE_LABELS[admin.role as AdminRole] ?? admin.role}</div>
             </div>
           </div>
         </div>
       )}
 
       {canCrud && (
-        <section className="rounded-3xl border border-slate-200 bg-white p-6">
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <KeyRound className="h-4 w-4 text-slate-500" />
-              <h2 className="text-sm font-semibold text-slate-900">
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
                 Change password
               </h2>
             </div>
@@ -288,33 +288,33 @@ export default function AdminDetailPage() {
               className="mt-4 grid gap-4 sm:grid-cols-2"
             >
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Current password
                 </label>
                 <input
                   type="password"
                   {...pwdForm.register("current")}
-                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   New password
                 </label>
                 <input
                   type="password"
                   {...pwdForm.register("next")}
-                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Confirm new password
                 </label>
                 <input
                   type="password"
                   {...pwdForm.register("confirm")}
-                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                  className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
                 />
                 {pwdForm.formState.errors.confirm && (
                   <p className="mt-1 text-xs font-semibold text-red-600">

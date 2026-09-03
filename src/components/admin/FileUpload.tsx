@@ -103,7 +103,7 @@ export default function FileUpload({
   return (
     <div className="space-y-2">
       {label && (
-        <label className="block text-xs font-semibold text-slate-700">
+        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
           {label}
         </label>
       )}
@@ -117,8 +117,8 @@ export default function FileUpload({
             className={[
               "rounded-lg px-3 py-1 text-xs font-semibold transition",
               mode === "upload"
-                ? "bg-indigo-100 text-indigo-700"
-                : "text-slate-500 hover:text-slate-700",
+                ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300"
+                : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300",
             ].join(" ")}
           >
             Upload file
@@ -129,8 +129,8 @@ export default function FileUpload({
             className={[
               "rounded-lg px-3 py-1 text-xs font-semibold transition",
               mode === "url"
-                ? "bg-indigo-100 text-indigo-700"
-                : "text-slate-500 hover:text-slate-700",
+                ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300"
+                : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300",
             ].join(" ")}
           >
             Enter URL
@@ -153,8 +153,8 @@ export default function FileUpload({
             className={[
               "relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed px-4 py-6 text-center transition",
               dragging
-                ? "border-indigo-400 bg-indigo-50"
-                : "border-slate-200 bg-slate-50/50 hover:border-indigo-300 hover:bg-indigo-50/50",
+                ? "border-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
+                : "border-slate-200 bg-slate-50/50 hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-slate-600 dark:bg-slate-900/50 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/20",
             ].join(" ")}
           >
             {uploading ? (
@@ -181,10 +181,10 @@ export default function FileUpload({
             ) : (
               <>
                 <Upload className="mb-2 h-8 w-8 text-slate-400" />
-                <p className="text-sm font-medium text-slate-600">
+                <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
                   Drag & drop your image here
                 </p>
-                <p className="mt-1 text-xs text-slate-400">
+                <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                   or click to browse · Max {maxSizeMB}MB
                 </p>
               </>
@@ -219,7 +219,7 @@ export default function FileUpload({
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
             placeholder="/branding/image.jpg or https://..."
-            className="h-10 flex-1 rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+            className="h-10 flex-1 rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
           />
           <button
             type="button"
@@ -232,7 +232,7 @@ export default function FileUpload({
             <button
               type="button"
               onClick={handleClear}
-              className="h-10 rounded-xl border border-slate-200 px-3 text-sm text-slate-500 hover:bg-slate-50 transition"
+              className="h-10 rounded-xl border border-slate-200 px-3 text-sm text-slate-500 hover:bg-slate-50 transition dark:border-slate-600 dark:bg-slate-700 dark:text-slate-400 dark:hover:bg-slate-600"
             >
               <X className="h-4 w-4" />
             </button>

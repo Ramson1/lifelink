@@ -164,10 +164,10 @@ export default function NotificationsPage() {
         <div className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
           Communication
         </div>
-        <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+        <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
           Notifications
         </h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           Send email notifications to registered users.
         </p>
       </header>
@@ -181,20 +181,20 @@ export default function NotificationsPage() {
       {canCrud && (
         <form
           onSubmit={form.handleSubmit(onSend)}
-          className="rounded-3xl border border-slate-200 bg-white p-6"
+          className="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
         >
-          <h2 className="text-sm font-semibold text-slate-900">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
             Compose notification
           </h2>
 
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Subject
               </label>
               <input
                 {...form.register("subject")}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
               {form.formState.errors.subject && (
                 <p className="mt-1 text-xs font-semibold text-red-600">
@@ -204,11 +204,11 @@ export default function NotificationsPage() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Recipients
               </label>
               <div className="flex gap-2">
-                <label className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+                <label className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300">
                   <input
                     type="radio"
                     value="all"
@@ -217,7 +217,7 @@ export default function NotificationsPage() {
                   />
                   All users
                 </label>
-                <label className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+                <label className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300">
                   <input
                     type="radio"
                     value="selected"
@@ -235,7 +235,7 @@ export default function NotificationsPage() {
                   <select
                     value={sectorFilter}
                     onChange={(e) => setSectorFilter(e.target.value)}
-                    className="h-9 rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                    className="h-9 rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
                   >
                     <option value="">All sectors</option>
                     {services.map((s) => (
@@ -247,12 +247,12 @@ export default function NotificationsPage() {
                   <button
                     type="button"
                     onClick={selectAllFiltered}
-                    className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                    className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
                   >
                     Select all filtered ({filteredUsers.length})
                   </button>
                 </div>
-                <div className="max-h-48 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2">
+                <div className="max-h-48 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-600 dark:bg-slate-900">
                   {loadingUsers ? (
                     <div className="flex items-center justify-center py-4">
                       <Loader2 className="h-4 w-4 animate-spin text-slate-500" />
@@ -276,7 +276,7 @@ export default function NotificationsPage() {
                               "rounded-full border px-3 py-1.5 text-xs font-semibold transition",
                               selected
                                 ? "border-indigo-500 bg-indigo-500 text-white"
-                                : "border-slate-200 bg-white text-slate-700 hover:bg-slate-100",
+                                : "border-slate-200 bg-white text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600",
                             ].join(" ")}
                           >
                             {u.full_name}
@@ -295,13 +295,13 @@ export default function NotificationsPage() {
             )}
 
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-slate-700">
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Message
               </label>
               <textarea
                 rows={6}
                 {...form.register("body")}
-                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
               />
               {form.formState.errors.body && (
                 <p className="mt-1 text-xs font-semibold text-red-600">
@@ -328,10 +328,10 @@ export default function NotificationsPage() {
         </form>
       )}
 
-      <section className="rounded-3xl border border-slate-200 bg-white">
-        <div className="flex items-center gap-2 border-b border-slate-200 px-6 py-4">
+      <section className="rounded-3xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+        <div className="flex items-center gap-2 border-b border-slate-200 px-6 py-4 dark:border-slate-700">
           <Bell className="h-4 w-4 text-slate-500" />
-          <h2 className="text-sm font-semibold text-slate-900">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
             Notification history
           </h2>
         </div>
@@ -340,30 +340,30 @@ export default function NotificationsPage() {
             <Loader2 className="h-5 w-5 animate-spin text-slate-500" />
           </div>
         ) : history.length === 0 ? (
-          <div className="px-6 py-16 text-center text-sm text-slate-500">
+          <div className="px-6 py-16 text-center text-sm text-slate-500 dark:text-slate-400">
             No notifications sent yet.
           </div>
         ) : (
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-slate-100 dark:divide-slate-700">
             {history.map((n) => (
               <li key={n.id} className="px-6 py-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <div className="truncate text-sm font-semibold text-slate-900">
+                    <div className="truncate text-sm font-semibold text-slate-900 dark:text-white">
                       {n.subject}
                     </div>
-                    <div className="mt-0.5 text-xs text-slate-500">
+                    <div className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                       by {n.admins?.full_name ?? "Unknown"} ·{" "}
                       {n.recipient_mode === "all"
                         ? "All users"
                         : "Selected users"}{" "}
                       · {new Date(n.created_at).toLocaleString()}
                     </div>
-                    <div className="mt-2 line-clamp-2 text-xs text-slate-600">
+                    <div className="mt-2 line-clamp-2 text-xs text-slate-600 dark:text-slate-400">
                       {n.body}
                     </div>
                   </div>
-                  <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700">
+                  <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300">
                     {n.recipient_mode}
                   </span>
                 </div>

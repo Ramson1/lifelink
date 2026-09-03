@@ -154,7 +154,7 @@ export default function AdminLayout({
           ].join(" ")}
         >
           {/* Header */}
-          <div className="flex h-16 items-center gap-3 border-b border-slate-200 px-4 dark:border-slate-700">
+          <div className="flex items-center gap-3 border-b border-slate-200 px-4 py-3 dark:border-slate-700">
             <Image
               src="/branding/LOGO.png"
               alt="LifeLink"
@@ -170,9 +170,16 @@ export default function AdminLayout({
                 <div className="text-xs text-slate-500 dark:text-slate-400">Dashboard</div>
               </div>
             )}
+          </div>
+
+          {/* Collapse toggle + Theme — always visible below logo */}
+          <div className={[
+            "flex items-center gap-2 border-b border-slate-200 px-3 py-2 dark:border-slate-700",
+            collapsed ? "justify-center" : "",
+          ].join(" ")}>
             <button
               onClick={() => setCollapsed((v) => !v)}
-              className="ml-auto hidden h-7 w-7 flex-none items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-400 dark:hover:bg-slate-700 lg:inline-flex"
+              className="hidden h-8 w-8 flex-none items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-400 dark:hover:bg-slate-700 lg:inline-flex"
               title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
               <ChevronLeft
@@ -181,6 +188,21 @@ export default function AdminLayout({
                   collapsed ? "rotate-180" : "",
                 ].join(" ")}
               />
+            </button>
+            <button
+              onClick={toggleTheme}
+              className={[
+                "inline-flex h-8 items-center justify-center gap-2 rounded-lg border border-slate-200 text-slate-600 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700",
+                collapsed ? "w-8" : "px-3",
+              ].join(" ")}
+              title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {!collapsed && (
+                <span className="text-xs font-semibold">
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                </span>
+              )}
             </button>
           </div>
 
@@ -255,17 +277,6 @@ export default function AdminLayout({
                 {!collapsed && "Sign out"}
               </button>
             </div>
-
-            {/* Theme toggle */}
-            {!collapsed && (
-              <button
-                onClick={toggleTheme}
-                className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
-              >
-                {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
-                {theme === "dark" ? "Light Mode" : "Dark Mode"}
-              </button>
-            )}
 
             {/* Credit */}
             {!collapsed && (
