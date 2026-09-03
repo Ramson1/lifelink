@@ -46,7 +46,11 @@ export default async function PartnersPage() {
       <Container>
         <ScrollReveal>
           <div className="mx-auto max-w-3xl text-center">
-            <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Partners</div>
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Partners</div>
+              <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+            </div>
             <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl">Trusted by our partners</h1>
             <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
               We collaborate with forward-thinking organizations to deliver impactful programs, expand opportunities, and build stronger communities across Nigeria and beyond.

@@ -183,7 +183,11 @@ export default async function SectorPage({
           <MeshGradient variant="sunset" />
           <Container className="relative">
             <ScrollReveal>
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Overview</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Overview</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-8">
                 About the {title} sector
               </h2>
@@ -210,7 +214,11 @@ export default async function SectorPage({
         <section className="py-20 sm:py-28">
           <Container>
             <ScrollReveal>
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">What we offer</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">What we offer</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-4">Key features</h2>
               <p className="text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-2xl">Core capabilities of the {title} sector.</p>
             </ScrollReveal>
@@ -240,7 +248,11 @@ export default async function SectorPage({
           <MeshGradient variant="ocean" />
           <Container className="relative">
             <ScrollReveal>
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Member benefits</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Member benefits</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-12">Why join this sector</h2>
             </ScrollReveal>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -298,7 +310,11 @@ export default async function SectorPage({
         <section className="py-20 sm:py-28">
           <Container>
             <ScrollReveal>
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Explore more</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Explore more</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-4">Related sectors</h2>
               <p className="text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-2xl">Discover other sectors within LifeLink Group.</p>
             </ScrollReveal>

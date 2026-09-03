@@ -119,6 +119,14 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Global heading styles: purple in light, white in dark */
+h1, h2, h3, h4, h5, h6 {
+  color: #7c3aed;
+}
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: #ffffff;
+}
+
 /* Glassmorphism Utilities */
 .glass-card {
   background: var(--surface-card);

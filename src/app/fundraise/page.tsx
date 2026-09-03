@@ -75,7 +75,11 @@ export default function FundraisePage() {
         <Container>
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center mb-14">
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Active Campaigns</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Active Campaigns</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">Current fundraisers</h2>
               <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">Browse our active campaigns and contribute to the causes that matter to you.</p>
             </div>
@@ -136,7 +140,11 @@ export default function FundraisePage() {
         <Container>
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center mb-14">
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">How It Works</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">How It Works</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">Making an impact is simple</h2>
             </div>
           </ScrollReveal>

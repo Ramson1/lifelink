@@ -26,7 +26,11 @@ export default async function ContactPage() {
         <Container className="relative">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl text-center">
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Contact Us</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Contact Us</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl">
                 Let&apos;s talk about membership or partnerships
               </h1>

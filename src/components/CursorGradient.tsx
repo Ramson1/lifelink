@@ -4,9 +4,9 @@ import { useEffect, useRef } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 
 const LERP_FACTOR = 0.08;
-const DOT_SPACING = 34; // px between dots
-const DOT_RADIUS = 4; // px radius of each dot
-const BLOB_SIZE = 500; // px diameter of the circular area
+const DOT_SPACING = 22; // px between dots
+const DOT_RADIUS = 2; // px radius of each dot
+const BLOB_SIZE = 250; // px diameter of the circular area
 
 function dotPattern(color: string) {
   return `radial-gradient(circle, ${color} ${DOT_RADIUS}px, transparent ${DOT_RADIUS}px)`;

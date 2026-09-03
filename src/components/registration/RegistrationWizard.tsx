@@ -107,7 +107,7 @@ export function RegistrationWizard({ services }: { services: ServiceOption[] }) 
   const selectedService = services.find((s) => s.key === values.service);
 
   return (
-    <div className="rounded-3xl border border-black/10 bg-white/70 p-6 sm:p-8 dark:border-white/20 dark:bg-slate-900/70">
+    <div className="mx-auto max-w-xl rounded-3xl border border-black/10 bg-white/70 p-6 sm:p-8 dark:border-white/20 dark:bg-slate-900/70">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="text-sm font-semibold text-black dark:text-white">E-Registration</div>

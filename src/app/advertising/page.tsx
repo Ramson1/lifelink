@@ -88,7 +88,11 @@ export default function AdvertisingPage() {
         <Container>
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center mb-14">
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Ad Formats</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Ad Formats</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">How you can advertise</h2>
               <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">Choose from multiple advertising formats tailored to your campaign goals.</p>
             </div>
@@ -118,7 +122,11 @@ export default function AdvertisingPage() {
         <Container>
           <ScrollReveal>
             <div className="mx-auto max-w-2xl text-center mb-14">
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Pricing</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Pricing</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">Advertising tiers</h2>
               <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">Flexible packages designed for businesses of all sizes. Contact us for custom pricing.</p>
             </div>

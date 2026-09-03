@@ -55,8 +55,8 @@ export function SiteHeader() {
             <Image
               src="/branding/LOGO.png"
               alt={`${brand.shortName} logo`}
-              width={40}
-              height={40}
+              width={52}
+              height={52}
               priority
             />
             <div className="leading-tight">
@@ -139,10 +139,11 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={toggleTheme}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-black/5 text-black/70 transition hover:bg-black/10 hover:text-black dark:border-white/10 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/20 dark:hover:text-white"
+              className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3 py-1.5 text-xs font-medium text-black/70 transition hover:bg-black/10 hover:text-black dark:border-white/10 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/20 dark:hover:text-white"
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             >
-              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+              <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
             </button>
             <Link
               href="/register"

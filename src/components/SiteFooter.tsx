@@ -13,9 +13,9 @@ export function SiteFooter() {
       </div>
 
       <Container className="relative py-14">
-        <div className="grid gap-10 md:grid-cols-4">
+        <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           {/* Brand column */}
-          <div className="space-y-4 md:col-span-1">
+          <div className="space-y-4">
             <div className="flex items-center gap-3">
               <img
                 src="/branding/LOGO.png"
@@ -26,14 +26,17 @@ export function SiteFooter() {
                 {brand.shortName}
               </div>
             </div>
-            <p className="text-sm leading-6 text-white/60">{brand.tagline}</p>
-            <p className="text-sm text-white/50">
-              {brand.office.city}, {brand.office.state}, {brand.office.country}
-            </p>
+            <div>
+              <p className="text-sm leading-6 text-white/60">
+                CAC Registered, Nigeria<br />
+              <div className="text-sm font-semibold text-white mb-1 mt-2">Address:</div>
+                2 Ordu Avenue, East-West Road, Rumudara,<br />Port Harcourt, Rivers State, Nigeria
+              </p>
+            </div>
           </div>
 
           {/* Company links */}
-          <div className="grid gap-2 text-sm">
+          <div className="grid gap-2 text-sm md:justify-items-start">
             <div className="text-sm font-semibold text-white">Company</div>
             <Link className="text-white/60 transition hover:text-white" href="/services">
               Services
@@ -50,7 +53,7 @@ export function SiteFooter() {
           </div>
 
           {/* Explore links */}
-          <div className="grid gap-2 text-sm">
+          <div className="grid gap-2 text-sm md:justify-items-start">
             <div className="text-sm font-semibold text-white">Explore</div>
             <Link className="text-white/60 transition hover:text-white" href="/partners">
               Partners
@@ -66,16 +69,7 @@ export function SiteFooter() {
             </a>
           </div>
 
-          {/* Compliance */}
-          <div className="space-y-3">
-            <div className="text-sm font-semibold text-white">Compliance</div>
-            <div className="text-sm text-white/60">
-              {brand.rcNumber}
-            </div>
-            <div className="text-sm text-white/50">
-              {brand.contact.address}
-            </div>
-          </div>
+
         </div>
 
         {/* Bottom bar */}

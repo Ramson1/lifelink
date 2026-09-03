@@ -71,7 +71,7 @@ export const brand = {
       "+234 814 705 8460",
     ],
     address:
-      "2 Odu Avenue, East-West Road, Rumudara, Port Harcourt, Rivers State, Nigeria",
+      "2 Ordu Avenue, East-West Road, Rumudara, Port Harcourt, Rivers State, Nigeria",
   },
   office: {
     city: "Port Harcourt",

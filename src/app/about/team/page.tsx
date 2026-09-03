@@ -71,7 +71,11 @@ export default function TeamPage() {
         <Container className="relative">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl text-center">
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Leadership</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Leadership</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl">
                 Meet the team behind LifeLink
               </h1>
@@ -90,7 +94,11 @@ export default function TeamPage() {
           <Container>
             <ScrollReveal>
               <div className="mx-auto max-w-2xl text-center mb-12">
-                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">A Message from the CEO</div>
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">A Message from the CEO</div>
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                </div>
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Leadership Vision</h2>
               </div>
             </ScrollReveal>
@@ -206,7 +214,11 @@ export default function TeamPage() {
           <Container>
             <ScrollReveal>
               <div className="mx-auto max-w-2xl text-center mb-12">
-                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Board of Directors</div>
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Board of Directors</div>
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                </div>
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Our Directors</h2>
               </div>
             </ScrollReveal>
@@ -229,7 +241,11 @@ export default function TeamPage() {
           <Container>
             <ScrollReveal>
               <div className="mx-auto max-w-2xl text-center mb-12">
-                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Management</div>
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Management</div>
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                </div>
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Our Managers</h2>
               </div>
             </ScrollReveal>
@@ -251,7 +267,11 @@ export default function TeamPage() {
           <Container>
             <ScrollReveal>
               <div className="mx-auto max-w-2xl text-center mb-12">
-                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Our Team</div>
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Our Team</div>
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                </div>
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Team Members</h2>
               </div>
             </ScrollReveal>

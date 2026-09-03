@@ -109,7 +109,7 @@ export default async function Home() {
                 </Link>
                 <Link
                   href="/services"
-                  className="glass-card w-full sm:w-auto flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-semibold text-slate-700 hover:text-indigo-600 transition-all duration-300 group"
+                  className="glass-card w-full sm:w-auto flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-semibold text-slate-700 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 group"
                 >
                   Explore Services <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -154,15 +154,16 @@ export default async function Home() {
         <MeshGradient variant="sunset" />
         <Container>
           <ScrollReveal>
-            <div className="grid gap-10 md:grid-cols-2 md:items-start">
-              <div>
-                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">About</div>
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-6">
+            <div className="mx-auto max-w-3xl">
+              <div className="text-center mb-8">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">About</div>
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                </div>
+                <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
                   {brand.name}
                 </h2>
-                <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
-                  {c["about.intro"]}
-                </p>
               </div>
 
               <div className="rounded-3xl border border-black/10 bg-white/70 p-6 backdrop-blur-sm dark:border-white/20 dark:bg-slate-900/70">
@@ -180,7 +181,10 @@ export default async function Home() {
                     <div className="text-sm text-black/70 dark:text-white/70">{brand.tagline}</div>
                   </div>
                 </div>
-                <div className="mt-6 text-sm leading-7 text-black/70 dark:text-white/70">
+                <p className="mt-6 text-base leading-7 text-slate-700 dark:text-slate-300">
+                  {c["about.intro"]}
+                </p>
+                <div className="mt-4 text-sm leading-7 text-black/70 dark:text-white/70">
                   {brand.about}
                 </div>
                 <div className="mt-6 grid gap-2">
@@ -210,8 +214,10 @@ export default async function Home() {
               <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden dark:border-white/20 dark:bg-slate-900/70">
                 <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-blue-500/20 blur-2xl" />
                 <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-amber-400" />
-                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-                  Mission
+                <div className="flex items-center justify-center gap-3">
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Mission</div>
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
                 </div>
                 <div className="mt-3 text-base leading-7 text-black/80 dark:text-white/80">
                   {c["about.mission"]}
@@ -220,8 +226,10 @@ export default async function Home() {
               <div className="relative rounded-3xl border border-black/10 bg-white/70 p-8 backdrop-blur-sm overflow-hidden dark:border-white/20 dark:bg-slate-900/70">
                 <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-indigo-500/20 blur-2xl" />
                 <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-amber-400" />
-                <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-                  Vision
+                <div className="flex items-center justify-center gap-3">
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Vision</div>
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
                 </div>
                 <div className="mt-3 text-base leading-7 text-black/80 dark:text-white/80">
                   {c["about.vision"]}
@@ -238,7 +246,11 @@ export default async function Home() {
         <Container>
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <div className="text-sm font-semibold uppercase tracking-wider text-indigo-600 mb-3">Why choose LifeLink</div>
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Why choose LifeLink</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-6">
                 Built on trust, structure, and impact
               </h2>
