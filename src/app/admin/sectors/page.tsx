@@ -170,17 +170,22 @@ export default function SectorsPage() {
         )}
       </header>
 
-      {/* Form */}
+      {/* Modal overlay */}
       {showForm && canCrud && (
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm space-y-6 dark:border-slate-700 dark:bg-slate-800">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-slate-900 dark:text-white">{editing ? "Edit sector" : "New sector"}</h2>
-            <button onClick={() => setShowForm(false)} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-700 dark:hover:text-slate-300">
-              <X className="h-4 w-4" />
-            </button>
-          </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowForm(false)} />
+          {/* Modal */}
+          <div className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-700 dark:bg-slate-800">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{editing ? "Edit sector" : "New sector"}</h2>
+              <button onClick={() => setShowForm(false)} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-700 dark:hover:text-slate-300">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-6">
+              <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Key (unique slug)</label>
               <input value={form.key} onChange={e => setForm(f => ({ ...f, key: e.target.value }))} className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="e.g. renewable-energy" disabled={!!editing} />
@@ -211,87 +216,89 @@ export default function SectorsPage() {
                 <input value={form.color_to} onChange={e => setForm(f => ({ ...f, color_to: e.target.value }))} className="h-10 flex-1 rounded-xl border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white" />
               </div>
             </div>
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Description</label>
-            <textarea rows={2} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white" />
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Tagline</label>
-            <textarea rows={2} value={form.tagline} onChange={e => setForm(f => ({ ...f, tagline: e.target.value }))} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white" />
-          </div>
-
-          {/* Toggles */}
-          <div className="flex gap-6">
-            <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-              <input type="checkbox" checked={form.is_active} onChange={e => setForm(f => ({ ...f, is_active: e.target.checked }))} className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
-              Active
-            </label>
-            <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-              <input type="checkbox" checked={form.accepting_registrations} onChange={e => setForm(f => ({ ...f, accepting_registrations: e.target.checked }))} className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
-              Accepting registrations
-            </label>
-          </div>
-
-          {/* Overview */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Overview paragraphs</label>
-              <button type="button" onClick={addOverviewItem} className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
-            </div>
-            {form.overview.map((item, i) => (
-              <div key={i} className="flex gap-2">
-                <textarea rows={2} value={item.description ?? ""} onChange={e => updateOverviewItem(i, "description", e.target.value)} className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="Paragraph text" />
-                <button type="button" onClick={() => removeOverviewItem(i)} className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-500"><X className="h-4 w-4" /></button>
               </div>
-            ))}
-          </div>
 
-          {/* Features */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Features</label>
-              <button type="button" onClick={addFeature} className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
-            </div>
-            {form.features.map((f, i) => (
-              <div key={i} className="flex gap-2 rounded-xl border border-slate-100 p-3">
-                <div className="flex-1 space-y-2">
-                  <input value={f.title} onChange={e => updateFeature(i, "title", e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-900 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="Feature title" />
-                  <textarea rows={2} value={f.description} onChange={e => updateFeature(i, "description", e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-900 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="Feature description" />
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Description</label>
+                <textarea rows={2} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white" />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Tagline</label>
+                <textarea rows={2} value={form.tagline} onChange={e => setForm(f => ({ ...f, tagline: e.target.value }))} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white" />
+              </div>
+
+              {/* Toggles */}
+              <div className="flex gap-6">
+                <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+                  <input type="checkbox" checked={form.is_active} onChange={e => setForm(f => ({ ...f, is_active: e.target.checked }))} className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                  Active
+                </label>
+                <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+                  <input type="checkbox" checked={form.accepting_registrations} onChange={e => setForm(f => ({ ...f, accepting_registrations: e.target.checked }))} className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                  Accepting registrations
+                </label>
+              </div>
+
+              {/* Overview */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Overview paragraphs</label>
+                  <button type="button" onClick={addOverviewItem} className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
                 </div>
-                <button type="button" onClick={() => removeFeature(i)} className="self-start rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-500"><X className="h-4 w-4" /></button>
+                {form.overview.map((item, i) => (
+                  <div key={i} className="flex gap-2">
+                    <textarea rows={2} value={item.description ?? ""} onChange={e => updateOverviewItem(i, "description", e.target.value)} className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="Paragraph text" />
+                    <button type="button" onClick={() => removeOverviewItem(i)} className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-500"><X className="h-4 w-4" /></button>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          {/* Benefits */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Benefits</label>
-              <button type="button" onClick={addBenefit} className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
+              {/* Features */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Features</label>
+                  <button type="button" onClick={addFeature} className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
+                </div>
+                {form.features.map((f, i) => (
+                  <div key={i} className="flex gap-2 rounded-xl border border-slate-100 dark:border-slate-700 p-3">
+                    <div className="flex-1 space-y-2">
+                      <input value={f.title} onChange={e => updateFeature(i, "title", e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-900 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="Feature title" />
+                      <textarea rows={2} value={f.description} onChange={e => updateFeature(i, "description", e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-900 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="Feature description" />
+                    </div>
+                    <button type="button" onClick={() => removeFeature(i)} className="self-start rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-500"><X className="h-4 w-4" /></button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Benefits */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Benefits</label>
+                  <button type="button" onClick={addBenefit} className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
+                </div>
+                {form.benefits.map((b, i) => (
+                  <div key={i} className="flex gap-2">
+                    <input value={b} onChange={e => updateBenefit(i, e.target.value)} className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-900 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="Benefit text" />
+                    <button type="button" onClick={() => removeBenefit(i)} className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-500"><X className="h-4 w-4" /></button>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3 pt-2">
+                <button
+                  onClick={handleSave}
+                  disabled={saving}
+                  className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60"
+                >
+                  {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                  {editing ? "Update sector" : "Create sector"}
+                </button>
+                <button onClick={() => setShowForm(false)} className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600">
+                  Cancel
+                </button>
+              </div>
             </div>
-            {form.benefits.map((b, i) => (
-              <div key={i} className="flex gap-2">
-                <input value={b} onChange={e => updateBenefit(i, e.target.value)} className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-900 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white" placeholder="Benefit text" />
-                <button type="button" onClick={() => removeBenefit(i)} className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-500"><X className="h-4 w-4" /></button>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3 pt-2">
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60"
-            >
-              {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-              {editing ? "Update sector" : "Create sector"}
-            </button>
-            <button onClick={() => setShowForm(false)} className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600">
-              Cancel
-            </button>
           </div>
         </div>
       )}
