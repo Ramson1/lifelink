@@ -17,39 +17,39 @@ export function generateMetadata() {
   };
 }
 
-function MemberCard({ member, size = "md" }: { member: TeamMember; size?: "lg" | "md" | "sm" }) {
-  const sizeClasses = {
-    lg: "max-w-md mx-auto",
-    md: "",
-    sm: "",
-  };
-  const imgAspect = {
-    lg: "aspect-[3/4]",
-    md: "aspect-[4/5]",
-    sm: "aspect-[4/5]",
-  };
-  const nameSize = {
-    lg: "text-2xl sm:text-3xl font-extrabold",
-    md: "text-base font-bold",
-    sm: "text-sm font-bold",
-  };
+function MemberCard({ member, index }: { member: TeamMember; index: number }) {
+  const rotations = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "rotate-0", "-rotate-1.5", "rotate-1.5"];
+  const rotation = rotations[index % rotations.length];
   return (
-    <article className={`group overflow-hidden rounded-3xl border border-slate-200 bg-white transition hover:shadow-xl dark:border-slate-700 dark:bg-slate-900 ${sizeClasses[size]}`}>
-      <div className={`relative w-full overflow-hidden bg-slate-100 ${imgAspect[size]}`}>
-        <Image
-          src={member.image}
-          alt={member.name}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition duration-500 group-hover:scale-105"
-        />
-      </div>
-      <div className="p-5">
-        <div className={`${nameSize[size]} leading-tight text-slate-900 dark:text-white`}>
-          {member.name}
+    <article className={`group relative z-0 -ml-4 first:ml-0 cursor-pointer transition-all duration-300 hover:z-20 hover:-translate-y-3 hover:rotate-0`}>
+      <div className={`overflow-hidden rounded-t-2xl rounded-b-lg border border-slate-200 bg-white shadow-md transition-all duration-300 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900 ${rotation} hover:!rotate-0`}>
+        {/* Photo */}
+        <div className="relative w-full overflow-hidden bg-slate-100 aspect-[3/4]">
+          <Image
+            src={member.image}
+            alt={member.name}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 15vw"
+            className="object-cover transition duration-500 group-hover:scale-110"
+          />
+          {/* Gradient overlay at bottom */}
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          {/* Name on the image */}
+          <div className="absolute inset-x-0 bottom-0 p-3 text-center">
+            <div className="text-sm font-bold text-white leading-tight drop-shadow-lg">
+              {member.name}
+            </div>
+          </div>
         </div>
-        <div className="mt-1 text-sm font-semibold text-indigo-600">
-          {member.position}
+        {/* Position tab */}
+        <div className="bg-gradient-to-r from-indigo-600 to-cyan-600 px-3 py-2 text-center">
+          <div className="text-xs font-semibold text-white leading-tight truncate">
+            {member.position}
+          </div>
+        </div>
+        {/* Bookmark notch */}
+        <div className="relative mx-auto h-3 w-6">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-cyan-600" style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)" }} />
         </div>
       </div>
     </article>
@@ -57,11 +57,11 @@ function MemberCard({ member, size = "md" }: { member: TeamMember; size?: "lg" |
 }
 
 export default function TeamPage() {
-  const members = listTeamMembers();
-  const ceos = members.filter((m) => m.level === "ceo");
-  const directors = members.filter((m) => m.level === "director");
-  const managers = members.filter((m) => m.level === "manager");
-  const others = members.filter((m) => m.level === "other");
+  const excludedNames = ["kingley iroka"];
+  const members = listTeamMembers().filter(
+    (m) => m.level !== "ceo" && !excludedNames.some((n) => m.name.toLowerCase().includes(n)),
+  );
+  const ceos = listTeamMembers().filter((m) => m.level === "ceo");
 
   return (
     <div className="min-h-screen">
@@ -208,78 +208,27 @@ export default function TeamPage() {
         </section>
       )}
 
-      {/* Directors Section */}
-      {directors.length > 0 && (
+      {/* Team Members Section */}
+      {members.length > 0 && (
         <section className="py-16 sm:py-20">
           <Container>
             <ScrollReveal>
               <div className="mx-auto max-w-2xl text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-3">
                   <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
-                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Board of Directors</div>
-                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
-                </div>
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Our Directors</h2>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {directors.map((m, i) => (
-                <ScrollReveal key={m.image} delay={i * 100}>
-                  <MemberCard member={m} size="md" />
-                </ScrollReveal>
-              ))}
-            </div>
-          </Container>
-        </section>
-      )}
-
-      {/* Managers Section */}
-      {managers.length > 0 && (
-        <section className="relative py-16 sm:py-20 overflow-hidden">
-          <MeshGradient variant="sunset" />
-          <Container>
-            <ScrollReveal>
-              <div className="mx-auto max-w-2xl text-center mb-12">
-                <div className="flex items-center justify-center gap-3 mb-3">
-                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
-                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Management</div>
-                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
-                </div>
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Our Managers</h2>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {managers.map((m, i) => (
-                <ScrollReveal key={m.image} delay={i * 80}>
-                  <MemberCard member={m} size="sm" />
-                </ScrollReveal>
-              ))}
-            </div>
-          </Container>
-        </section>
-      )}
-
-      {/* Other Team Members */}
-      {others.length > 0 && (
-        <section className="py-16 sm:py-20">
-          <Container>
-            <ScrollReveal>
-              <div className="mx-auto max-w-2xl text-center mb-12">
-                <div className="flex items-center justify-center gap-3 mb-3">
-                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
-                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Our Team</div>
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Our People</div>
                   <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
                 </div>
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Team Members</h2>
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {others.map((m, i) => (
-                <ScrollReveal key={m.image} delay={i * 80}>
-                  <MemberCard member={m} size="sm" />
+            <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-4 px-4">
+              {members.map((m, i) => (
+                <ScrollReveal key={m.image} delay={i * 60}>
+                  <div className="w-28 sm:w-32 md:w-36 lg:w-40">
+                    <MemberCard member={m} index={i} />
+                  </div>
                 </ScrollReveal>
               ))}
             </div>
