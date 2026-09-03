@@ -32,11 +32,11 @@ function MemberCard({ member }: { member: TeamMember }) {
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
             className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          {/* Gradient overlay — strong at bottom to keep name white */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          {/* Gradient overlay — solid dark base to guarantee white name */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
           {/* Name on image */}
           <div className="absolute inset-x-0 bottom-0 px-3 pb-4 pt-8 text-center">
-            <h3 className="text-sm font-bold leading-tight text-white drop-shadow-lg">
+            <h3 className="text-sm font-bold leading-tight drop-shadow-lg" style={{ color: "#ffffff" }}>
               {member.name}
             </h3>
           </div>

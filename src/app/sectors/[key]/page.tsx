@@ -61,8 +61,9 @@ function getIcon(name: string) {
 export async function generateMetadata({ params }: { params: Promise<{ key: string }> }) {
   const key = (params as any).key as string;
   const dbSectors = await getDbSectors();
-  const dbSector = dbSectors.find((s) => s.key === key);
-  const hardcodedService = services.find((s) => s.key === key);
+  const useDb = dbSectors.length > 0;
+  const dbSector = useDb ? dbSectors.find((s) => s.key === key) : undefined;
+  const hardcodedService = !useDb ? services.find((s) => s.key === key) : undefined;
 
   const title = dbSector?.title ?? hardcodedService?.title;
   const description = dbSector?.description ?? hardcodedService?.description;
@@ -80,39 +81,37 @@ export default async function SectorPage({
 }) {
   const { key } = await params;
   const dbSectors = await getDbSectors();
+  const useDb = dbSectors.length > 0;
 
-  // Build merged service list (hardcoded + DB)
-  const dbKeys = new Set(dbSectors.map((s) => s.key));
-  const allServices: MergedService[] = [
-    ...services
-      .filter((s) => !dbKeys.has(s.key))
-      .map((s) => ({
+  // Build service list from active source
+  const allServices: MergedService[] = useDb
+    ? dbSectors.map((s) => ({
+        key: s.key,
+        title: s.title,
+        subtitle: s.subtitle,
+        description: s.description,
+        icon: s.icon,
+        color: [s.color_from, s.color_to] as [string, string],
+      }))
+    : services.map((s) => ({
         key: s.key,
         title: s.title,
         subtitle: s.subtitle,
         description: s.description,
         icon: s.icon,
         color: s.color as [string, string],
-      })),
-    ...dbSectors.map((s) => ({
-      key: s.key,
-      title: s.title,
-      subtitle: s.subtitle,
-      description: s.description,
-      icon: s.icon,
-      color: [s.color_from, s.color_to] as [string, string],
-    })),
-  ];
+      }));
 
-  // Try DB sector first, then fall back to hardcoded
-  const dbSector = dbSectors.find((s) => s.key === key);
-  const hardcodedService = services.find((s) => s.key === key);
-  const hardcodedSector = getSector(key);
+  // Resolve data from active source
+  const dbSector = useDb ? dbSectors.find((s) => s.key === key) : undefined;
+  const hardcodedService = !useDb ? services.find((s) => s.key === key) : undefined;
+  const hardcodedSector = !useDb ? getSector(key) : undefined;
 
-  // Must exist in at least one source
-  if (!dbSector && !hardcodedService) return notFound();
+  // Must exist in active source
+  if (useDb && !dbSector) return notFound();
+  if (!useDb && !hardcodedService) return notFound();
 
-  // Resolve data: DB takes priority, hardcoded as fallback
+  // Resolve data: DB takes priority when DB is active
   const title = dbSector?.title ?? hardcodedService?.title ?? "";
   const subtitle = dbSector?.subtitle ?? hardcodedService?.subtitle ?? "";
   const iconName = dbSector?.icon ?? hardcodedService?.icon ?? "Star";
@@ -120,8 +119,8 @@ export default async function SectorPage({
   const overview = dbSector?.overview ?? hardcodedSector?.overview ?? [];
   const features = dbSector?.features ?? hardcodedSector?.features ?? [];
   const benefits = dbSector?.benefits ?? hardcodedSector?.benefits ?? [];
-  const ctaHeading = hardcodedSector?.cta?.heading ?? `Join the ${title} sector`;
-  const ctaDescription = hardcodedSector?.cta?.description ?? `Register now and explore opportunities in ${title}.`;
+  const ctaHeading = dbSector?.tagline ? `Join the ${title} sector` : hardcodedSector?.cta?.heading ?? `Join the ${title} sector`;
+  const ctaDescription = dbSector?.tagline ? `Register now and explore opportunities in ${title}.` : hardcodedSector?.cta?.description ?? `Register now and explore opportunities in ${title}.`;
 
   const Icon = getIcon(iconName);
   const related = allServices.filter((s) => s.key !== key).slice(0, 3);

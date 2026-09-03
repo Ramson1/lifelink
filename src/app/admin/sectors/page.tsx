@@ -157,8 +157,8 @@ export default function SectorsPage() {
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <div className="text-xs font-semibold uppercase tracking-wider text-indigo-600">Admin</div>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Future Sectors</h1>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Manage upcoming sectors that can be shown as &ldquo;Coming Soon&rdquo; or opened for registration.</p>
+          <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Sectors</h1>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Manage all 14 LifeLink sectors — control content, active status, and registration availability. Changes are reflected immediately across the site.</p>
         </div>
         {canCrud && (
           <button
@@ -307,7 +307,7 @@ export default function SectorsPage() {
           </div>
         ) : sectors.length === 0 ? (
           <div className="px-6 py-16 text-center text-sm text-slate-500">
-            No future sectors yet. Create one to get started.
+            No sectors found. Run the seed migration or create one to get started.
           </div>
         ) : (
           <ul className="divide-y divide-slate-100 dark:divide-slate-700">

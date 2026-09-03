@@ -81,18 +81,20 @@ export const brand = {
 };
 
 export type ServiceKey =
+  | "cooperative"
   | "humanitarian"
   | "finance"
   | "trading"
   | "affiliate"
   | "mlm"
-  | "production"
-  | "investment"
-  | "landbanking"
-  | "transport"
-  | "agriculture"
   | "oilgas"
-  | "digital";
+  | "landbanking"
+  | "foodbank"
+  | "transport"
+  | "digital"
+  | "it"
+  | "investment"
+  | "solar";
 
 export const services: Array<{
   key: ServiceKey;
@@ -104,12 +106,22 @@ export const services: Array<{
   color: [string, string];
 }> = [
   {
+    key: "cooperative",
+    title: "Cooperative Society",
+    subtitle: "Member-owned financial cooperation",
+    description:
+      "A member-owned cooperative promoting thrift, credit, and mutual financial support for sustainable economic growth.",
+    highlights: ["Thrift & savings", "Credit access", "Member welfare"],
+    icon: "Users",
+    color: ["#0d9488", "#0f766e"],
+  },
+  {
     key: "humanitarian",
-    title: "Humanitarian",
+    title: "Humanitarian Services",
     subtitle: "Youth empowerment & community development",
     description:
       "Supporting youth empowerment and community development through impactful social intervention programs.",
-    highlights: ["Youth empowerment", "Social interventions", "Community development"],
+    highlights: ["Youth empowerment", "Medical outreach", "Skill acquisition", "Community development"],
     icon: "HandHeart",
     color: ["#f43f5e", "#ec4899"],
   },
@@ -119,7 +131,7 @@ export const services: Array<{
     subtitle: "Innovative financial solutions",
     description:
       "Providing innovative financial solutions that promote economic growth.",
-    highlights: ["Economic growth", "Financial solutions", "Member support"],
+    highlights: ["Economic growth", "Financial solutions", "Project financing", "Member support"],
     icon: "Wallet",
     color: ["#10b981", "#059669"],
   },
@@ -145,7 +157,7 @@ export const services: Array<{
   },
   {
     key: "mlm",
-    title: "Multi-Level Marketing (MLM)",
+    title: "Multilevel Marketing",
     subtitle: "Structured networking",
     description:
       "Offering structured networking opportunities for both corporate and individual business growth.",
@@ -154,34 +166,34 @@ export const services: Array<{
     color: ["#a855f7", "#9333ea"],
   },
   {
-    key: "production",
-    title: "Production",
-    subtitle: "Quality goods & services",
+    key: "oilgas",
+    title: "Oil and Gas",
+    subtitle: "Energy sector partnership",
     description:
-      "Producing diverse quality goods and services to meet our target market demands.",
-    highlights: ["Quality goods", "Diverse products", "Market-driven"],
-    icon: "Package",
-    color: ["#eab308", "#ca8a04"],
-  },
-  {
-    key: "investment",
-    title: "Investment & Loans",
-    subtitle: "Capital & financial aid",
-    description:
-      "Providing investment opportunities and empowering the community with start-up capital and financial aid.",
-    highlights: ["Start-up capital", "Investment options", "Financial aid"],
-    icon: "PiggyBank",
-    color: ["#6366f1", "#4f46e5"],
+      "Participating through partnership and investment in Nigeria's energy sector.",
+    highlights: ["Energy sector", "Partnerships", "Investment"],
+    icon: "Fuel",
+    color: ["#0ea5e9", "#1e40af"],
   },
   {
     key: "landbanking",
     title: "Land Banking",
     subtitle: "Choice landed properties",
     description:
-      "Assisting individuals and investors to acquire choice landed properties for use and future returns.",
-    highlights: ["Choice properties", "Future returns", "Investor support"],
+      "Assisting individuals and investors to acquire choice landed properties for use, business, and future returns.",
+    highlights: ["Choice properties", "Properties for use and business", "Future returns", "Investor support"],
     icon: "LandPlot",
     color: ["#84cc16", "#65a30d"],
+  },
+  {
+    key: "foodbank",
+    title: "Food Bank",
+    subtitle: "Food security & subsidization",
+    description:
+      "Promoting food security through food banking, subsidization programs, and agro-distribution networks.",
+    highlights: ["Food banking", "Food security", "Fractional farming", "Subsidization"],
+    icon: "Wheat",
+    color: ["#84cc16", "#22c55e"],
   },
   {
     key: "transport",
@@ -194,33 +206,43 @@ export const services: Array<{
     color: ["#06b6d4", "#0891b2"],
   },
   {
-    key: "agriculture",
-    title: "Agriculture",
-    subtitle: "Food security & agro-investment",
-    description:
-      "Promoting food security through modern agribusinesses and agro-investment.",
-    highlights: ["Food security", "Agribusiness", "Agro-investment"],
-    icon: "Wheat",
-    color: ["#84cc16", "#22c55e"],
-  },
-  {
-    key: "oilgas",
-    title: "Oil & Gas",
-    subtitle: "Energy sector partnership",
-    description:
-      "Participating through partnership and investment in Nigeria's energy sector.",
-    highlights: ["Energy sector", "Partnerships", "Investment"],
-    icon: "Fuel",
-    color: ["#0ea5e9", "#1e40af"],
-  },
-  {
     key: "digital",
-    title: "Blockchain & Digital Assets",
+    title: "Digital Assets",
     subtitle: "Digital asset advisory",
     description:
       "Providing blockchain education, digital asset advisory, and tokenization solutions.",
     highlights: ["Blockchain education", "Asset advisory", "Tokenization"],
     icon: "Blocks",
     color: ["#8b5cf6", "#6366f1"],
+  },
+  {
+    key: "it",
+    title: "Information Technology",
+    subtitle: "Innovative tech solutions",
+    description:
+      "Delivering cutting-edge information technology solutions for digital transformation and innovation.",
+    highlights: ["Digital transformation", "Tech innovation", "IT solutions"],
+    icon: "Monitor",
+    color: ["#6366f1", "#4f46e5"],
+  },
+  {
+    key: "investment",
+    title: "Investment and Loans",
+    subtitle: "Capital & financial aid",
+    description:
+      "Providing investment opportunities and empowering the community with start-up capital and financial aid.",
+    highlights: ["Start-up capital", "Investment options", "Financial aid"],
+    icon: "PiggyBank",
+    color: ["#eab308", "#ca8a04"],
+  },
+  {
+    key: "solar",
+    title: "Solar Energy",
+    subtitle: "Renewable energy solutions",
+    description:
+      "Promoting sustainable energy through solar power installation, distribution, and renewable energy solutions.",
+    highlights: ["Solar installation", "Renewable energy", "Sustainable power"],
+    icon: "Sun",
+    color: ["#f59e0b", "#d97706"],
   },
 ];

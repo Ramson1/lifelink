@@ -43,15 +43,13 @@ export default async function RegisterPage() {
     description: "You can always change your sector later by contacting our team.",
   };
 
-  // Merge: General option first + hardcoded services NOT in DB + all DB sectors
-  const dbKeys = new Set(dbSectors.map((s) => s.key));
-  const allServices = [
-    generalOption,
-    ...services
-      .filter((s) => !dbKeys.has(s.key))
-      .map((s) => ({ key: s.key, title: s.title, subtitle: s.subtitle, description: s.description })),
-    ...dbSectors.map((s) => ({ key: s.key, title: s.title, subtitle: s.subtitle, description: s.description })),
-  ];
+  // DB-first: if DB has sectors, use only DB. Otherwise fall back to hardcoded.
+  const sectorOptions =
+    dbSectors.length > 0
+      ? dbSectors.map((s) => ({ key: s.key, title: s.title, subtitle: s.subtitle, description: s.description }))
+      : services.map((s) => ({ key: s.key, title: s.title, subtitle: s.subtitle, description: s.description }));
+
+  const allServices = [generalOption, ...sectorOptions];
 
   return (
     <div className="relative overflow-hidden pt-28 pb-14 sm:pt-32 sm:pb-18">

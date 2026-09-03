@@ -36,9 +36,21 @@ export const sectors: SectorDetail[] = [
         description:
           "Targeted relief and support programs for vulnerable families and individuals during critical times.",
       },
+      {
+        title: "Medical Outreach",
+        description:
+          "Free medical missions, health screenings, and healthcare support for underserved communities.",
+      },
+      {
+        title: "Skill Acquisition",
+        description:
+          "Hands-on vocational and technical training programs that equip members with practical, income-generating skills.",
+      },
     ],
     benefits: [
       "Access to free training and mentorship",
+      "Medical outreach and health support",
+      "Vocational skill acquisition programs",
       "Community project participation",
       "Humanitarian support initiatives",
       "Leadership development pathways",
@@ -72,9 +84,15 @@ export const sectors: SectorDetail[] = [
         description:
           "Financial products built around member welfare — low rates, flexible terms, and transparent processes.",
       },
+      {
+        title: "Project Financing",
+        description:
+          "Dedicated financing for viable projects — providing the capital and structured funding members need to execute and scale.",
+      },
     ],
     benefits: [
       "Access to member loans and credit",
+      "Project financing for viable initiatives",
       "Structured savings plans",
       "Financial education and mentorship",
       "Transparent, accountable governance",
@@ -194,39 +212,39 @@ export const sectors: SectorDetail[] = [
     },
   },
   {
-    key: "production",
-    tagline: "Quality goods, reliable services",
+    key: "cooperative",
+    tagline: "Together we save, together we grow",
     overview: [
-      "Our Production sector manufactures diverse quality goods and delivers services that meet target-market demands.",
-      "From consumer products to industrial supplies, we produce with integrity, quality, and efficiency.",
+      "Our Cooperative Society is the foundation of LifeLink — a member-owned financial cooperative promoting thrift, credit, and mutual support.",
+      "Through cooperative principles, we empower members to pool resources, access credit, and build sustainable economic growth together.",
     ],
     features: [
       {
-        title: "Quality Manufacturing",
+        title: "Thrift & Savings",
         description:
-          "Standards-driven production processes that deliver consistent, reliable products.",
+          "Structured savings plans that help members build financial discipline and security.",
       },
       {
-        title: "Diverse Product Lines",
+        title: "Credit Facilities",
         description:
-          "A wide range of goods across categories — built to meet real market needs.",
+          "Accessible loans and credit for members at fair rates and flexible terms.",
       },
       {
-        title: "Member Opportunities",
+        title: "Member Welfare",
         description:
-          "Members can participate in production, distribution, and retail channels.",
+          "Programs designed to support members' well-being and financial stability.",
       },
     ],
     benefits: [
-      "Access to quality products",
-      "Distribution and retail opportunities",
-      "Market-driven production",
-      "Member participation pathways",
+      "Access to member credit and loans",
+      "Structured savings plans",
+      "Mutual financial support",
+      "Democratic member governance",
     ],
     cta: {
-      heading: "Be part of the production ecosystem",
+      heading: "Join the cooperative movement",
       description:
-        "Join a sector that produces real value. Register to explore opportunities.",
+        "Become a member-owner and unlock cooperative financial benefits. Register today.",
     },
   },
   {
@@ -269,7 +287,7 @@ export const sectors: SectorDetail[] = [
     key: "landbanking",
     tagline: "Own land, build wealth, secure your future",
     overview: [
-      "Our Land Banking sector assists individuals and investors to acquire choice landed properties for use and future returns.",
+      "Our Land Banking sector assists individuals and investors to acquire choice landed properties for use, business, and future returns.",
       "With verified titles and flexible payment plans, we make land ownership accessible and secure.",
     ],
     features: [
@@ -338,39 +356,45 @@ export const sectors: SectorDetail[] = [
     },
   },
   {
-    key: "agriculture",
-    tagline: "Food security through modern agribusiness",
+    key: "foodbank",
+    tagline: "Feeding communities, securing futures",
     overview: [
-      "Our Agriculture sector promotes food security through modern agribusinesses and agro-investment — from farm to table.",
-      "We empower members to participate in a sector that feeds nations and builds generational wealth.",
+      "Our Food Bank sector promotes food security through food banking, subsidization programs, and agro-distribution networks.",
+      "We work to ensure that vulnerable families have access to affordable, nutritious food while creating opportunities for members in food distribution.",
     ],
     features: [
       {
-        title: "Modern Agribusiness",
+        title: "Food Banking",
         description:
-          "Adopting modern farming techniques, technology, and best practices for higher yields.",
+          "Collecting, storing, and distributing food to vulnerable families and communities.",
       },
       {
-        title: "Agro-Investment",
+        title: "Subsidization Programs",
         description:
-          "Investment opportunities in agriculture — from crop production to processing and distribution.",
+          "Making essential food items affordable through strategic subsidies and partnerships.",
       },
       {
-        title: "Food Bank Initiative",
+        title: "Distribution Networks",
         description:
-          "Supporting vulnerable families through subsidized food supplies and food support programs.",
+          "Efficient logistics and distribution channels that reach those who need it most.",
+      },
+      {
+        title: "Fractional Farming",
+        description:
+          "Members can participate in farming activities through fractional ownership — investing in and benefiting from agricultural output without owning large farmlands.",
       },
     ],
     benefits: [
-      "Agro-investment opportunities",
-      "Access to modern farming training",
-      "Food bank participation",
-      "Farm-to-market support",
+      "Food security support",
+      "Fractional farming participation",
+      "Subsidized food access",
+      "Distribution opportunities",
+      "Community impact participation",
     ],
     cta: {
-      heading: "Grow with LifeLink Agriculture",
+      heading: "Help feed the nation",
       description:
-        "Join a sector that feeds communities and builds wealth. Register to explore opportunities.",
+        "Join the Food Bank sector and be part of the solution to food insecurity. Register today.",
     },
   },
   {
@@ -443,6 +467,78 @@ export const sectors: SectorDetail[] = [
       heading: "Step into the digital economy",
       description:
         "Explore blockchain and digital assets with LifeLink. Register to start your journey.",
+    },
+  },
+  {
+    key: "it",
+    tagline: "Driving digital transformation",
+    overview: [
+      "Our Information Technology sector delivers cutting-edge tech solutions for digital transformation and innovation.",
+      "We build and deploy technology that empowers members, streamlines operations, and creates new opportunities in the digital economy.",
+    ],
+    features: [
+      {
+        title: "Digital Transformation",
+        description:
+          "Helping businesses and members adopt modern technology for growth and efficiency.",
+      },
+      {
+        title: "Tech Innovation",
+        description:
+          "Developing innovative solutions tailored to our members' and communities' needs.",
+      },
+      {
+        title: "IT Solutions",
+        description:
+          "End-to-end information technology services — from consulting to deployment and support.",
+      },
+    ],
+    benefits: [
+      "Access to modern tech tools",
+      "Digital skills training",
+      "Innovation opportunities",
+      "Tech-driven business support",
+    ],
+    cta: {
+      heading: "Embrace the digital future",
+      description:
+        "Join the IT sector and be at the forefront of technological innovation. Register today.",
+    },
+  },
+  {
+    key: "solar",
+    tagline: "Powering a sustainable tomorrow",
+    overview: [
+      "Our Solar Energy sector promotes sustainable energy through solar power installation, distribution, and renewable energy solutions.",
+      "We make clean energy accessible and affordable for homes, businesses, and communities.",
+    ],
+    features: [
+      {
+        title: "Solar Installation",
+        description:
+          "Professional installation of solar panels and systems for residential and commercial use.",
+      },
+      {
+        title: "Renewable Energy Distribution",
+        description:
+          "Distribution of solar components, batteries, and renewable energy products.",
+      },
+      {
+        title: "Sustainable Power Solutions",
+        description:
+          "Custom-designed solar solutions for off-grid communities and energy-independent living.",
+      },
+    ],
+    benefits: [
+      "Clean, renewable energy access",
+      "Reduced electricity costs",
+      "Solar product distribution opportunities",
+      "Off-grid power solutions",
+    ],
+    cta: {
+      heading: "Go solar with LifeLink",
+      description:
+        "Join the renewable energy revolution. Register to explore solar solutions.",
     },
   },
 ];

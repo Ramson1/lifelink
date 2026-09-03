@@ -61,32 +61,27 @@ async function getDbSectors(): Promise<DbSector[]> {
 export default async function ServicesPage() {
   const dbSectors = await getDbSectors();
 
-  // Merge: DB sectors override hardcoded ones with same key, new DB sectors are appended
-  const dbKeys = new Set(dbSectors.map((s) => s.key));
-  const merged: MergedService[] = [
-    // Hardcoded services that are NOT overridden by DB
-    ...hardcodedServices
-      .filter((s) => !dbKeys.has(s.key))
-      .map((s) => ({
-        key: s.key,
-        title: s.title,
-        subtitle: s.subtitle,
-        description: s.description,
-        highlights: s.highlights,
-        icon: s.icon,
-        color: s.color as [string, string],
-      })),
-    // All DB sectors
-    ...dbSectors.map((s) => ({
-      key: s.key,
-      title: s.title,
-      subtitle: s.subtitle,
-      description: s.description,
-      highlights: (s.benefits ?? []).slice(0, 3),
-      icon: s.icon,
-      color: [s.color_from, s.color_to] as [string, string],
-    })),
-  ];
+  // DB-first: if DB has sectors, use only DB. Otherwise fall back to hardcoded.
+  const merged: MergedService[] =
+    dbSectors.length > 0
+      ? dbSectors.map((s) => ({
+          key: s.key,
+          title: s.title,
+          subtitle: s.subtitle,
+          description: s.description,
+          highlights: (s.benefits ?? []).slice(0, 3),
+          icon: s.icon,
+          color: [s.color_from, s.color_to] as [string, string],
+        }))
+      : hardcodedServices.map((s) => ({
+          key: s.key,
+          title: s.title,
+          subtitle: s.subtitle,
+          description: s.description,
+          highlights: s.highlights,
+          icon: s.icon,
+          color: s.color as [string, string],
+        }));
 
   return (
     <div className="relative overflow-hidden">
@@ -183,10 +178,10 @@ export default async function ServicesPage() {
         <Container>
           <ScrollReveal>
             <div className="rounded-3xl bg-gradient-to-br from-indigo-600 to-cyan-600 p-10 text-center text-white sm:p-16">
-              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: "#ffffff" }}>
                 Ready to get started?
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-lg leading-8 text-white/90">
+              <p className="mx-auto mt-4 max-w-xl text-lg leading-8" style={{ color: "rgba(255,255,255,0.95)" }}>
                 Register today and choose the sector that aligns with your goals. Our team is ready to guide you every step of the way.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
