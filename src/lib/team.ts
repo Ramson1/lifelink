@@ -60,10 +60,19 @@ export function listTeamMembers(): TeamMember[] {
     for (const file of files) {
       const parsed = parseFilename(file);
       if (!parsed) continue;
+      // Append the file's mtime as a cache-buster so a replaced photo (same
+      // filename) always yields a fresh URL and defeats the Next image
+      // optimizer + browser caches.
+      let version = "";
+      try {
+        version = Math.floor(fs.statSync(path.join(dir, file)).mtimeMs).toString(36);
+      } catch {
+        version = "";
+      }
       members.push({
         name: parsed.name,
         position: parsed.position,
-        image: `/team/${encodeURIComponent(file)}`,
+        image: `/team/${encodeURIComponent(file)}${version ? `?v=${version}` : ""}`,
         level: classifyLevel(parsed.position),
       });
     }
