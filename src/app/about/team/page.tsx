@@ -1,4 +1,19 @@
 import Image from "next/image";
+import {
+  Brain,
+  BriefcaseBusiness,
+  ClipboardCheck,
+  Crown,
+  Flame,
+  Handshake,
+  HeartHandshake,
+  Megaphone,
+  Network,
+  Quote,
+  Rocket,
+  Sparkles,
+  TrendingUp,
+} from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { GradientOrbs } from "@/components/GradientOrbs";
@@ -16,6 +31,19 @@ export function generateMetadata() {
       "Meet the leadership team driving LifeLink Group's mission to empower individuals and transform communities.",
   };
 }
+
+const CEO_ROLES = [
+  { label: "Entrepreneur", icon: Rocket },
+  { label: "Business Consultant / Leader", icon: BriefcaseBusiness },
+  { label: "Networker", icon: Network },
+  { label: "Grassroot Mobilizer", icon: Megaphone },
+  { label: "Investment Expert", icon: TrendingUp },
+  { label: "Humanitarian", icon: HeartHandshake },
+  { label: "Mindset Coach", icon: Brain },
+  { label: "Professional Coordinator / Organizer", icon: ClipboardCheck },
+  { label: "Revivalist", icon: Flame },
+  { label: "Team Builder & Negotiator", icon: Handshake },
+];
 
 function MemberCard({ member }: { member: TeamMember }) {
   const safeId = member.name.replace(/[^a-zA-Z0-9]/g, "");
@@ -133,7 +161,7 @@ export default function TeamPage() {
                             alt={ceo.name}
                             fill
                             sizes="224px"
-                            className="object-cover"
+                            className="object-cover object-[50%_30%]"
                           />
                         </div>
                         <div className="mt-6">
@@ -147,6 +175,50 @@ export default function TeamPage() {
                             {brand.name}
                           </div>
                         </div>
+                      </div>
+                    </div>
+
+                    {/* Founder bio band */}
+                    <div className="border-b border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 px-8 py-8 dark:border-slate-700 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 sm:px-10">
+                      <div className="flex items-start gap-3">
+                        <span className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow">
+                          <Crown className="h-5 w-5" />
+                        </span>
+                        <div>
+                          <p className="text-base font-extrabold uppercase leading-snug tracking-wide text-slate-900 dark:text-white sm:text-lg">
+                            Pst. Obi Nwagbo is the Founder / CEO of LifeLink Group
+                          </p>
+                          <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                            He is a Nigerian and the lead minister of Motivational Movement Community &mdash; an online prayer and mentor ministry.
+                          </p>
+                          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                            Through his group, many people have gained spiritually, physically, financially, and materially over the last two decades. Pastor Obi Nwagbo loves to see people smile through his contributions and efforts, and his desire for empowerment is excellent.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Profile / Roles */}
+                    <div className="border-b border-slate-200 px-8 py-8 dark:border-slate-700 sm:px-10">
+                      <div className="mb-5 flex items-center gap-3">
+                        <Sparkles className="h-5 w-5 flex-none text-indigo-600" />
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">Profile / Roles</h3>
+                        <div className="h-px flex-1 bg-gradient-to-r from-indigo-500/40 to-transparent" />
+                      </div>
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {CEO_ROLES.map(({ label, icon: Icon }) => (
+                          <div
+                            key={label}
+                            className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/60 p-3 transition hover:border-indigo-300 hover:bg-white hover:shadow-sm dark:border-slate-700 dark:bg-slate-800/60 dark:hover:border-indigo-500/40 dark:hover:bg-slate-800"
+                          >
+                            <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md">
+                              <Icon className="h-5 w-5" />
+                            </span>
+                            <span className="text-sm font-semibold leading-tight text-slate-800 dark:text-slate-100">
+                              {label}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
@@ -199,6 +271,17 @@ export default function TeamPage() {
                       <p className="text-base leading-8 text-slate-700 dark:text-slate-300">
                         Thank you for visiting our website and for taking the time to learn more about our vision. We look forward to partnering with you on this remarkable journey.
                       </p>
+
+                      {/* Founder quote */}
+                      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 to-cyan-600 p-8 text-center shadow-lg">
+                        <Quote className="mx-auto h-9 w-9 text-white/40" />
+                        <p className="mt-3 text-2xl font-extrabold italic leading-snug text-white sm:text-3xl">
+                          &ldquo;Kindness is the best investment&rdquo;
+                        </p>
+                        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+                          &mdash; Pst. Obi Nwagbo
+                        </p>
+                      </div>
 
                       {/* Signature */}
                       <div className="mt-8 border-t border-slate-200 pt-6 dark:border-white/20">
