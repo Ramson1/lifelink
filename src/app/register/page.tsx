@@ -5,8 +5,22 @@ import { MeshGradient } from "@/components/MeshGradient";
 import { RegistrationWizard } from "@/components/registration/RegistrationWizard";
 import { services } from "@/lib/brand";
 import { createServiceClient } from "@/lib/admin/supabase";
+import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = buildMetadata({
+  title: "E-Registration",
+  description:
+    "Register online with LifeLink Group. Choose your sector and join a community-driven movement turning ordinary people into extraordinary heroes.",
+  path: "/register",
+  keywords: [
+    "LifeLink registration",
+    "join LifeLink Group",
+    "cooperative registration Nigeria",
+    "e-registration",
+  ],
+});
 
 interface DbSector {
   key: string;

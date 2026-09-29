@@ -61,6 +61,12 @@ export function SiteFooter() {
             <Link className="text-white/60 transition hover:text-white" href="/events">
               Events
             </Link>
+            <Link className="text-white/60 transition hover:text-white" href="/blog">
+              Blog
+            </Link>
+            <Link className="text-white/60 transition hover:text-white" href="/news">
+              News
+            </Link>
             <a
               className="text-white/60 transition hover:text-white"
               href={`mailto:${brand.contact.email}`}
@@ -69,6 +75,19 @@ export function SiteFooter() {
             </a>
           </div>
 
+          {/* Phone lines */}
+          <div className="grid gap-2 text-sm md:justify-items-start">
+            <div className="text-sm font-semibold text-white">Phone lines</div>
+            {brand.contact.phones.map((phone) => (
+              <a
+                key={phone}
+                className="text-white/60 transition hover:text-white"
+                href={`tel:${phone.replace(/\s+/g, "")}`}
+              >
+                {phone}
+              </a>
+            ))}
+          </div>
 
         </div>
 

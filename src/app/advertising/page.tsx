@@ -4,17 +4,16 @@ import { ArrowRight, Megaphone, Monitor, Newspaper, Radio, Star, Users } from "l
 import { Container } from "@/components/Container";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { brand } from "@/lib/brand";
+import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export function generateMetadata() {
-  return {
-    title: `Advertising — ${brand.shortName}`,
-    description:
-      "Advertise with LifeLink Group and reach thousands of members, partners, and communities across Nigeria.",
-  };
-}
+export const metadata = buildMetadata({
+  title: "Advertising",
+  description:
+    "Advertise with LifeLink Group and reach thousands of members, partners, and communities across Nigeria.",
+  path: "/advertising",
+});
 
 const adFormats = [
   {

@@ -4,17 +4,16 @@ import { ArrowRight, Heart, HandHeart, TrendingUp } from "lucide-react";
 import { Container } from "@/components/Container";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { brand } from "@/lib/brand";
+import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export function generateMetadata() {
-  return {
-    title: `Fundraise — ${brand.shortName}`,
-    description:
-      "Support LifeLink Group's fundraising campaigns across sectors. Help us empower communities and transform lives.",
-  };
-}
+export const metadata = buildMetadata({
+  title: "Fundraise",
+  description:
+    "Support LifeLink Group's fundraising campaigns across sectors. Help us empower communities and transform lives.",
+  path: "/fundraise",
+});
 
 const campaigns = [
   {

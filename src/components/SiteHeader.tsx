@@ -19,6 +19,8 @@ const exploreLinks = [
   { href: "/about/team", label: "Team" },
   { href: "/partners", label: "Partners" },
   { href: "/events", label: "Events" },
+  { href: "/blog", label: "Blog" },
+  { href: "/news", label: "News" },
 ];
 
 export function SiteHeader() {
@@ -50,6 +52,8 @@ export function SiteHeader() {
     if (pathname.startsWith("/about/team")) return "/about/team";
     if (pathname.startsWith("/partners")) return "/partners";
     if (pathname.startsWith("/events")) return "/events";
+    if (pathname.startsWith("/blog")) return "/blog";
+    if (pathname.startsWith("/news")) return "/news";
     if (pathname.startsWith("/advertising")) return "/advertising";
     if (pathname.startsWith("/fundraise")) return "/fundraise";
     return "";

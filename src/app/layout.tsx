@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { SiteShell } from "@/components/SiteShell";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { brand } from "@/lib/brand";
+import { organizationLd, websiteLd, SITE_URL, DEFAULT_OG_IMAGE, absoluteUrl } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,10 +19,43 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: brand.shortName,
-  description: brand.tagline,
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${brand.name} — ${brand.tagline}`,
+    template: `%s | ${brand.shortName}`,
+  },
+  description: brand.intro,
   applicationName: brand.shortName,
-  metadataBase: new URL("https://lifelink.example"),
+  keywords: [
+    "LifeLink Group",
+    "LifeLink Group International Limited",
+    "cooperative society Nigeria",
+    "humanitarian services Nigeria",
+    "community-based organization Africa",
+    "economic empowerment Nigeria",
+    "Port Harcourt",
+    "Rivers State",
+  ],
+  authors: [{ name: brand.shortName }],
+  creator: brand.shortName,
+  publisher: brand.shortName,
+  formatDetection: { telephone: true, address: true, email: true },
+  alternates: { canonical: "/" },
+  category: "Community & Economic Development",
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon_io/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -39,12 +74,40 @@ export const metadata: Metadata = {
       },
     ],
   },
+  manifest: "/manifest.webmanifest",
   openGraph: {
-    title: brand.shortName,
-    description: brand.tagline,
     type: "website",
+    siteName: brand.name,
+    locale: "en_NG",
+    url: SITE_URL,
+    title: brand.name,
+    description: brand.intro,
+    images: [
+      {
+        url: absoluteUrl(DEFAULT_OG_IMAGE),
+        width: 512,
+        height: 512,
+        alt: brand.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: brand.name,
+    description: brand.intro,
+    images: [absoluteUrl(DEFAULT_OG_IMAGE)],
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
   },
 };
+
+export const viewport: Viewport = {
+  themeColor: "#4f46e5",
+  width: "device-width",
+  initialScale: 1,
+};
+
 
 export default function RootLayout({
   children,
@@ -71,6 +134,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
+        <JsonLd data={[organizationLd(), websiteLd()]} />
         <ThemeProvider>
           <SiteShell>{children}</SiteShell>
         </ThemeProvider>

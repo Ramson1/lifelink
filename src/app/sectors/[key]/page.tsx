@@ -6,9 +6,11 @@ import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/Container";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { brand, services } from "@/lib/brand";
+import { services } from "@/lib/brand";
 import { getSector } from "@/data/sectors";
 import { createServiceClient } from "@/lib/admin/supabase";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildMetadata, breadcrumbLd, serviceLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -59,7 +61,7 @@ function getIcon(name: string) {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ key: string }> }) {
-  const key = (params as any).key as string;
+  const { key } = await params;
   const dbSectors = await getDbSectors();
   const useDb = dbSectors.length > 0;
   const dbSector = useDb ? dbSectors.find((s) => s.key === key) : undefined;
@@ -68,10 +70,12 @@ export async function generateMetadata({ params }: { params: Promise<{ key: stri
   const title = dbSector?.title ?? hardcodedService?.title;
   const description = dbSector?.description ?? hardcodedService?.description;
   if (!title) return {};
-  return {
-    title: `${title} — ${brand.shortName}`,
+  return buildMetadata({
+    title,
     description: description ?? "",
-  };
+    path: `/sectors/${key}`,
+    openGraphType: "article",
+  });
 }
 
 export default async function SectorPage({
@@ -127,6 +131,21 @@ export default async function SectorPage({
 
   return (
     <div className="min-h-screen">
+      <JsonLd
+        data={[
+          serviceLd({
+            name: title,
+            description: subtitle || tagline,
+            path: `/sectors/${key}`,
+            serviceType: title,
+          }),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: title, path: `/sectors/${key}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section
         className="relative overflow-hidden text-white"

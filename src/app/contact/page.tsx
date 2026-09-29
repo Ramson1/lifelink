@@ -4,7 +4,21 @@ import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { brand } from "@/lib/brand";
 import { getManyContent } from "@/lib/content";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildMetadata, breadcrumbLd } from "@/lib/seo";
 import { Mail, MapPin, Phone, ArrowRight } from "lucide-react";
+
+export const metadata = buildMetadata({
+  title: "Contact Us",
+  description:
+    "Get in touch with LifeLink Group. Reach our team by phone, email, or visit our headquarters in Port Harcourt, Rivers State, Nigeria.",
+  path: "/contact",
+  keywords: [
+    "LifeLink contact",
+    "LifeLink phone number",
+    "contact LifeLink Group Port Harcourt",
+  ],
+});
 
 export default async function ContactPage() {
   const c = await getManyContent([
@@ -21,6 +35,12 @@ export default async function ContactPage() {
 
   return (
     <div className="relative overflow-hidden">
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-20 sm:py-28 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <Container className="relative">

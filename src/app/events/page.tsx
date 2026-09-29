@@ -3,17 +3,16 @@ import Image from "next/image";
 import { Container } from "@/components/Container";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { brand } from "@/lib/brand";
+import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export function generateMetadata() {
-  return {
-    title: `Events & Certificates — ${brand.shortName}`,
-    description:
-      "View LifeLink Group's events, certificates, and media gallery showcasing our milestones and achievements.",
-  };
-}
+export const metadata = buildMetadata({
+  title: "Events & Certificates",
+  description:
+    "View LifeLink Group's events, certificates, and media gallery showcasing our milestones and achievements.",
+  path: "/events",
+});
 
 interface EventItem {
   id: string;

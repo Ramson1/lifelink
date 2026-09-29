@@ -2,14 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import type { Metadata } from "next";
+
 import { Container } from "@/components/Container";
 import { FaqAccordion, type FaqAnswerBlock } from "@/components/FaqAccordion";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { brand } from "@/lib/brand";
 import { defaultFaqs } from "@/lib/default-faqs";
 import { getManyContent } from "@/lib/content";
 import { createServiceClient } from "@/lib/admin/supabase";
+import { faqLd, SITE_URL } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  description: brand.intro,
+  alternates: { canonical: `${SITE_URL}/` },
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/`,
+    title: brand.name,
+    description: brand.intro,
+  },
+};
 
 const partners = [
   { src: "/trust/beautcia.png", alt: "Beautcia" },
@@ -54,8 +69,18 @@ export default async function Home() {
     faqs = defaultFaqs;
   }
 
+  // Flatten FAQ answers for the FAQPage structured data (AEO).
+  const faqItems = faqs.map((f) => ({
+    question: f.question,
+    answer: f.answerBlocks
+      .map((b) => ("content" in b ? String(b.content ?? "") : ""))
+      .join(" ")
+      .trim(),
+  }));
+
   return (
     <div className="relative flex flex-col min-h-screen overflow-hidden selection:bg-cyan-500/20">
+      <JsonLd data={faqLd(faqItems)} />
       
       {/* Hero Section */}
       <section className="relative flex flex-col items-center overflow-hidden">
@@ -90,7 +115,7 @@ export default async function Home() {
               
               {/* Headline */}
               <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-7xl mb-6 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-                <span className="block mb-2">{c["hero.tagline"]}</span>
+                <span className="block mb-2" style={{ color: "#ffffff" }}>{c["hero.tagline"]}</span>
                 <span className="block drop-shadow-sm p-2" style={{ background: 'linear-gradient(135deg, #f59e0b, #f97316, #eab308, #fb923c)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shine 3s linear infinite' }}>{brand.shortName}</span>
               </h1>
               

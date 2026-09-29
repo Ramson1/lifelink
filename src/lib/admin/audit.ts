@@ -36,6 +36,9 @@ export type AuditAction =
   | "gallery.create"
   | "gallery.update"
   | "gallery.delete"
+  | "post.create"
+  | "post.update"
+  | "post.delete"
   | "backup.export"
   | "backup.import";
 
@@ -51,6 +54,7 @@ export type EntityType =
   | "event"
   | "certificate"
   | "gallery"
+  | "post"
   | "backup";
 
 export async function writeAuditLog(args: {

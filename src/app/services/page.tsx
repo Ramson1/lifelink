@@ -8,8 +8,27 @@ import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { services as hardcodedServices } from "@/lib/brand";
 import { createServiceClient } from "@/lib/admin/supabase";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildMetadata, breadcrumbLd, itemListLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = buildMetadata({
+  title: "Our Services & Sectors",
+  description:
+    "Explore LifeLink Group's 14 sectors — cooperative society, humanitarian services, finance, trading, land banking, food bank, transportation, digital assets, IT, investment and loans, oil and gas, and solar energy.",
+  path: "/services",
+  keywords: [
+    "LifeLink services",
+    "cooperative society",
+    "humanitarian services",
+    "land banking Nigeria",
+    "food bank",
+    "solar energy",
+    "digital assets",
+    "investment and loans",
+  ],
+});
 
 interface DbSector {
   id: string;
@@ -85,6 +104,21 @@ export default async function ServicesPage() {
 
   return (
     <div className="relative overflow-hidden">
+      <JsonLd
+        data={[
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+          ]),
+          itemListLd(
+            merged.map((s) => ({
+              name: s.title,
+              description: s.description,
+              path: `/sectors/${s.key}`,
+            })),
+          ),
+        ]}
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-20 sm:py-28 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <GradientOrbs variant="cool" />

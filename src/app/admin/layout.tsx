@@ -25,6 +25,7 @@ import {
   CalendarDays,
   Award,
   ImageIcon,
+  Newspaper,
   DatabaseBackup,
   Sun,
   Moon,
@@ -53,6 +54,7 @@ const NAV = [
   { href: "/admin/events", label: "Events", icon: CalendarDays },
   { href: "/admin/certificates", label: "Certificates", icon: Award },
   { href: "/admin/gallery", label: "Gallery", icon: ImageIcon },
+  { href: "/admin/posts", label: "Blog & News", icon: Newspaper },
   { href: "/admin/backup", label: "Backup & Restore", icon: DatabaseBackup },
 ];
 

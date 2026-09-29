@@ -3,17 +3,16 @@ import Image from "next/image";
 import { Container } from "@/components/Container";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { brand } from "@/lib/brand";
+import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export function generateMetadata() {
-  return {
-    title: `Our Partners — ${brand.shortName}`,
-    description:
-      "Trusted organizations and businesses partnering with LifeLink Group to create impact across communities.",
-  };
-}
+export const metadata = buildMetadata({
+  title: "Our Partners",
+  description:
+    "Trusted organizations and businesses partnering with LifeLink Group to create impact across communities.",
+  path: "/partners",
+});
 
 interface Partner {
   id: string;

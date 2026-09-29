@@ -6,18 +6,19 @@ import { GradientOrbs } from "@/components/GradientOrbs";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { CeoRoles } from "@/components/team/CeoRoles";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { brand } from "@/lib/brand";
 import { listTeamMembers, type TeamMember } from "@/lib/team";
+import { buildMetadata, breadcrumbLd } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export function generateMetadata() {
-  return {
-    title: `Our Team — ${brand.shortName}`,
-    description:
-      "Meet the leadership team driving LifeLink Group's mission to empower individuals and transform communities.",
-  };
-}
+export const metadata = buildMetadata({
+  title: "Our Team",
+  description:
+    "Meet the leadership team driving LifeLink Group's mission to empower individuals and transform communities.",
+  path: "/about/team",
+});
 
 function MemberCard({ member }: { member: TeamMember }) {
   const safeId = member.name.replace(/[^a-zA-Z0-9]/g, "");
@@ -34,8 +35,8 @@ function MemberCard({ member }: { member: TeamMember }) {
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
             className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          {/* Gradient overlay — solid dark base to guarantee white name */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+          {/* Gradient overlay — softened for brighter photos; white name stays readable via drop-shadow */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           {/* Name on image */}
           <div className="absolute inset-x-0 bottom-0 px-3 pb-4 pt-8 text-center">
             <h3 className="text-sm font-bold leading-tight drop-shadow-lg" style={{ color: "#ffffff" }}>
@@ -84,6 +85,12 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen">
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Our Team", path: "/about/team" },
+        ])}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-20 sm:py-24 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <GradientOrbs variant="cool" />
