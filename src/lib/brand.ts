@@ -57,7 +57,7 @@ export const brand = {
   ],
   founder: {
     name: "Pastor Obi Nwagbo",
-    role: "DG/President & Chief Executive Officer",
+    role: "Founder and CEO",
     bio: "A humanitarian, entrepreneur, business consultant, community mobilizer, and empowerment advocate.",
   },
   contact: {

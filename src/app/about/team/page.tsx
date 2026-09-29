@@ -1,24 +1,11 @@
 import Image from "next/image";
-import {
-  Brain,
-  BriefcaseBusiness,
-  ClipboardCheck,
-  Crown,
-  Flame,
-  Handshake,
-  HeartHandshake,
-  Megaphone,
-  Network,
-  Quote,
-  Rocket,
-  Sparkles,
-  TrendingUp,
-} from "lucide-react";
+import { Crown, Quote } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { GradientOrbs } from "@/components/GradientOrbs";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { CeoRoles } from "@/components/team/CeoRoles";
 import { brand } from "@/lib/brand";
 import { listTeamMembers, type TeamMember } from "@/lib/team";
 
@@ -31,19 +18,6 @@ export function generateMetadata() {
       "Meet the leadership team driving LifeLink Group's mission to empower individuals and transform communities.",
   };
 }
-
-const CEO_ROLES = [
-  { label: "Entrepreneur", icon: Rocket },
-  { label: "Business Consultant / Leader", icon: BriefcaseBusiness },
-  { label: "Networker", icon: Network },
-  { label: "Grassroot Mobilizer", icon: Megaphone },
-  { label: "Investment Expert", icon: TrendingUp },
-  { label: "Humanitarian", icon: HeartHandshake },
-  { label: "Mindset Coach", icon: Brain },
-  { label: "Professional Coordinator / Organizer", icon: ClipboardCheck },
-  { label: "Revivalist", icon: Flame },
-  { label: "Team Builder & Negotiator", icon: Handshake },
-];
 
 function MemberCard({ member }: { member: TeamMember }) {
   const safeId = member.name.replace(/[^a-zA-Z0-9]/g, "");
@@ -139,6 +113,9 @@ export default function TeamPage() {
           <Container>
             <ScrollReveal>
               <div className="mx-auto max-w-2xl text-center mb-12">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-cyan-600 text-white shadow-lg ring-4 ring-indigo-500/10">
+                  <Crown className="h-7 w-7" />
+                </div>
                 <div className="flex items-center justify-center gap-3 mb-3">
                   <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
                   <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">A Message from the CEO</div>
@@ -152,27 +129,55 @@ export default function TeamPage() {
               <ScrollReveal key={ceo.image} delay={100}>
                 <div className="mx-auto max-w-4xl">
                   <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
-                    {/* Photo + Name Header */}
-                    <div className="bg-gradient-to-br from-indigo-600 to-cyan-600 pt-10 pb-8 sm:pt-14 sm:pb-10 text-white">
-                      <div className="flex flex-col items-center text-center">
-                        <div className="relative h-56 w-56 flex-none overflow-hidden rounded-full border-4 border-white/30 bg-white/10 shadow-2xl">
-                          <Image
-                            src={ceo.image}
-                            alt={ceo.name}
-                            fill
-                            sizes="224px"
-                            className="object-cover object-[50%_30%]"
-                          />
+                    {/* CEO Hero Header */}
+                    <div className="relative overflow-hidden bg-gradient-to-br from-indigo-700 via-indigo-600 to-cyan-600 text-white">
+                      {/* Decorative glows */}
+                      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-cyan-300/25 blur-3xl" />
+                      <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+
+                      <div className="relative grid items-center gap-12 p-8 sm:p-10 md:grid-cols-[280px_minmax(0,1fr)] md:gap-10 md:p-12">
+                        {/* Portrait */}
+                        <div className="relative mx-auto w-fit">
+                          <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-cyan-300/50 via-white/20 to-transparent blur-2xl" />
+                          <div className="relative h-[340px] w-[270px] overflow-hidden rounded-[1.75rem] border-4 border-white/80 shadow-2xl ring-1 ring-white/40 sm:w-[300px]">
+                            <Image
+                              src={ceo.image}
+                              alt={ceo.name}
+                              fill
+                              sizes="(max-width: 768px) 270px, 300px"
+                              className="object-cover object-[50%_22%]"
+                            />
+                            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-indigo-900/70 to-transparent" />
+                          </div>
+                          {/* Floating Founder & CEO badge */}
+                          <div className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-4 py-1.5 text-indigo-700 shadow-xl ring-1 ring-black/5">
+                            <Crown className="h-4 w-4" />
+                            <span className="text-[11px] font-extrabold uppercase tracking-wider">Founder &amp; CEO</span>
+                          </div>
                         </div>
-                        <div className="mt-6">
-                          <div className="text-2xl sm:text-3xl font-extrabold leading-tight">
+
+                        {/* Identity */}
+                        <div className="text-center md:text-left">
+                          <div className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-200">
+                            Founder &amp; Chief Executive Officer
+                          </div>
+                          <h3 className="mt-3 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl" style={{ color: "#ffffff" }}>
                             {ceo.name}
-                          </div>
-                          <div className="mt-1 text-base font-semibold text-white/80">
-                            {ceo.position}
-                          </div>
-                          <div className="mt-1 text-sm text-white/60">
-                            {brand.name}
+                          </h3>
+                          <div className="mx-auto mt-4 h-1 w-16 rounded bg-gradient-to-r from-cyan-300 to-white/60 md:mx-0" />
+                          <p className="mt-4 text-base font-semibold text-white/90">{brand.name}</p>
+                          <p className="mt-1 text-sm italic leading-7 text-white/70">
+                            {brand.tagline}. WE ARE LIFELINKERS.
+                          </p>
+                          <div className="mt-6 flex flex-wrap justify-center gap-2 md:justify-start">
+                            {["20+ Years of Impact", "Community-Driven", "Faith & Integrity"].map((chip) => (
+                              <span
+                                key={chip}
+                                className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold text-white/90 backdrop-blur-sm"
+                              >
+                                {chip}
+                              </span>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -189,7 +194,7 @@ export default function TeamPage() {
                             Pst. Obi Nwagbo is the Founder / CEO of LifeLink Group
                           </p>
                           <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                            He is a Nigerian and the lead minister of Motivational Movement Community &mdash; an online prayer and mentor ministry.
+                            He is a Nigerian and the lead minister of Motivational Movement Community &mdash; an online prayer ministry.
                           </p>
                           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
                             Through his group, many people have gained spiritually, physically, financially, and materially over the last two decades. Pastor Obi Nwagbo loves to see people smile through his contributions and efforts, and his desire for empowerment is excellent.
@@ -199,28 +204,7 @@ export default function TeamPage() {
                     </div>
 
                     {/* Profile / Roles */}
-                    <div className="border-b border-slate-200 px-8 py-8 dark:border-slate-700 sm:px-10">
-                      <div className="mb-5 flex items-center gap-3">
-                        <Sparkles className="h-5 w-5 flex-none text-indigo-600" />
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">Profile / Roles</h3>
-                        <div className="h-px flex-1 bg-gradient-to-r from-indigo-500/40 to-transparent" />
-                      </div>
-                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        {CEO_ROLES.map(({ label, icon: Icon }) => (
-                          <div
-                            key={label}
-                            className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/60 p-3 transition hover:border-indigo-300 hover:bg-white hover:shadow-sm dark:border-slate-700 dark:bg-slate-800/60 dark:hover:border-indigo-500/40 dark:hover:bg-slate-800"
-                          >
-                            <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md">
-                              <Icon className="h-5 w-5" />
-                            </span>
-                            <span className="text-sm font-semibold leading-tight text-slate-800 dark:text-slate-100">
-                              {label}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    <CeoRoles />
 
                     {/* Full Message */}
                     <div className="p-8 sm:p-10 space-y-6">
@@ -243,7 +227,7 @@ export default function TeamPage() {
                       </p>
 
                       <div>
-                        <p className="text-base leading-8 text-slate-700">Through our <strong>Project 2030 Vision</strong>, we are pursuing ambitious goals that include:</p>
+                        <p className="text-base leading-8 text-indigo-600 dark:text-indigo-400">Through our <strong>Project 2030 Vision</strong>, we are pursuing ambitious goals that include:</p>
                         <ul className="mt-4 space-y-3">
                           {[
                             "Expanding our humanitarian and grassroots initiatives across Nigeria and beyond.",
@@ -266,7 +250,7 @@ export default function TeamPage() {
                         Our success over the years has been built on three fundamental principles: <strong>Honesty</strong>, <strong>Transparency</strong>, and <strong>Quality Service</strong>. These values continue to guide every decision we make and every relationship we build.
                       </p>
                       <p className="text-base leading-8 text-slate-700 dark:text-slate-300">
-                        As we look toward the future, we invite individuals, organizations, investors, development partners, and community leaders to join us in creating lasting impact. Together, we can build one of Africa&apos;s largest and most effective community-based organizations while improving lives and creating opportunities for generations to come.
+                        As we look toward the future, we invite individuals, organizations, government institutions, investors, development partners, and community leaders to join us in creating lasting impact. Together, we can build one of Africa&apos;s largest and most effective community-based organizations while improving lives and creating opportunities for generations to come.
                       </p>
                       <p className="text-base leading-8 text-slate-700 dark:text-slate-300">
                         Thank you for visiting our website and for taking the time to learn more about our vision. We look forward to partnering with you on this remarkable journey.
@@ -278,7 +262,7 @@ export default function TeamPage() {
                         <p className="mt-3 text-2xl font-extrabold italic leading-snug text-white sm:text-3xl">
                           &ldquo;Kindness is the best investment&rdquo;
                         </p>
-                        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+                        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: "#ffffff" }}>
                           &mdash; Pst. Obi Nwagbo
                         </p>
                       </div>
