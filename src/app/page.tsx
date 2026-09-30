@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 import { Container } from "@/components/Container";
+import { HeroHeadline } from "@/components/HeroHeadline";
 import { FaqAccordion, type FaqAnswerBlock } from "@/components/FaqAccordion";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -113,11 +114,8 @@ export default async function Home() {
                 </div>
               </div>
               
-              {/* Headline */}
-              <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-7xl mb-6 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-                <span className="block mb-2" style={{ color: "#ffffff" }}>{c["hero.tagline"]}</span>
-                <span className="block drop-shadow-sm p-2" style={{ background: 'linear-gradient(135deg, #f59e0b, #f97316, #eab308, #fb923c)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shine 3s linear infinite' }}>{brand.shortName}</span>
-              </h1>
+              {/* Headline — coordinated looping typewriter (line1 first in, last out) */}
+              <HeroHeadline line1={c["hero.tagline"]} line2={brand.shortName} />
               
               {/* Description */}
               <p className="mx-auto mt-4 max-w-2xl text-xl leading-8 text-white animate-fade-in-up" style={{ animationDelay: '300ms' }}>
