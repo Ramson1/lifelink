@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Crown, Quote } from "lucide-react";
+import { Camera, Crown, Quote } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { GradientOrbs } from "@/components/GradientOrbs";
@@ -19,6 +19,16 @@ export const metadata = buildMetadata({
     "Meet the leadership team driving LifeLink Group's mission to empower individuals and transform communities.",
   path: "/about/team",
 });
+
+/** Featured portrait used in the CEO hero frame. */
+const CEO_PORTRAIT = "/team/ceo/ceo-2.jpg";
+
+/** Curated CEO photo gallery (all supplied images showcased, in prominence order). */
+const CEO_GALLERY = [
+  { src: "/team/ceo/ceo-2.jpg", eyebrow: "Leadership", label: "Chairman, Board of Trustees" },
+  { src: "/team/ceo/ceo-1.jpg", eyebrow: "Enterprise", label: "Entrepreneur & Visionary" },
+  { src: "/team/ceo/ceo-3.jpg", eyebrow: "Ministry", label: "Lead Minister" },
+];
 
 function MemberCard({ member }: { member: TeamMember }) {
   const safeId = member.name.replace(/[^a-zA-Z0-9]/g, "");
@@ -148,7 +158,7 @@ export default function TeamPage() {
                           <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-cyan-300/50 via-white/20 to-transparent blur-2xl" />
                           <div className="relative h-[340px] w-[270px] overflow-hidden rounded-[1.75rem] border-4 border-white/80 shadow-2xl ring-1 ring-white/40 sm:w-[300px]">
                             <Image
-                              src={ceo.image}
+                              src={CEO_PORTRAIT}
                               alt={ceo.name}
                               fill
                               sizes="(max-width: 768px) 270px, 300px"
@@ -187,6 +197,38 @@ export default function TeamPage() {
                             ))}
                           </div>
                         </div>
+                      </div>
+                    </div>
+
+                    {/* Portrait gallery — the CEO in focus */}
+                    <div className="border-b border-slate-200 bg-white px-8 py-8 dark:border-slate-700 dark:bg-slate-900 sm:px-10">
+                      <div className="mb-5 flex items-center gap-3">
+                        <Camera className="h-5 w-5 flex-none text-indigo-600" />
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">The Founder in Focus</h3>
+                        <div className="h-px flex-1 bg-gradient-to-r from-indigo-500/40 to-transparent" />
+                      </div>
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+                        {CEO_GALLERY.map((g) => (
+                          <figure
+                            key={g.src}
+                            className="group/gal relative overflow-hidden rounded-2xl border border-slate-200 shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl dark:border-slate-700"
+                          >
+                            <div className="relative aspect-[4/5] overflow-hidden bg-slate-100 dark:bg-slate-800">
+                              <Image
+                                src={g.src}
+                                alt={`${ceo.name} — ${g.label}`}
+                                fill
+                                sizes="(max-width: 640px) 90vw, (max-width: 896px) 45vw, 260px"
+                                className="object-cover object-top transition-transform duration-700 group-hover/gal:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                              <figcaption className="absolute inset-x-0 bottom-0 p-4">
+                                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{g.eyebrow}</div>
+                                <div className="mt-0.5 text-sm font-bold" style={{ color: "#ffffff" }}>{g.label}</div>
+                              </figcaption>
+                            </div>
+                          </figure>
+                        ))}
                       </div>
                     </div>
 
