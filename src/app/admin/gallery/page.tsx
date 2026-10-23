@@ -21,7 +21,8 @@ import { useAdminAlerts } from "@/lib/admin/use-admin-alerts";
 import { useAdminPermissions } from "@/lib/admin/use-admin-permissions";
 
 const schema = z.object({
-  image_url: z.string().min(1, "Image URL is required"),
+  image_url: z.string().min(1, "Media URL is required"),
+  media_type: z.enum(["image", "video"]),
   caption: z.string().optional(),
   category: z.string().optional(),
   sort_order: z.number().int().min(0),
@@ -33,6 +34,7 @@ type Form = z.infer<typeof schema>;
 interface GalleryItem {
   id: string;
   image_url: string;
+  media_type: "image" | "video";
   caption: string;
   category: string;
   sort_order: number;
@@ -68,7 +70,7 @@ export default function GalleryAdminPage() {
     formState: { errors },
   } = useForm<Form>({
     resolver: zodResolver(schema),
-    defaultValues: { image_url: "", caption: "", category: "general", sort_order: 0, is_active: true },
+    defaultValues: { image_url: "", media_type: "image", caption: "", category: "general", sort_order: 0, is_active: true },
   });
 
   const load = async () => {
@@ -85,13 +87,13 @@ export default function GalleryAdminPage() {
 
   const openCreate = () => {
     setEditingId(null);
-    reset({ image_url: "", caption: "", category: "general", sort_order: items.length, is_active: true });
+    reset({ image_url: "", media_type: "image", caption: "", category: "general", sort_order: items.length, is_active: true });
     setShowForm(true);
   };
 
   const openEdit = (g: GalleryItem) => {
     setEditingId(g.id);
-    reset({ image_url: g.image_url, caption: g.caption, category: g.category, sort_order: g.sort_order, is_active: g.is_active });
+    reset({ image_url: g.image_url, media_type: g.media_type ?? "image", caption: g.caption, category: g.category, sort_order: g.sort_order, is_active: g.is_active });
     setShowForm(true);
   };
 
@@ -164,9 +166,19 @@ export default function GalleryAdminPage() {
             <button type="button" onClick={closeForm} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-700 dark:hover:text-slate-300"><X className="h-4 w-4" /></button>
           </div>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Media Type</label>
+              <select {...register("media_type")} className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                <option value="image">Photo</option>
+                <option value="video">Video</option>
+              </select>
+            </div>
             <div className="sm:col-span-2">
               <FileUpload
-                label="Gallery Image"
+                label={watch("media_type") === "video" ? "Gallery Video" : "Gallery Image"}
+                kind={watch("media_type")}
+                accept={watch("media_type") === "video" ? "video/mp4,video/webm,video/quicktime" : "image/jpeg,image/png,image/webp,image/gif"}
+                maxSizeMB={watch("media_type") === "video" ? 40 : 5}
                 value={watch("image_url")}
                 onChange={(url) => setValue("image_url", url, { shouldValidate: true })}
               />
@@ -218,7 +230,11 @@ export default function GalleryAdminPage() {
               <div key={g.id} className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900">
                 <div className="aspect-square bg-slate-100 dark:bg-slate-800">
                   {g.image_url ? (
-                    <img src={g.image_url} alt={g.caption} className="h-full w-full object-cover" />
+                    g.media_type === "video" ? (
+                      <video src={g.image_url} muted playsInline className="h-full w-full object-cover" />
+                    ) : (
+                      <img src={g.image_url} alt={g.caption} className="h-full w-full object-cover" />
+                    )
                   ) : (
                     <div className="flex h-full items-center justify-center text-slate-400"><ImageIcon className="h-8 w-8" /></div>
                   )}
@@ -230,6 +246,7 @@ export default function GalleryAdminPage() {
                   </div>
                   <div className="mt-1 flex items-center gap-2 text-[10px] text-slate-400">
                     <span className="rounded-full border border-slate-200 px-1.5 py-0.5 font-semibold dark:border-slate-600 dark:text-slate-300">{categoryLabel(g.category)}</span>
+                    {g.media_type === "video" && <span className="rounded-full bg-indigo-50 px-1.5 py-0.5 font-semibold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">Video</span>}
                   </div>
                   <div className="mt-2 flex items-center gap-1">
                     {canCrud && (

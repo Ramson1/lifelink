@@ -295,6 +295,7 @@ export const BACKUP_ENTITIES: EntitySchema[] = [
     columns: [
       "id",
       "image_url",
+      "media_type",
       "caption",
       "category",
       "sort_order",
@@ -305,6 +306,7 @@ export const BACKUP_ENTITIES: EntitySchema[] = [
     types: {
       id: "uuid",
       image_url: "text",
+      media_type: "text",
       caption: "text",
       category: "text",
       sort_order: "integer",

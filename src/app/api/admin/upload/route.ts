@@ -5,7 +5,8 @@ import path from "path";
 
 import { requireAdmin } from "@/lib/admin/auth-guard";
 
-const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_SIZE = 5 * 1024 * 1024; // 5MB images
+const MAX_VIDEO_SIZE = 40 * 1024 * 1024; // 40MB videos
 const ALLOWED_TYPES = [
   "image/jpeg",
   "image/jpg",
@@ -13,6 +14,11 @@ const ALLOWED_TYPES = [
   "image/webp",
   "image/gif",
   "image/svg+xml",
+];
+const ALLOWED_VIDEO_TYPES = [
+  "video/mp4",
+  "video/webm",
+  "video/quicktime",
 ];
 const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 
@@ -27,16 +33,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
 
-  if (file.size > MAX_SIZE) {
+  const isVideo = ALLOWED_VIDEO_TYPES.includes(file.type);
+  const limit = isVideo ? MAX_VIDEO_SIZE : MAX_SIZE;
+  if (file.size > limit) {
     return NextResponse.json(
-      { error: "File exceeds 5MB limit" },
+      { error: isVideo ? "Video exceeds 40MB limit" : "File exceeds 5MB limit" },
       { status: 400 },
     );
   }
 
-  if (!ALLOWED_TYPES.includes(file.type)) {
+  if (!ALLOWED_TYPES.includes(file.type) && !isVideo) {
     return NextResponse.json(
-      { error: "Invalid file type. Allowed: JPG, PNG, WebP, GIF, SVG" },
+      { error: "Invalid file type. Allowed: JPG, PNG, WebP, GIF, SVG, MP4, WebM, MOV" },
       { status: 400 },
     );
   }

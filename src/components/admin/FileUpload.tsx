@@ -11,6 +11,8 @@ interface FileUploadProps {
   maxSizeMB?: number;
   /** Optional manual URL input toggle */
   allowManualUrl?: boolean;
+  /** Media kind — switches the preview element and wording. */
+  kind?: "image" | "video";
 }
 
 export default function FileUpload({
@@ -20,6 +22,7 @@ export default function FileUpload({
   accept = "image/jpeg,image/png,image/webp,image/gif,image/svg+xml",
   maxSizeMB = 5,
   allowManualUrl = true,
+  kind = "image",
 }: FileUploadProps) {
   const [mode, setMode] = useState<"upload" | "url">(
     value && !value.startsWith("/uploads/") ? "url" : "upload",
@@ -161,12 +164,21 @@ export default function FileUpload({
               <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
             ) : preview ? (
               <div className="relative">
-                <img
-                  src={preview}
-                  alt="Preview"
-                  className="h-24 w-auto max-w-full rounded-lg object-contain"
-                  onError={() => setPreview(null)}
-                />
+                {kind === "video" ? (
+                  <video
+                    src={preview}
+                    muted
+                    playsInline
+                    className="h-24 w-auto max-w-full rounded-lg object-contain"
+                  />
+                ) : (
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="h-24 w-auto max-w-full rounded-lg object-contain"
+                    onError={() => setPreview(null)}
+                  />
+                )}
                 <button
                   type="button"
                   onClick={(e) => {
@@ -182,7 +194,7 @@ export default function FileUpload({
               <>
                 <Upload className="mb-2 h-8 w-8 text-slate-400" />
                 <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
-                  Drag & drop your image here
+                  Drag & drop your {kind === "video" ? "video" : "image"} here
                 </p>
                 <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                   or click to browse · Max {maxSizeMB}MB

@@ -6,7 +6,8 @@ import { requireAdmin } from "@/lib/admin/auth-guard";
 import { writeAuditLog } from "@/lib/admin/audit";
 
 const itemSchema = z.object({
-  image_url: z.string().min(1, "Image URL is required"),
+  image_url: z.string().min(1, "Media URL is required"),
+  media_type: z.enum(["image", "video"]).default("image"),
   caption: z.string().optional().default(""),
   category: z.string().optional().default("general"),
   sort_order: z.number().int().min(0).default(0),
@@ -33,7 +34,7 @@ export async function GET(request: Request) {
 
   const { data, error } = await supabase
     .from("lifelink_gallery")
-    .select("id, image_url, caption, category")
+    .select("id, image_url, media_type, caption, category")
     .eq("is_active", true)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });

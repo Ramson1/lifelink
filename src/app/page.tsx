@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 import { Container } from "@/components/Container";
+import { CountdownTimer } from "@/components/CountdownTimer";
 import { HeroHeadline } from "@/components/HeroHeadline";
 import { FaqAccordion, type FaqAnswerBlock } from "@/components/FaqAccordion";
 import { MeshGradient } from "@/components/MeshGradient";
@@ -171,6 +172,9 @@ export default async function Home() {
         </div>
         */}
       </section>
+
+      {/* AGM / 6th Anniversary Countdown Section */}
+      <CountdownTimer />
 
       {/* About Intro Section */}
       <section className="relative py-24 sm:py-32 overflow-hidden">
