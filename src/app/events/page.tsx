@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Container } from "@/components/Container";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { MediaGallery } from "@/components/media/MediaGallery";
+import type { MediaItem } from "@/lib/media-gallery";
 import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -87,6 +89,12 @@ export default async function EventsPage() {
   ]);
   const certs = certificates.length > 0 ? certificates : DEFAULT_CERTIFICATES;
   const galleryItems = gallery.length > 0 ? gallery : DEFAULT_GALLERY;
+  const galleryMedia: MediaItem[] = galleryItems.map((g) => ({
+    src: g.image_url,
+    type: g.media_type,
+    caption: g.caption,
+    category: g.category,
+  }));
 
   return (
     <div className="relative overflow-hidden pt-28 pb-14 sm:pt-32 sm:pb-18">
@@ -221,41 +229,12 @@ export default async function EventsPage() {
             <p className="mt-2 text-sm text-black/70 dark:text-white/70">
               Highlights from our events, partnerships, and community impact.
             </p>
-            {galleryItems.length > 0 ? (
-              <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                {galleryItems.map((g, i) => (
-                  <ScrollReveal key={g.id} delay={i * 60}>
-                    <div className="group relative aspect-square overflow-hidden rounded-3xl border border-black/10 bg-white/70 dark:border-white/20 dark:bg-slate-900/70">
-                      {g.media_type === "video" ? (
-                        <>
-                          <video
-                            src={g.image_url}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            preload="metadata"
-                            className="h-full w-full object-cover transition group-hover:scale-105"
-                          />
-                          <div className="pointer-events-none absolute right-2 top-2 rounded-full bg-black/50 px-2 py-1 text-[10px] font-semibold text-white backdrop-blur">▶ Video</div>
-                        </>
-                      ) : (
-                        <Image
-                          src={g.image_url}
-                          alt={g.caption}
-                          fill
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                          className="object-cover transition group-hover:scale-105"
-                        />
-                      )}
-                      {g.caption && (
-                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-8 opacity-0 transition group-hover:opacity-100">
-                          <p className="text-xs font-semibold text-white">{g.caption}</p>
-                        </div>
-                      )}
-                    </div>
-                  </ScrollReveal>
-                ))}
+            {galleryMedia.length > 0 ? (
+              <div className="mt-6">
+                <p className="mb-4 text-xs font-medium uppercase tracking-wider text-black/50 dark:text-white/50">
+                  Tap any photo or video to view it full screen with controls
+                </p>
+                <MediaGallery items={galleryMedia} />
               </div>
             ) : (
               <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">

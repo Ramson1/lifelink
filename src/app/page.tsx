@@ -10,6 +10,9 @@ import { HeroHeadline } from "@/components/HeroHeadline";
 import { FaqAccordion, type FaqAnswerBlock } from "@/components/FaqAccordion";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { MarqueeStrip } from "@/components/media/MarqueeStrip";
+import { Slideshow } from "@/components/media/Slideshow";
+import { marqueePhotos, slideshowMedia } from "@/lib/media-gallery";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { brand } from "@/lib/brand";
 import { defaultFaqs } from "@/lib/default-faqs";
@@ -176,6 +179,25 @@ export default async function Home() {
       {/* AGM / 6th Anniversary Countdown Section */}
       <CountdownTimer />
 
+      {/* LifeLink in Pictures — full-bleed scrolling photo band */}
+      <section className="relative py-14 sm:py-16">
+        <Container>
+          <ScrollReveal>
+            <div className="mb-8 text-center">
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">LifeLink in Pictures</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
+              <p className="text-slate-600 dark:text-slate-300">Real moments from our events, training, and community impact. Tap any frame to view full screen.</p>
+            </div>
+          </ScrollReveal>
+        </Container>
+        <div className="w-full">
+          <MarqueeStrip items={marqueePhotos} />
+        </div>
+      </section>
+
       {/* About Intro Section */}
       <section className="relative py-24 sm:py-32 overflow-hidden">
         <MeshGradient variant="sunset" />
@@ -299,6 +321,28 @@ export default async function Home() {
               </ScrollReveal>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* Featured Slideshow — studio-graded highlights */}
+      <section className="relative py-24 sm:py-28">
+        <Container>
+          <ScrollReveal>
+            <div className="mx-auto mb-10 max-w-2xl text-center">
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Highlights</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-4">
+                Moments that define us
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300">
+                A cinematic look at the gatherings, sessions, and celebrations across the LifeLink community.
+              </p>
+            </div>
+            <Slideshow items={slideshowMedia} />
+          </ScrollReveal>
         </Container>
       </section>
 

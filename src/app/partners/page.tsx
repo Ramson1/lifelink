@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Container } from "@/components/Container";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { MediaGallery } from "@/components/media/MediaGallery";
+import { partnershipMedia } from "@/lib/media-gallery";
 import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -102,6 +104,22 @@ export default async function PartnersPage() {
             </p>
           </div>
         )}
+
+        {/* Partnership moments — shared media, click to view full screen */}
+        <ScrollReveal delay={150}>
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold text-black dark:text-white">Together in action</h2>
+            <p className="mt-2 text-sm text-black/70 dark:text-white/70">
+              Moments from our collaborations, partner events, and corporate sessions.
+            </p>
+            <div className="mt-6">
+              <MediaGallery
+                items={partnershipMedia}
+                gridClassName="grid grid-cols-2 gap-4 sm:grid-cols-3"
+              />
+            </div>
+          </div>
+        </ScrollReveal>
 
         <ScrollReveal delay={200}>
           <div className="mt-16 rounded-3xl border border-black/10 bg-white/70 p-8 text-center dark:border-white/20 dark:bg-slate-900/70">

@@ -6,6 +6,8 @@ import { Container } from "@/components/Container";
 import { GradientOrbs } from "@/components/GradientOrbs";
 import { MeshGradient } from "@/components/MeshGradient";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { MediaGallery } from "@/components/media/MediaGallery";
+import { trainingMedia } from "@/lib/media-gallery";
 import { services as hardcodedServices } from "@/lib/brand";
 import { createServiceClient } from "@/lib/admin/supabase";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -204,6 +206,33 @@ export default async function ServicesPage() {
               );
             })}
           </div>
+        </Container>
+      </section>
+
+      {/* LifeLink in Action — media band */}
+      <section className="relative py-16 sm:py-20">
+        <Container>
+          <ScrollReveal>
+            <div className="mx-auto mb-10 max-w-2xl text-center">
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">In Action</div>
+                <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl mb-4">
+                Our sectors at work
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300">
+                From empowerment sessions to hands-on training, see LifeLink delivering across every sector.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <MediaGallery
+              items={trainingMedia}
+              gridClassName="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+            />
+          </ScrollReveal>
         </Container>
       </section>
 

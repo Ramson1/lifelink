@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { SiteShell } from "@/components/SiteShell";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { MediaLightboxProvider } from "@/components/media/MediaLightboxProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { brand } from "@/lib/brand";
 import { organizationLd, websiteLd, SITE_URL, DEFAULT_OG_IMAGE, absoluteUrl } from "@/lib/seo";
@@ -136,7 +137,9 @@ export default function RootLayout({
       >
         <JsonLd data={[organizationLd(), websiteLd()]} />
         <ThemeProvider>
-          <SiteShell>{children}</SiteShell>
+          <MediaLightboxProvider>
+            <SiteShell>{children}</SiteShell>
+          </MediaLightboxProvider>
         </ThemeProvider>
       </body>
     </html>
