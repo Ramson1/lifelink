@@ -179,6 +179,74 @@ export default async function Home() {
       {/* AGM / 6th Anniversary Countdown Section */}
       <CountdownTimer />
 
+      {/* LifeLink Investment and Savings — flagship pre-launch promotion */}
+      <section
+        className="relative overflow-hidden text-white"
+        style={{ background: "linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%)" }}
+      >
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute -right-24 -top-24 h-96 w-96 rounded-full"
+            style={{ background: "rgba(255,215,0,0.4)" }}
+          />
+          <div
+            className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full"
+            style={{ background: "rgba(255,255,255,0.3)" }}
+          />
+        </div>
+        <Container className="relative py-20 sm:py-28">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <ScrollReveal>
+              <div>
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-300/50 bg-amber-400/20 px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-amber-100">
+                  New · Flagship Sector
+                </div>
+                <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
+                  Let Your Money Work For You
+                </h2>
+                <p className="mt-4 text-2xl font-bold text-amber-300">
+                  36% Per Annum · 3% Monthly Payout
+                </p>
+                <p className="mt-6 max-w-xl text-lg leading-8 text-white/90">
+                  LifeLink Investment and Savings is now open for Pioneer
+                  subscriptions. Invest from ₦50,000 across six tiers, earn
+                  transparent monthly returns, and receive LifeLink Group shares
+                  as an early investor.
+                </p>
+                <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                  <Link
+                    href="/register?service=investment"
+                    className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-base font-bold text-slate-900 shadow-xl transition-all hover:scale-105"
+                  >
+                    Subscribe Now
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="/sectors/investment"
+                    className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+                  >
+                    Explore the sector
+                  </Link>
+                </div>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={150}>
+              <div className="overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-3 shadow-2xl backdrop-blur-sm">
+                <Image
+                  src="/investment/tiers.jpg"
+                  alt="LifeLink Investment and Savings tiers — earn up to 36% per annum"
+                  width={800}
+                  height={1000}
+                  className="h-auto w-full rounded-2xl object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+              </div>
+            </ScrollReveal>
+          </div>
+        </Container>
+      </section>
+
       {/* LifeLink in Pictures — full-bleed scrolling photo band */}
       <section className="relative py-14 sm:py-16">
         <Container>

@@ -39,6 +39,7 @@ interface User {
   status: string;
   source: string;
   passport_url: string;
+  investment_data?: Record<string, unknown> | null;
   created_at: string;
 }
 
@@ -214,7 +215,7 @@ export default function UsersPage() {
   };
 
   const exportToCsv = () => {
-    const headers = ["full_name", "email", "phone", "address", "occupation", "service_key", "next_of_kin_name", "next_of_kin_phone", "notes", "status", "source", "created_at"];
+    const headers = ["full_name", "email", "phone", "address", "occupation", "service_key", "next_of_kin_name", "next_of_kin_phone", "notes", "status", "source", "investment_data", "created_at"];
     const rows = users.map((u) => [
       `"${u.full_name.replace(/"/g, '""')}"`,
       `"${u.email}"`,
@@ -227,6 +228,7 @@ export default function UsersPage() {
       `"${(u.notes ?? "").replace(/"/g, '""')}"`,
       `"${u.status}"`,
       `"${u.source}"`,
+      `"${JSON.stringify(u.investment_data ?? {}).replace(/"/g, '""')}"`,
       `"${u.created_at}"`,
     ].join(","));
     const csv = [headers.join(","), ...rows].join("\n");

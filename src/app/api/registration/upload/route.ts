@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import { existsSync } from "fs";
-import path from "path";
 
-const MAX_SIZE = 2 * 1024 * 1024; // 2MB for passport photos
+import { uploadBytes } from "@/lib/storage/cloudinary";
+
+const MAX_SIZE = 2 * 1024 * 1024; // 2MB
 const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads", "passports");
 
 export async function POST(request: Request) {
   const form = await request.formData();
@@ -29,23 +27,24 @@ export async function POST(request: Request) {
     );
   }
 
-  // Ensure upload directory exists
-  if (!existsSync(UPLOAD_DIR)) {
-    await mkdir(UPLOAD_DIR, { recursive: true });
-  }
-
-  const ext = file.name.split(".").pop()?.replace(/[^a-zA-Z0-9]/g, "") ?? "jpg";
-  const uniqueName = `passport-${crypto.randomUUID().slice(0, 8)}.${ext}`;
-  const filePath = path.join(UPLOAD_DIR, uniqueName);
-
   const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-  await writeFile(filePath, buffer);
 
-  const publicUrl = `/uploads/passports/${uniqueName}`;
-
-  return NextResponse.json(
-    { url: publicUrl, name: uniqueName, size: file.size },
-    { status: 201 },
-  );
+  try {
+    const result = await uploadBytes(bytes, {
+      folder: "lifelink/passports",
+      resourceType: "image",
+      maxBytes: MAX_SIZE,
+    });
+    return NextResponse.json(
+      {
+        url: result.url,
+        name: result.publicId,
+        size: result.bytes,
+      },
+      { status: 201 },
+    );
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Upload failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

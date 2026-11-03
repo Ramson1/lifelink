@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import { existsSync } from "fs";
-import path from "path";
 
 import { requireAdmin } from "@/lib/admin/auth-guard";
+import { uploadBytes } from "@/lib/storage/cloudinary";
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB images
 const MAX_VIDEO_SIZE = 40 * 1024 * 1024; // 40MB videos
@@ -20,7 +18,6 @@ const ALLOWED_VIDEO_TYPES = [
   "video/webm",
   "video/quicktime",
 ];
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 
 export async function POST(request: Request) {
   const auth = await requireAdmin();
@@ -49,27 +46,24 @@ export async function POST(request: Request) {
     );
   }
 
-  // Ensure upload directory exists
-  if (!existsSync(UPLOAD_DIR)) {
-    await mkdir(UPLOAD_DIR, { recursive: true });
-  }
-
-  const ext = file.name.split(".").pop()?.replace(/[^a-zA-Z0-9]/g, "") ?? "png";
-  const sanitizedName = file.name
-    .replace(/\.[^.]+$/, "")
-    .replace(/[^a-zA-Z0-9_-]/g, "_")
-    .slice(0, 50);
-  const uniqueName = `${sanitizedName}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
-  const filePath = path.join(UPLOAD_DIR, uniqueName);
-
   const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-  await writeFile(filePath, buffer);
 
-  const publicUrl = `/uploads/${uniqueName}`;
-
-  return NextResponse.json(
-    { url: publicUrl, name: uniqueName, size: file.size },
-    { status: 201 },
-  );
+  try {
+    const result = await uploadBytes(bytes, {
+      folder: "lifelink/admin",
+      resourceType: isVideo ? "video" : "image",
+      maxBytes: limit,
+    });
+    return NextResponse.json(
+      {
+        url: result.url,
+        name: result.publicId,
+        size: result.bytes,
+      },
+      { status: 201 },
+    );
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Upload failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

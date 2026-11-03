@@ -10,8 +10,32 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { services } from "@/lib/brand";
+import {
+  ID_TYPES,
+  INVESTMENT_DURATIONS,
+  INVESTMENT_TIERS,
+  PAYMENT_METHODS,
+} from "@/lib/registration/investment-schema";
 import { useAdminAlerts } from "@/lib/admin/use-admin-alerts";
 import { useAdminPermissions } from "@/lib/admin/use-admin-permissions";
+
+interface InvestmentData {
+  dateOfBirth?: string;
+  nationality?: string;
+  idType?: string;
+  idNumber?: string;
+  idDocumentUrl?: string;
+  proofOfAddressUrl?: string;
+  nextOfKinRelationship?: string;
+  investmentTier?: string;
+  investmentAmount?: string;
+  investmentDuration?: string;
+  paymentMethod?: string;
+  paymentReference?: string;
+  bankName?: string;
+  accountName?: string;
+  accountNumber?: string;
+}
 
 interface User {
   id: string;
@@ -27,6 +51,7 @@ interface User {
   status: string;
   source: string;
   created_at: string;
+  investment_data?: InvestmentData | null;
 }
 
 const schema = z.object({
@@ -358,6 +383,77 @@ export default function UserDetailPage() {
           </div>
         </div>
       )}
+
+      {user.service_key === "investment" && user.investment_data ? (
+        <InvestmentDetails data={user.investment_data} />
+      ) : null}
     </div>
+  );
+}
+
+/** Read-only view of the investment_data JSONB fields. */
+function InvestmentDetails({ data }: { data: InvestmentData }) {
+  const tier = INVESTMENT_TIERS.find((t) => t.key === data.investmentTier);
+  const duration = INVESTMENT_DURATIONS.find((d) => d.value === data.investmentDuration);
+  const idType = ID_TYPES.find((t) => t.value === data.idType);
+  const payment = PAYMENT_METHODS.find((m) => m.value === data.paymentMethod);
+
+  const rows: { label: string; value?: string }[] = [
+    { label: "Date of birth", value: data.dateOfBirth },
+    { label: "Nationality", value: data.nationality },
+    { label: "ID type", value: idType?.label ?? data.idType },
+    { label: "ID number", value: data.idNumber },
+    { label: "Next of kin relationship", value: data.nextOfKinRelationship },
+    { label: "Investment tier", value: tier ? `${tier.label} (${tier.range})` : data.investmentTier },
+    { label: "Investment amount", value: data.investmentAmount ? `₦${data.investmentAmount}` : undefined },
+    { label: "Duration", value: duration ? `${duration.label}` : data.investmentDuration },
+    { label: "Payment method", value: payment?.label ?? data.paymentMethod },
+    { label: "Payment reference", value: data.paymentReference },
+    { label: "Bank name", value: data.bankName },
+    { label: "Account name", value: data.accountName },
+    { label: "Account number", value: data.accountNumber },
+  ];
+
+  const docs: { label: string; url?: string }[] = [
+    { label: "Photo ID", url: data.idDocumentUrl },
+    { label: "Proof of address", url: data.proofOfAddressUrl },
+  ].filter((d) => d.url);
+
+  return (
+    <section className="rounded-3xl border border-indigo-200 bg-indigo-50/50 p-6 dark:border-indigo-800 dark:bg-indigo-950/30">
+      <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300">
+        Investment Subscription Details
+      </h2>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {rows.map((row) => (
+          <div key={row.label}>
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+              {row.label}
+            </div>
+            <div className="mt-1 text-sm text-slate-900 dark:text-white">
+              {row.value || "—"}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {docs.length > 0 && (
+        <div className="mt-6 flex flex-wrap gap-6">
+          {docs.map((doc) => (
+            <div key={doc.label}>
+              <div className="mb-1 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                {doc.label}
+              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={doc.url}
+                alt={doc.label}
+                className="h-28 w-28 rounded-xl border border-slate-200 object-cover dark:border-slate-600"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }

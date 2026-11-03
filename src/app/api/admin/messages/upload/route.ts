@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 
 import { createServiceClient } from "@/lib/admin/supabase";
 import { requireAdmin } from "@/lib/admin/auth-guard";
+import { uploadBytes } from "@/lib/storage/cloudinary";
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
-const BUCKET = "admin-attachments";
 
 export async function POST(request: Request) {
   const auth = await requireAdmin();
@@ -42,35 +42,28 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Message not found" }, { status: 404 });
   }
 
-  const ext = file.name.split(".").pop() ?? "bin";
-  const path = `${messageId}/${crypto.randomUUID()}.${ext}`;
+  const bytes = await file.arrayBuffer();
 
-  const { error: uploadErr } = await supabase.storage
-    .from(BUCKET)
-    .upload(path, file, {
-      contentType: file.type || "application/octet-stream",
-      upsert: false,
+  let uploaded: { url: string; publicId: string; bytes: number };
+  try {
+    uploaded = await uploadBytes(bytes, {
+      folder: `lifelink/messages/${messageId}`,
+      resourceType: "auto",
+      maxBytes: MAX_SIZE,
     });
-
-  if (uploadErr) {
-    return NextResponse.json(
-      { error: uploadErr.message },
-      { status: 500 },
-    );
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Upload failed";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-
-  const { data: urlData } = supabase.storage
-    .from(BUCKET)
-    .getPublicUrl(path);
 
   const { data: attachment, error: attErr } = await supabase
     .from("lifelink_message_attachments")
     .insert({
       message_id: messageId,
-      file_url: urlData.publicUrl,
+      file_url: uploaded.url,
       file_name: file.name,
       file_type: file.type,
-      file_size: file.size,
+      file_size: uploaded.bytes,
     })
     .select()
     .single();

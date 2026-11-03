@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Camera, Crown, Quote } from "lucide-react";
+import { Crown, Quote, Users } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { GradientOrbs } from "@/components/GradientOrbs";
@@ -22,13 +22,6 @@ export const metadata = buildMetadata({
 
 /** Featured portrait used in the CEO hero frame. */
 const CEO_PORTRAIT = "/team/ceo/ceo-2.jpg";
-
-/** Curated CEO photo gallery (all supplied images showcased, in prominence order). */
-const CEO_GALLERY = [
-  { src: "/team/ceo/ceo-2.jpg", eyebrow: "Leadership", label: "Chairman, Board of Trustees" },
-  { src: "/team/ceo/ceo-1.jpg", eyebrow: "Enterprise", label: "Entrepreneur & Visionary" },
-  { src: "/team/ceo/ceo-3.jpg", eyebrow: "Ministry", label: "Lead Minister" },
-];
 
 function MemberCard({ member }: { member: TeamMember }) {
   const safeId = member.name.replace(/[^a-zA-Z0-9]/g, "");
@@ -87,10 +80,9 @@ function MemberCard({ member }: { member: TeamMember }) {
 }
 
 export default function TeamPage() {
-  const excludedNames = ["kingley iroka", "obi nwagbo"];
-  const members = listTeamMembers().filter(
-    (m) => m.level !== "ceo" && !excludedNames.some((n) => m.name.toLowerCase().includes(n)),
-  );
+  // Team member cards are temporarily hidden while leadership is finalised.
+  // The CEO hero section (level === "ceo") below is unaffected.
+  const members: TeamMember[] = [];
   const ceos = listTeamMembers().filter((m) => m.level === "ceo");
 
   return (
@@ -197,38 +189,6 @@ export default function TeamPage() {
                             ))}
                           </div>
                         </div>
-                      </div>
-                    </div>
-
-                    {/* Portrait gallery — the CEO in focus */}
-                    <div className="border-b border-slate-200 bg-white px-8 py-8 dark:border-slate-700 dark:bg-slate-900 sm:px-10">
-                      <div className="mb-5 flex items-center gap-3">
-                        <Camera className="h-5 w-5 flex-none text-indigo-600" />
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">The Founder in Focus</h3>
-                        <div className="h-px flex-1 bg-gradient-to-r from-indigo-500/40 to-transparent" />
-                      </div>
-                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-                        {CEO_GALLERY.map((g) => (
-                          <figure
-                            key={g.src}
-                            className="group/gal relative overflow-hidden rounded-2xl border border-slate-200 shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl dark:border-slate-700"
-                          >
-                            <div className="relative aspect-[4/5] overflow-hidden bg-slate-100 dark:bg-slate-800">
-                              <Image
-                                src={g.src}
-                                alt={`${ceo.name} — ${g.label}`}
-                                fill
-                                sizes="(max-width: 640px) 90vw, (max-width: 896px) 45vw, 260px"
-                                className="object-cover object-top transition-transform duration-700 group-hover/gal:scale-105"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                              <figcaption className="absolute inset-x-0 bottom-0 p-4">
-                                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{g.eyebrow}</div>
-                                <div className="mt-0.5 text-sm font-bold" style={{ color: "#ffffff" }}>{g.label}</div>
-                              </figcaption>
-                            </div>
-                          </figure>
-                        ))}
                       </div>
                     </div>
 
@@ -371,9 +331,27 @@ export default function TeamPage() {
       {members.length === 0 && (
         <section className="py-16 sm:py-20">
           <Container>
-            <div className="rounded-3xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
-              Team members will be listed here soon.
-            </div>
+            <ScrollReveal>
+              <div className="mx-auto max-w-2xl text-center">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                  <div className="text-lg font-bold uppercase tracking-wider text-indigo-600 dark:text-white">Our People</div>
+                  <div className="h-px w-12 bg-indigo-600/30 dark:bg-white/20" />
+                </div>
+                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Team Members</h2>
+                <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-12">
+                  <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-cyan-600 text-white shadow-lg">
+                    <Users className="h-8 w-8" />
+                  </div>
+                  <p className="text-xl font-bold leading-snug text-slate-900 dark:text-white sm:text-2xl">
+                    Team members will be announced soon.
+                  </p>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-400">
+                    We are finalising our leadership lineup. Check back shortly to meet the people driving LifeLink's mission.
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
           </Container>
         </section>
       )}

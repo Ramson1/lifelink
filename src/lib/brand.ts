@@ -227,13 +227,13 @@ export const services: Array<{
   },
   {
     key: "investment",
-    title: "Investment and Loans",
-    subtitle: "Capital & financial aid",
+    title: "LifeLink Investment and Savings",
+    subtitle: "Let Your Money Work For You",
     description:
-      "Providing investment opportunities and empowering the community with start-up capital and financial aid.",
-    highlights: ["Start-up capital", "Investment options", "Financial aid"],
-    icon: "PiggyBank",
-    color: ["#eab308", "#ca8a04"],
+      "Earn 36% per annum (3% monthly flat rate) across six investment tiers starting at ₦50,000. Pilot and first-phase investors are regarded as Pioneers and receive LifeLink Group shares.",
+    highlights: ["36% per annum", "3% monthly payout", "Pioneer shares"],
+    icon: "TrendingUp",
+    color: ["#1e40af", "#0ea5e9"],
   },
   {
     key: "solar",

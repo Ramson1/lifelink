@@ -43,3 +43,6 @@ next-env.d.ts
 
 # agent scratch (image/video processing temp files)
 .media-tmp/
+
+# supabase CLI artifacts
+supabase/.temp/
